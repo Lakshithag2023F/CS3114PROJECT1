@@ -1,7 +1,6 @@
-public class Record {
+public class DoubleLL {
     //~ Fields ................................................................
-    private Key key;
-    private Node node;
+
     //~ Constructors ..........................................................
 
     //~Public  Methods ........................................................
