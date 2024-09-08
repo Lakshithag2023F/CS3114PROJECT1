@@ -7,6 +7,7 @@ public class CommandProcessor {
 
     // Constructor that accepts a Controller object
     public CommandProcessor(Controller controller) {
+        
         this.controller = controller;
     }
 
