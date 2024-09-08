@@ -2,6 +2,13 @@ import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
+    
+    private Controller controller;
+
+    // Constructor that accepts a Controller object
+    public CommandProcessor(Controller controller) {
+        this.controller = controller;
+    }
 
     public static void beginParsingByLine(String filename) {
         try {
