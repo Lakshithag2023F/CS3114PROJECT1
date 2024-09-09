@@ -37,7 +37,7 @@ public class GraphProject {
         int initHashSize = Integer.parseInt(args[0]);
         String commandFile = args[1];
         
-        Controller controller = new Controller(size);
+        Controller controller = new Controller();
         CommandProcessor commandProcessor = new CommandProcessor(controller);
        
     }

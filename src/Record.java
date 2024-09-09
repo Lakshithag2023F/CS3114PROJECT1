@@ -1,7 +1,7 @@
 public class Record {
     //~ Fields ................................................................
-    private Key key;
-    private Node node;
+   // private Key key;
+    // private Node node;
     //~ Constructors ..........................................................
 
     //~Public  Methods ........................................................
