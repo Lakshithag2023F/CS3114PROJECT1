@@ -6,6 +6,12 @@
  */
 
 public class Hash {
+    private Record[] table;
+    private int size;
+    
+    
+    
+    
 
     /**
      * Compute the hash function
