@@ -5,10 +5,14 @@ public class Graph {
     private int size;
 
     // ~ Constructors ..........................................................
+    @SuppressWarnings("unchecked")
     public Graph(int startSize) {
         this.size = startSize;
         this.numberOfNodes = 0;
         this.vertex = new DoubleLL[startSize];
+        for (int i = 0; i < startSize; i++) {
+            vertex[i] = new DoubleLL<Node>();
+        }
     }
 
     // ~Public Methods ........................................................
