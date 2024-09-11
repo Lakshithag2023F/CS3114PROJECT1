@@ -6,12 +6,21 @@
  */
 
 public class Hash {
-    private Record[] table;
-    private int size;
+    private Record[] allRecords; // array which stores records
+    private boolean whichTable; // artist or song table
+    private int numberOfRecords; // number of records
+    private Record tombstone; // deleted records
     
     
-    
-    
+    /**
+     * Constructor
+     * @param size is the initial size of the hash table
+     */
+    public Hash(int size) {
+        allRecords = new Record[size];
+        numberOfRecords = 0;
+        tombstone = new Record(null, null);
+    }
 
     /**
      * Compute the hash function
