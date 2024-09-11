@@ -1,3 +1,11 @@
+/**
+ * // -------------------------------------------------------------------------
+/**
+ *  Record class stores a key and the associated node.
+ * 
+ *  @author shrut
+ *  @version Sep 11, 2024
+ */
 public class Record {
     // ~ Fields ................................................................
     private String key; // artist name or track
