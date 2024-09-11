@@ -1,3 +1,13 @@
+/**
+ * // -------------------------------------------------------------------------
+ * /**
+ * Node class represents artist or track in the graph, it stores index to
+ * identify
+ * 
+ * 
+ * @author shrut
+ * @version Sep 11, 2024
+ */
 public class Node {
 
     // ----------------------------------------------------------
@@ -21,6 +31,8 @@ public class Node {
     // getter method
     /**
      * getter for index
+     * 
+     * @return index
      */
     public int getIndex() {
         return index;
@@ -39,6 +51,9 @@ public class Node {
     }
 
 }
+
+// you might have to add something to manage the edges/connections between nodes
+// in graph
 //
 //
 //
