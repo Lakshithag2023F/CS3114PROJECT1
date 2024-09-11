@@ -1,30 +1,42 @@
 public class Node {
-    
+
     // ----------------------------------------------------------
-    
-    //~ Fields ................................................................
+
+    // ~ Fields ................................................................
     private int index;
-    //~ Constructors ..........................................................
+    // ~ Constructors ..........................................................
 
-    public Node(int indexNUM)
-    {
-        index = indexNUM;
+    /**
+     * Constructor that initializes node with an index
+     * 
+     * @param index
+     */
+    public Node(int index) {
+        this.index = index;
     }
-    
-    //~Public  Methods ........................................................
 
-    public int setIndex()
-    {
-        
+    // ~Public Methods ........................................................
+
+
+    // getter method
+    /**
+     * getter for index
+     */
+    public int getIndex() {
         return index;
-        
     }
 
-    
 
+    // setter method
+    /**
+     * setter for index
+     * 
+     * @param index
+     */
+    public void setIndex(int index) {
 
-
-
+        this.index = index;
+    }
 
 }
 //
@@ -32,77 +44,77 @@ public class Node {
 //
 //
 //
-//class Node<E>
-//{
-//    private Node<E> next;
-//    private Node<E> previous;
-//    private E data;
+// class Node<E>
+// {
+// private Node<E> next;
+// private Node<E> previous;
+// private E data;
 //
-//    /**
-//     * Creates a new node with the given data
-//     *
-//     * @param d
-//     *            the data to put inside the node
-//     */
-//    public Node(E d)
-//    {
-//        data = d;
-//    }
-//
-//
-//    /**
-//     * Sets the node after this node
-//     *
-//     * @param n
-//     *            the node after this one
-//     */
-//    public void setNext(Node<E> n)
-//    {
-//        next = n;
-//    }
+// /**
+// * Creates a new node with the given data
+// *
+// * @param d
+// * the data to put inside the node
+// */
+// public Node(E d)
+// {
+// data = d;
+// }
 //
 //
-//    /**
-//     * Sets the node before this one
-//     *
-//     * @param n
-//     *            the node before this one
-//     */
-//    public void setPrevious(Node<E> n)
-//    {
-//        previous = n;
-//    }
+// /**
+// * Sets the node after this node
+// *
+// * @param n
+// * the node after this one
+// */
+// public void setNext(Node<E> n)
+// {
+// next = n;
+// }
 //
 //
-//    /**
-//     * Gets the next node
-//     *
-//     * @return the next node
-//     */
-//    public Node<E> next()
-//    {
-//        return next;
-//    }
+// /**
+// * Sets the node before this one
+// *
+// * @param n
+// * the node before this one
+// */
+// public void setPrevious(Node<E> n)
+// {
+// previous = n;
+// }
 //
 //
-//    /**
-//     * Gets the node before this one
-//     *
-//     * @return the node before this one
-//     */
-//    public Node<E> previous()
-//    {
-//        return previous;
-//    }
+// /**
+// * Gets the next node
+// *
+// * @return the next node
+// */
+// public Node<E> next()
+// {
+// return next;
+// }
 //
 //
-//    /**
-//     * Gets the data in the node
-//     *
-//     * @return the data in the node
-//     */
-//    public E getData()
-//    {
-//        return data;
-//    }
-//}
+// /**
+// * Gets the node before this one
+// *
+// * @return the node before this one
+// */
+// public Node<E> previous()
+// {
+// return previous;
+// }
+//
+//
+// /**
+// * Gets the data in the node
+// *
+// * @return the data in the node
+// */
+// public E getData()
+// {
+// return data;
+// }
+// }
