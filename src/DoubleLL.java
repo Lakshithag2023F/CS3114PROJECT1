@@ -1,3 +1,4 @@
+
 /**
  * // -------------------------------------------------------------------------
  * /**
@@ -10,7 +11,8 @@
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
-     // private int size;
+    
+    private int size;
    
     private class DLLNode {
         E data;
@@ -30,7 +32,7 @@ public class DoubleLL<E> {
 
     // ~ Constructors ..........................................................
     
-    // empty DoubleLL
+    // empty DoubleLL constructor
     public DoubleLL() {
         head = null;
         tail = null;
@@ -38,20 +40,25 @@ public class DoubleLL<E> {
 
 
     // ~Public Methods ........................................................
-    private void init() {
-
-        size = 0;
-    }
-
-
     /**
-     * Sets the node before this one
-     *
-     * @param n
-     *            the node before this one
+     * Inserts a new element at the end of the list
+     * 
+     * @param data
+     *            the data to be inserted into list
      */
-    public void setPrevious(Node<E> n) {
-        previous = n;
+    public void insert(E data) {
+        DLLNode newNode = new DLLNode(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        }
+        else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+        
+        size++;
     }
 
 }
