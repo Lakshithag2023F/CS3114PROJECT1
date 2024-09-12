@@ -60,4 +60,23 @@ public class DoubleLL<E> {
         size++;
     }
 
+
+    /**
+     * Checks if list contains data
+     * 
+     * @param data
+     * @return true or false
+     */
+    public boolean contains(E data) {
+        DLLNode current = head;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+
+    }
+
 }
