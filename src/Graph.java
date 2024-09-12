@@ -53,10 +53,13 @@ public class Graph {
 
     /**
      * check if edge exists
+     * @param start
+     * @param end
+     * @return true or false whether edge exists
      */
     public boolean hasEdge(Node start, Node end) {
-        // implement
-        return false;
+        int startIndex = start.getIndex();
+        int endIndex = end.getIndex();
     }
 
 
