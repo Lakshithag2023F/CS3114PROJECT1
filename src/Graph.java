@@ -20,9 +20,18 @@ public class Graph {
 
     /**
      * adds a new node to the graph
+     * @param node
      */
     public void newNode(Node node) {
-        // implement
+        int index = node.getIndex();
+        if (index >= size) {
+            expand();
+        }
+        
+        if (vertex[index] == null) {
+            vertex[index] = new DoubleLL<>();
+            numberOfNodes++;
+        }
     }
 
 
@@ -33,7 +42,12 @@ public class Graph {
      * @param end
      */
     public void addEdge(Node start, Node end) {
-        // implement
+        
+        newNode(start);
+        newNode(end);
+        
+        vertex[start.getIndex()].insert(end);
+        vertex[end.getIndex()].insert(start);
     }
 
 
