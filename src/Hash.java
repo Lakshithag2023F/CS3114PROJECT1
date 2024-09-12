@@ -78,7 +78,7 @@ public class Hash {
                 
         }
 
-        return 0;
+        return -1;
     }
 
 
