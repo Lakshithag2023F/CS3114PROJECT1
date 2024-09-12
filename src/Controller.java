@@ -8,7 +8,7 @@ public class Controller {
     public Controller(int hashSize) {
         artist = new Hash(hashSize);
         song = new Hash(hashSize);
-        fullGraph = new Graph(graphSize);
+        fullGraph = new Graph(100);
     }
     //~Public  Methods ........................................................
 

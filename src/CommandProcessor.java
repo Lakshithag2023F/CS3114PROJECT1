@@ -6,9 +6,8 @@ public class CommandProcessor {
     private Controller controller;
 
     // Constructor that accepts a Controller object
-    public CommandProcessor(Controller controller) {
-        
-        this.controller = controller;
+    public CommandProcessor(String str) {
+        beginParsingByLine(str);
     }
 
     public static void beginParsingByLine(String filename) {
