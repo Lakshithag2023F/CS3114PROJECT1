@@ -88,7 +88,7 @@ public class Hash {
     public void print() {
         for (int i = 0; i < allRecords.length; i++) {
             if (allRecords[i] != null && allRecords[i] != tombstone) {
-                System.out.println("Index " + i + ": " + allRecords[i].getKey());
+                System.out.println("Index " + i + ":" + allRecords[i].getKey());
             }
         }
     }
