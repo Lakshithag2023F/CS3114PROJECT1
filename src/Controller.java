@@ -12,4 +12,8 @@ public class Controller {
     }
     //~Public  Methods ........................................................
 
+    public void insert(String artistName, String songName) {
+        int aIndex = artist.find(artistName);
+        Node artistNode;
+    }
 }
