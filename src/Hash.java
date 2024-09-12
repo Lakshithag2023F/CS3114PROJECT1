@@ -35,7 +35,16 @@ public class Hash {
      * @param record
      */
     public void insert(Record record) {
-        // implement
+        String key = record.getKey();
+        
+        int index = h(key, allRecords.length);
+        while (allRecords[index] != null && allRecords[index] != tombstone && !allRecords[index].getKey().equals(key)) {
+            index = (index + 1) % allRecords.length;  
+        }
+
+        allRecords[index] = record;
+        numberOfRecords++;
+        
     }
 
 
@@ -45,7 +54,11 @@ public class Hash {
      * @param key
      */
     public void remove(String key) {
-        // implement
+        int index = find(key);
+        if (index != -1) {
+            allRecords[index] = tombstone;
+            numberOfRecords--;
+        }
     }
 
 
@@ -56,7 +69,14 @@ public class Hash {
      * @return integer value
      */
     public int find(String key) {
-        // implement
+        int index = h(key, allRecords.length);
+        while (allRecords[index] != null) {
+            if (allRecords[index] != tombstone && allRecords[index].getKey().equals(key)) {
+                return index;
+            }
+            index = (index + 1) % allRecords.length;
+                
+        }
 
         return 0;
     }
@@ -66,7 +86,11 @@ public class Hash {
      * Prints hash table contents
      */
     public void print() {
-        // implement
+        for (int i = 0; i < allRecords.length; i++) {
+            if (allRecords[i] != null && allRecords[i] != tombstone) {
+                System.out.println("Index " + i + ": " + allRecords[i].getKey());
+            }
+        }
     }
 
 
