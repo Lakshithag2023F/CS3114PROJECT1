@@ -27,24 +27,26 @@ public class Hash {
         tombstone = new Record(null, null);
     }
 
-
     // public methods
-   
+
+
     /**
      * Inserts new record into hash table
+     * 
      * @param record
      */
     public void insert(Record record) {
         String key = record.getKey();
-        
+
         int index = h(key, allRecords.length);
-        while (allRecords[index] != null && allRecords[index] != tombstone && !allRecords[index].getKey().equals(key)) {
-            index = (index + 1) % allRecords.length;  
+        while (allRecords[index] != null && allRecords[index] != tombstone
+            && !allRecords[index].getKey().equals(key)) {
+            index = (index + 1) % allRecords.length;
         }
 
         allRecords[index] = record;
         numberOfRecords++;
-        
+
     }
 
 
@@ -71,11 +73,12 @@ public class Hash {
     public int find(String key) {
         int index = h(key, allRecords.length);
         while (allRecords[index] != null) {
-            if (allRecords[index] != tombstone && allRecords[index].getKey().equals(key)) {
+            if (allRecords[index] != tombstone && allRecords[index].getKey()
+                .equals(key)) {
                 return index;
             }
             index = (index + 1) % allRecords.length;
-                
+
         }
 
         return -1;

@@ -11,27 +11,26 @@
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
-    
+
     private int size;
-   
+
     private class DLLNode {
         E data;
         DLLNode prev;
         DLLNode next;
-        
-        
+
         public DLLNode(E data) {
             this.data = data;
             this.prev = null;
             this.next = null;
         }
     }
-    
+
     private DLLNode head;
     private DLLNode tail;
 
     // ~ Constructors ..........................................................
-    
+
     // empty DoubleLL constructor
     public DoubleLL() {
         head = null;
@@ -57,7 +56,7 @@ public class DoubleLL<E> {
             newNode.prev = tail;
             tail = newNode;
         }
-        
+
         size++;
     }
 

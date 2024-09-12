@@ -2,13 +2,14 @@ import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
-    
+
     private Controller controller;
 
     // Constructor that accepts a Controller object
     public CommandProcessor(String str) {
         beginParsingByLine(str);
     }
+
 
     public static void beginParsingByLine(String filename) {
         try {
@@ -22,7 +23,7 @@ public class CommandProcessor {
                                             // on each line
                 String type;
                 switch (cmd) {
-                    
+
                     case "insert":// In the case of insert change our delimiter
                                   // from white space to <SEP>
                         scancmd.useDelimiter("<SEP>");
@@ -32,8 +33,7 @@ public class CommandProcessor {
                                                      // follows <SEP>
                         System.out.println("Insert " + artist + " \\ " + song);
                         break;
-                    
-                    
+
                     case "remove":
                         type = scancmd.next();// Get the mode of deletion
                                               // artist/song
