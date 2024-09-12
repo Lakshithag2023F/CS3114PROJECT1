@@ -20,9 +20,18 @@ public class Graph {
 
     /**
      * adds a new node to the graph
+     * @param node
      */
     public void newNode(Node node) {
-        // implement
+        int index = node.getIndex();
+        if (index >= size) {
+            expand();
+        }
+        
+        if (vertex[index] == null) {
+            vertex[index] = new DoubleLL<>();
+            numberOfNodes++;
+        }
     }
 
 
@@ -33,16 +42,24 @@ public class Graph {
      * @param end
      */
     public void addEdge(Node start, Node end) {
-        // implement
+        
+        newNode(start);
+        newNode(end);
+        
+        vertex[start.getIndex()].insert(end);
+        vertex[end.getIndex()].insert(start);
     }
 
 
     /**
      * check if edge exists
+     * @param start
+     * @param end
+     * @return true or false whether edge exists
      */
     public boolean hasEdge(Node start, Node end) {
-        // implement
-        return false;
+        int startIndex = start.getIndex();
+        int endIndex = end.getIndex();
     }
 
 
@@ -61,29 +78,33 @@ public class Graph {
         // implemenet
     }
 
+
     /**
      * expand size of adjacency list array
      */
     public void expand() {
 
     }
-    
-    
+
+
     /**
      * print the graph
      */
     public void print() {
-        
+
     }
-    
+
+
     public void union() {
-        
+
     }
-    
+
+
     public void connectedComponent() {
-        
+
     }
-    
+
+
     public int diameter() {
         return 0;
     }

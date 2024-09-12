@@ -11,27 +11,26 @@
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
-    
+
     private int size;
-   
+
     private class DLLNode {
         E data;
         DLLNode prev;
         DLLNode next;
-        
-        
+
         public DLLNode(E data) {
             this.data = data;
             this.prev = null;
             this.next = null;
         }
     }
-    
+
     private DLLNode head;
     private DLLNode tail;
 
     // ~ Constructors ..........................................................
-    
+
     // empty DoubleLL constructor
     public DoubleLL() {
         head = null;
@@ -57,8 +56,27 @@ public class DoubleLL<E> {
             newNode.prev = tail;
             tail = newNode;
         }
-        
+
         size++;
+    }
+
+
+    /**
+     * Checks if list contains data
+     * 
+     * @param data
+     * @return true or false
+     */
+    public boolean contains(E data) {
+        DLLNode current = head;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+
     }
 
 }
