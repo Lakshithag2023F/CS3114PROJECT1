@@ -17,4 +17,20 @@ public class Controller {
         int aIndex = artist.find(artistName);
         Node artistNode;
     }
+    
+    public void removeArtist(String key) {
+        artist.remove(key);
+    }
+    
+    public void removeSong(String key) {
+        song.remove(key);
+    }
+    
+    public void printArtist() {
+        artist.print();
+    }
+    
+    public void printSong() {
+        song.print();
+    }
 }
