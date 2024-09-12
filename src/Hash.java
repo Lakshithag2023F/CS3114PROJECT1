@@ -29,13 +29,12 @@ public class Hash {
 
 
     // public methods
+   
     /**
      * Inserts new record into hash table
-     * 
-     * @param key
-     * @param value
+     * @param record
      */
-    public void insert(String key, Node value) {
+    public void insert(Record record) {
         // implement
     }
 
