@@ -29,11 +29,12 @@ public class Hash {
 
     // public methods
 
-    public Record[] getAllRecords() 
-    {
+
+    public Record[] getAllRecords() {
         return allRecords;
     }
-    
+
+
     /**
      * Inserts new record into hash table
      * 
@@ -45,36 +46,40 @@ public class Hash {
         int hIndex = index;
         int i = 1;
 
-        while (allRecords[index] != null && allRecords[index] != tombstone
-            && !allRecords[index].getKey().equals(key)) {
-            //index = (index + 1) % allRecords.length;
-            index = (hIndex + i * i) % allRecords.length;
-            i++;
+        while (i < numberOfRecords) {
+            if (allRecords[index] != null && allRecords[index] != tombstone
+
+                && !allRecords[index].getKey().equals(key)) {
+                // index = (index + 1) % allRecords.length;
+                index = (hIndex + i * i) % allRecords.length;
+                i++;
+            }
         }
 
         allRecords[index] = record;
         numberOfRecords++;
-        
-        if (numberOfRecords > allRecords.length / 2)
-        {
+
+        if (numberOfRecords > allRecords.length / 2) {
             rehash();
         }
 
     }
 
-//dont know if this method should be in this class or not
+
+// dont know if this method should be in this class or not
     private void rehash() {
         Record[] oldRecords = allRecords;
         allRecords = new Record[oldRecords.length * 2];
         numberOfRecords = 0;
-        
+
         for (Record record : oldRecords) {
             if (record != null && record != tombstone) {
                 insert(record);
             }
         }
-        
+
     }
+
 
     /**
      * Removes record
