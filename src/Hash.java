@@ -64,7 +64,15 @@ public class Hash {
 
 //dont know if this method should be in this class or not
     private void rehash() {
-        // TODO Auto-generated method stub
+        Record[] oldRecords = allRecords;
+        allRecords = new Record[oldRecords.length * 2];
+        numberOfRecords = 0;
+        
+        for (Record record : oldRecords) {
+            if (record != null && record != tombstone) {
+                insert(record);
+            }
+        }
         
     }
 
