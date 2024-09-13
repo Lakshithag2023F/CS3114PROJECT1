@@ -54,10 +54,19 @@ public class HashTest extends TestCase {
         Record record5 = new Record("testing", node5);
         
         Node node6 = new Node(4);
-        Record record6 = new Record("te2", node6);
+        Record record6 = new Record("hello", node6);
+        
+        Node node7 = new Node(4);
+        Record record7 = new Record("yurr", node7);
+        
+        Node node8 = new Node(4);
+        Record record8 = new Record("red", node7);
         
         hash.insert(record5);
         hash.insert(record6);
+        hash.insert(record7);
+        hash.remove("yurr");
+        //hash.insert(record8);
         int index = hash.find("testing");
 
         Record[] allRecords = hash.getAllRecords();

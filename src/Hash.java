@@ -42,6 +42,10 @@ public class Hash {
      * @param record
      */
     public void insert(Record record) {
+        
+        if (numberOfRecords > allRecords.length / 2) {
+            rehash();
+        }
         String key = record.getKey();
         int index = h(key, allRecords.length);
         int hIndex = index;
@@ -51,16 +55,14 @@ public class Hash {
 
             && !allRecords[index].getKey().equals(key)) {
             // index = (index + 1) % allRecords.length;
-            index = (hIndex + i * i) % allRecords.length;
+            index = ((hIndex) + i * i) % allRecords.length;
             i++;
         }
 
         allRecords[index] = record;
         numberOfRecords++;
 
-        if (numberOfRecords > allRecords.length / 2) {
-            rehash();
-        }
+        
 
     }
 
