@@ -3,16 +3,7 @@ import java.util.Scanner;
 
 public class CommandProcessor {
 
-    private Controller controller;
-
-    // Constructor that accepts a Controller object
-    public CommandProcessor(Controller controller, String str) {
-        this.controller = controller;
-        beginParsingByLine(str);
-    }
-
-
-    public static void beginParsingByLine(Controller controller, String filename) {
+    public static void beginParsingByLine(String filename) {
         try {
             Scanner sc = new Scanner(new File(filename));
             Scanner scancmd;// Declare two scanners one to read the file and one
@@ -24,7 +15,6 @@ public class CommandProcessor {
                                             // on each line
                 String type;
                 switch (cmd) {
-
                     case "insert":// In the case of insert change our delimiter
                                   // from white space to <SEP>
                         scancmd.useDelimiter("<SEP>");
@@ -32,10 +22,8 @@ public class CommandProcessor {
                                                        // it is before <SEP>
                         String song = scancmd.next();// Get the song title that
                                                      // follows <SEP>
-                        controller.insert(artist, song);
                         System.out.println("Insert " + artist + " \\ " + song);
                         break;
-
                     case "remove":
                         type = scancmd.next();// Get the mode of deletion
                                               // artist/song
@@ -44,11 +32,9 @@ public class CommandProcessor {
                         // get the rest of the line for the song/artist name
                         switch (type) {
                             case "artist":
-                                controller.removeArtist(token);
                                 System.out.println("Artist Delete: " + token);
                                 break;
                             case "song":
-                                controller.removeSong(token);
                                 System.out.println("Song Delete: " + token);
                                 break;
                             default:// Error bad token
@@ -61,15 +47,12 @@ public class CommandProcessor {
                         type = scancmd.next();// get the type of print command
                         switch (type) {
                             case "artist":
-                                controller.printArtist();
                                 System.out.println("Print artist mode");
                                 break;
                             case "song":
-                                controller.printSong();
                                 System.out.println("Print song mode");
                                 break;
                             case "blocks":
-                                controller.printGraph();
                                 System.out.println("Print block mode");
                                 break;
                             default:
