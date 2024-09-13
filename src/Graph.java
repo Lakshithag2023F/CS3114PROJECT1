@@ -58,8 +58,8 @@ public class Graph {
      * @return true or false whether edge exists
      */
     public boolean hasEdge(Node start, Node end) {
-        int startIndex = start.getIndex();
-        int endIndex = end.getIndex();
+        int index = start.getIndex();
+        return vertex[index].contains(end);
     }
 
 
