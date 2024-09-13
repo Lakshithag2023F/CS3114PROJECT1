@@ -67,7 +67,6 @@ public class Hash {
     }
 
 
-// dont know if this method should be in this class or not
     private void rehash() {
         Record[] oldRecords = allRecords;
         allRecords = new Record[oldRecords.length * 2];
