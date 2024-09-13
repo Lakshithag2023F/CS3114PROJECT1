@@ -20,6 +20,7 @@ public class Graph {
 
     /**
      * adds a new node to the graph
+     * 
      * @param node
      */
     public void newNode(Node node) {
@@ -27,7 +28,7 @@ public class Graph {
         if (index >= size) {
             expand();
         }
-        
+
         if (vertex[index] == null) {
             vertex[index] = new DoubleLL<>();
             numberOfNodes++;
@@ -42,10 +43,10 @@ public class Graph {
      * @param end
      */
     public void addEdge(Node start, Node end) {
-        
+
         newNode(start);
         newNode(end);
-        
+
         vertex[start.getIndex()].insert(end);
         vertex[end.getIndex()].insert(start);
     }
@@ -53,6 +54,7 @@ public class Graph {
 
     /**
      * check if edge exists
+     * 
      * @param start
      * @param end
      * @return true or false whether edge exists
@@ -92,28 +94,6 @@ public class Graph {
      */
     public void print() {
 
-    }
-
-
-    public void UNION(int a, int b) {
-        int root1 = FIND(a);     // Find root of node a
-        int root2 = FIND(b);     // Find root of node b
-        if (root1 != root2) {          // Merge with weighted union
-          if (weights[root2] > weights[root1]) {
-            array[root1] = root2;
-            weights[root2] += weights[root1];
-          } else {
-            array[root2] = root1;
-            weights[root1] += weights[root2];
-          }
-        }
-      }
-    
- // Return the root of curr's tree with path compression
-    public int FIND(int curr) {
-      if (array[curr] == -1) return curr; // At root
-      array[curr] = FIND(array[curr]);
-      return array[curr];
     }
 
 
