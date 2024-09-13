@@ -38,7 +38,7 @@ public class GraphProject {
         String commandFile = args[1];
 
         Controller controller = new Controller(initHashSize);
-        CommandProcessor commandProcessor = new CommandProcessor(controller, "P1_sampleInput.txt");
+        CommandProcessor commandProcessor = new CommandProcessor(controller, commandFile);
         
         commandProcessor.beginParsingByLine(commandFile);
         System.out.println("Finished processing command file");
