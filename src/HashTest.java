@@ -65,26 +65,16 @@ public class HashTest extends TestCase {
         Node node9 = new Node(4);
         Record record9 = new Record("red", node9);
 
-        // Node node10 = new Node(4);
-        // Record record10 = new Record("red", node10);
-
         hash.insert(record5);
         hash.insert(record6);
         hash.insert(record7);
-        // hash.remove("yurr");
         hash.insert(record8);
         hash.insert(record9);
 
         int index = hash.find("testing");
 
         Record[] allRecords = hash.getAllRecords();
-       // assertEquals("testing", allRecords[index].getKey());
-
-        // Using a for-each loop
-// for (Record record : allRecords) {
-// System.out.print(record + " ");
-// }
-// System.out.println();
+       
     }
 
 
@@ -125,7 +115,45 @@ public class HashTest extends TestCase {
             System.out.print(record + " ");
         }
         System.out.println();
+        
+        
 
+    }
+    
+    
+    
+    public void testRehash()
+    {
+        Node node5 = new Node(4);
+        Record record5 = new Record("one", node5);
+
+        Node node6 = new Node(4);
+        Record record6 = new Record("two", node6);
+
+        Node node7 = new Node(4);
+        Record record7 = new Record("three", node7);
+
+        Node node8 = new Node(4);
+        Record record8 = new Record("four", node8);
+
+        Node node9 = new Node(4);
+        Record record9 = new Record("five", node9);
+
+        Node node10 = new Node(4);
+        Record record10 = new Record("six", node10);
+        
+        Node node11 = new Node(7);
+        Record record11 = new Record("seven", node11);
+        
+        hash.insert(record5);
+        hash.insert(record6);
+        hash.insert(record7);
+        hash.insert(record8);
+        hash.insert(record9);
+        hash.insert(record10);
+        hash.insert(record11);
+        
+        
     }
 
 
