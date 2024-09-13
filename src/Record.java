@@ -67,5 +67,9 @@ public class Record {
     public void setNode(Node node) {
         this.node = node;
     }
+    
+    public String toString() {
+        return "Record[key=" + key + ", node=" + node + "]";
+    }
 
 }

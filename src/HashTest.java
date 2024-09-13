@@ -10,66 +10,75 @@ public class HashTest extends TestCase {
     private Record record2;
     private Node node;
     private Node node2;
-    
-    
+
     /**
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
         hash = new Hash(10);
-        node = new Node(3);
+
+        node = new Node(2);
         node2 = new Node(3);
 
-        record = new Record("hokies",node);
-        record2 = new Record("wassup",node2);
+        record = new Record("hokies", node);
+        record2 = new Record("wassup", node2);
 
     }
 
 
-    public void testInsert()
-    {
+    public void testInsert() {
         Node node5 = new Node(2);
         Record record5 = new Record("hokies", node5);
-        
+
         hash.insert(record);
         hash.insert(record5);
-        int index= hash.find("hokies");
-        
+        int index = hash.find("hokies");
+
         Record[] allRecords = hash.getAllRecords();
         assertEquals("hokies", allRecords[index].getKey());
-    }
-    
-    public void testInsertSame()
-    {  
-        hash.insert(record);
-        hash.insert(record);
+        // doesnt have tombstone
 
-        int index = hash.find("hokies");
-                
-        Record[] allRecords = hash.getAllRecords();
-        assertEquals("hokies", allRecords[index].getKey()); 
     }
-    
-    
-    public void testInsertTombAndNull()
-    {
-        Node node5 = new Node(2);
-        Record record5 = new Record("vt", node5);
-        
-        hash.insert(record);
-        hash.insert(record5);
-        
-        int index1 = hash.find("hokies");
-        int index2 = hash.find("vt");
-        Record[] allRecords = hash.getAllRecords();
-    }
-    
-    public void testInsertTombstone()
-    {
+
+
+    public void testInsertTombstone() {
         hash.insert(record);
         hash.remove("hokies");
         hash.insert(record);
+        // gets a tombstone
+    }
+
+
+    public void testInsertProbing() {
+        Node node5 = new Node(4);
+        Record record5 = new Record("testing", node5);
         
+        Node node6 = new Node(4);
+        Record record6 = new Record("te2", node6);
+        
+        hash.insert(record5);
+        hash.insert(record6);
+        int index = hash.find("testing");
+
+        Record[] allRecords = hash.getAllRecords();
+        assertEquals("testing", allRecords[index].getKey());
+        
+        
+        
+
+        // Using a for-each loop
+        for (Record record : allRecords) {
+            System.out.print(record + " ");
+        }
+        System.out.println(); 
+    }
+
+    
+    public void testing()
+    {
+        Record[] allRecords = hash.getAllRecords();
+
+        assertEquals(hash.getNumberOfRecords(), 0);
     }
     
     
@@ -90,21 +99,24 @@ public class HashTest extends TestCase {
     
     
     
-    public void testRemove()
-    {
-        
-    }
     
-    public void testFind()
-    {
-        
+
+    public void testRemove() {
+
     }
-    
-    public void testPrint()
-    {
+
+
+    public void testFind() {
+
+    }
+
+
+    public void testPrint() {
         hash.insert(record);
-        //String printOutput = hash.print();
+        // String printOutput = hash.print();
     }
+
+
     /**
      * Check out the sfold method
      *
