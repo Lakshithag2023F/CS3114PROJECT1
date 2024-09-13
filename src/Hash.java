@@ -43,7 +43,7 @@ public class Hash {
      */
     public void insert(Record record) {
         
-        if (numberOfRecords > allRecords.length / 2) {
+        if (numberOfRecords >= allRecords.length / 2) {
             rehash();
         }
         String key = record.getKey();
@@ -54,7 +54,6 @@ public class Hash {
         while (allRecords[index] != null && allRecords[index] != tombstone
 
             && !allRecords[index].getKey().equals(key)) {
-            // index = (index + 1) % allRecords.length;
             index = ((hIndex) + i * i) % allRecords.length;
             i++;
         }
@@ -67,7 +66,8 @@ public class Hash {
     }
 
 
-    private void rehash() {
+    private void rehash() 
+    {
         Record[] oldRecords = allRecords;
         allRecords = new Record[oldRecords.length * 2];
         numberOfRecords = 0;
