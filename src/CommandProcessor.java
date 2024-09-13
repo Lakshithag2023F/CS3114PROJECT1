@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class CommandProcessor {
     
+    Controller controller;
     private String file;
     
-    public CommandProcessor(String file) {
+    public CommandProcessor(Controller controller, String file) {
+        this.controller = controller;
         this.file = file;
     }
 
