@@ -7,6 +7,7 @@ public class CommandProcessor {
     private String file;
     
     public CommandProcessor(Controller controller, String file) {
+        
         this.controller = controller;
         this.file = file;
     }
