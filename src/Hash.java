@@ -47,7 +47,6 @@ public class Hash {
             rehash(record);
         }
         
-        
         String key = record.getKey();
         Node node = record.getNode();
         int index = h(key, allRecords.length);
