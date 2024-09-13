@@ -106,6 +106,9 @@ public class HashTest extends TestCase {
 
         Node node10 = new Node(4);
         Record record10 = new Record("six", node10);
+        
+        Node node11 = new Node(7);
+        Record record11 = new Record("seven", node11);
 
         hash.insert(record5);
         hash.insert(record6);
@@ -113,7 +116,9 @@ public class HashTest extends TestCase {
         hash.insert(record8);
         hash.insert(record9);
         hash.insert(record10);
+        hash.insert(record11);
 
+        
         Record[] allRecords = hash.getAllRecords();
 
         for (Record record : allRecords) {
