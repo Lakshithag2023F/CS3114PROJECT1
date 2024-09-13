@@ -34,6 +34,12 @@ public class GraphProject {
      */
     public static void main(String[] args) {
         // This is the main file for the program.
+        System.out.println("Program started"); // Debugging line
+        if (args.length < 2) {
+            System.out.println("Error: Not enough arguments provided.");
+            return;
+        }
+
         int initHashSize = Integer.parseInt(args[0]);
         String commandFile = args[1];
 
