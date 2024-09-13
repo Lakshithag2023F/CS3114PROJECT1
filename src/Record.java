@@ -68,8 +68,5 @@ public class Record {
         this.node = node;
     }
     
-    public String toString() {
-        return "Record[key=" + key + ", node=" + node + "]";
-    }
-
+   
 }
