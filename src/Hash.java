@@ -73,7 +73,7 @@ public class Hash {
         numberOfRecords = 0;
 
         for (Record record : oldRecords) {
-            if (record != null && record != tombstone) {
+            if (record != tombstone) {
                 insert(record);
             }
         }
