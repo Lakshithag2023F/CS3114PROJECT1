@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class CommandProcessor {
     
-    Controller controller;
+    private static Controller controller;
     private String file;
     
     public CommandProcessor(Controller controller, String file) {
@@ -30,7 +30,8 @@ public class CommandProcessor {
                                                        // it is before <SEP>
                         String song = scancmd.next();// Get the song title that
                                                      // follows <SEP>
-                        System.out.println("Insert " + artist + " \\ " + song);
+                        controller.insert(artist, song);
+                        // System.out.println("Insert " + artist + " \\ " + song);
                         break;
                     case "remove":
                         type = scancmd.next();// Get the mode of deletion
@@ -40,10 +41,12 @@ public class CommandProcessor {
                         // get the rest of the line for the song/artist name
                         switch (type) {
                             case "artist":
-                                System.out.println("Artist Delete: " + token);
+                                controller.removeArtist(token);
+                                // System.out.println("Artist Delete: " + token);
                                 break;
                             case "song":
-                                System.out.println("Song Delete: " + token);
+                                controller.removeSong(token);
+                                // System.out.println("Song Delete: " + token);
                                 break;
                             default:// Error bad token
                                 System.out.println("Error bad remove type "
@@ -55,13 +58,16 @@ public class CommandProcessor {
                         type = scancmd.next();// get the type of print command
                         switch (type) {
                             case "artist":
-                                System.out.println("Print artist mode");
+                                controller.printArtist();
+                                //System.out.println("Print artist mode");
                                 break;
                             case "song":
-                                System.out.println("Print song mode");
+                                controller.printSong();
+                                // System.out.println("Print song mode");
                                 break;
                             case "blocks":
-                                System.out.println("Print block mode");
+                                controller.printGraph();
+                                // System.out.println("Print block mode");
                                 break;
                             default:
                                 System.out.println("Error bad print type"

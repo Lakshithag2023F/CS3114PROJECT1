@@ -15,6 +15,7 @@ public class Hash {
     private boolean whichTable; // artist or song table
     private int numberOfRecords; // number of records
     private Record tombstone; // deleted records
+    private int next;
 
     /**
      * Constructor
@@ -26,6 +27,7 @@ public class Hash {
         allRecords = new Record[size];
         numberOfRecords = 0;
         tombstone = new Record(null, null);
+        next = 0;
     }
 
     // public methods
@@ -33,6 +35,17 @@ public class Hash {
 
     public Record[] getAllRecords() {
         return allRecords;
+    }
+    
+    public int getNext() {
+        return next++;
+    }
+    
+    public Record getRecordAt(int index) {
+        if (index >=0 && index < allRecords.length) {
+            return allRecords[index];
+        }
+        return null;
     }
 
 
