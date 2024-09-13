@@ -25,7 +25,28 @@ public class HashTest extends TestCase {
 
     }
 
+    public void testGetNext()
+    {
+        int initialNext = hash.getNext();
+        assertEquals(0, initialNext);
+        int nextValue = hash.getNext();
+        assertEquals(1, nextValue);
+        nextValue = hash.getNext();
+        assertEquals(2, nextValue);
+    }
 
+    
+    public void testGetRecordAt()
+    {
+        hash.insert(record);
+        hash.insert(record2);
+        int ind1 = hash.find("hokies");
+        int in2 = hash.find("wassup");
+        assertEquals(record, hash.getRecordAt(ind1));
+        assertEquals(record2, hash.getRecordAt(in2));
+        assertNull(hash.getRecordAt(-1));
+        assertNull(hash.getRecordAt(10));
+    }
     public void testInsert() {
         Node node5 = new Node(2);
         Record record5 = new Record("hokiesssss", node5);
