@@ -5,14 +5,103 @@ import student.TestCase;
  * @version <Put something here>
  */
 public class HashTest extends TestCase {
+    private Hash hash;
+    private Record record;
+    private Record record2;
+    private Node node;
+    private Node node2;
+    
+    
     /**
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
-        // Nothing Here
+        hash = new Hash(10);
+        node = new Node(3);
+        node2 = new Node(3);
+
+        record = new Record("hokies",node);
+        record2 = new Record("wassup",node2);
+
     }
 
 
+    public void testInsert()
+    {
+        Node node5 = new Node(2);
+        Record record5 = new Record("hokies", node5);
+        
+        hash.insert(record);
+        hash.insert(record5);
+        int index= hash.find("hokies");
+        
+        Record[] allRecords = hash.getAllRecords();
+        assertEquals("hokies", allRecords[index].getKey());
+    }
+    
+    public void testInsertSame()
+    {  
+        hash.insert(record);
+        hash.insert(record);
+
+        int index = hash.find("hokies");
+                
+        Record[] allRecords = hash.getAllRecords();
+        assertEquals("hokies", allRecords[index].getKey()); 
+    }
+    
+    
+    public void testInsertTombAndNull()
+    {
+        Node node5 = new Node(2);
+        Record record5 = new Record("vt", node5);
+        
+        hash.insert(record);
+        hash.insert(record5);
+        
+        int index1 = hash.find("hokies");
+        int index2 = hash.find("vt");
+        Record[] allRecords = hash.getAllRecords();
+    }
+    
+    public void testInsertTombAndNotNull()
+    {
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void testRemove()
+    {
+        
+    }
+    
+    public void testFind()
+    {
+        
+    }
+    
+    public void testPrint()
+    {
+        hash.insert(record);
+        //String printOutput = hash.print();
+    }
     /**
      * Check out the sfold method
      *

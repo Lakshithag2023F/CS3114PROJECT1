@@ -29,7 +29,11 @@ public class Hash {
 
     // public methods
 
-
+    public Record[] getAllRecords() 
+    {
+        return allRecords;
+    }
+    
     /**
      * Inserts new record into hash table
      * 
@@ -37,18 +41,31 @@ public class Hash {
      */
     public void insert(Record record) {
         String key = record.getKey();
-
         int index = h(key, allRecords.length);
+        int hIndex = index;
+        int i = 1;
+
         while (allRecords[index] != null && allRecords[index] != tombstone
             && !allRecords[index].getKey().equals(key)) {
-            index = (index + 1) % allRecords.length;
+            //index = (index + 1) % allRecords.length;
+            index = (hIndex + i * i) % allRecords.length;
         }
 
         allRecords[index] = record;
         numberOfRecords++;
+        
+        if (numberOfRecords > allRecords.length / 2)
+        {
+            rehash();
+        }
 
     }
 
+//dont know if this method should be in this class or not
+    private void rehash() {
+        // TODO Auto-generated method stub
+        
+    }
 
     /**
      * Removes record
