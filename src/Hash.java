@@ -47,14 +47,12 @@ public class Hash {
         int hIndex = index;
         int i = 0;
 
-        while (i < numberOfRecords) {
-            if (allRecords[index] != null && allRecords[index] != tombstone
+        while (allRecords[index] != null && allRecords[index] != tombstone
 
-                && !allRecords[index].getKey().equals(key)) {
-                // index = (index + 1) % allRecords.length;
-                index = (hIndex + i * i) % allRecords.length;
-                i++;
-            }
+            && !allRecords[index].getKey().equals(key)) {
+            // index = (index + 1) % allRecords.length;
+            index = (hIndex + i * i) % allRecords.length;
+            i++;
         }
 
         allRecords[index] = record;
