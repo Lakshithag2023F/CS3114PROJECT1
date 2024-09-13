@@ -43,28 +43,35 @@ public class Hash {
      */
     public void insert(Record record) {
         
-        if (numberOfRecords > allRecords.length / 2) {
+        if (numberOfRecords>=allRecords.length/2) {
             rehash();
         }
+        
+        
         String key = record.getKey();
+        Node node = record.getNode();
         int index = h(key, allRecords.length);
-        int hIndex = index;
+//        int hIndex = index;
         int i = 1;
 
-        while (allRecords[index] != null && allRecords[index] != tombstone
-
-            && !allRecords[index].getKey().equals(key)) {
+        while (allRecords[index] != null && allRecords[index] != tombstone)
+        {   
+            if (!allRecords[index].getKey().equals(key))
+            {
+                return;
+            }
+        
             // index = (index + 1) % allRecords.length;
-            index = (hIndex + (i * i)) % allRecords.length;
+            index = (index + (i * i)) % allRecords.length;
             i++;
         }
-
-        allRecords[index] = record;
+        //TODO
+        //should it be this line 
+        //allRecords[index] = record;
+        //or should it be this line
+        allRecords[index]= new Record(key, node);
+        
         numberOfRecords++;
-        
-        
-
-        
 
     }
 
@@ -74,8 +81,10 @@ public class Hash {
         allRecords = new Record[oldRecords.length * 2];
         numberOfRecords = 0;
 
-        for (Record record : oldRecords) {
-            if (record != tombstone) {
+        for (Record record : oldRecords) 
+        {
+            if (record != tombstone) 
+            {
                 insert(record);
             }
         }

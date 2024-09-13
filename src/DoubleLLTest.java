@@ -7,11 +7,21 @@
  *  @author laksh
  *  @version Sep 13, 2024
  */
-public class DoubleLLTest {
+import student.TestCase;
+public class DoubleLLTest extends TestCase{
     //~ Fields ................................................................
 
     //~ Constructors ..........................................................
 
     //~Public  Methods ........................................................
 
+    public void testcontains()
+    {
+        
+    }
+    
+    public void testInsert()
+    {
+        
+    }
 }
