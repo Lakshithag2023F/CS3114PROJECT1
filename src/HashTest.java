@@ -28,7 +28,7 @@ public class HashTest extends TestCase {
 
     public void testInsert() {
         Node node5 = new Node(2);
-        Record record5 = new Record("hokies", node5);
+        Record record5 = new Record("hokiesssss", node5);
 
         hash.insert(record);
         hash.insert(record5);
