@@ -64,8 +64,11 @@ public class HashTest extends TestCase {
         Record[] allRecords = hash.getAllRecords();
     }
     
-    public void testInsertTombAndNotNull()
+    public void testInsertTombstone()
     {
+        hash.insert(record);
+        hash.remove("hokies");
+        hash.insert(record);
         
     }
     
