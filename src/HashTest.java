@@ -148,6 +148,8 @@ public class HashTest extends TestCase {
         hash.insert(record5);
         hash.insert(record6);
         hash.insert(record7);
+        hash.remove("three");
+        hash.insert(record7);
         hash.insert(record8);
         hash.insert(record9);
         hash.insert(record10);

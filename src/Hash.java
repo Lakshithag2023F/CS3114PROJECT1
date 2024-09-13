@@ -64,7 +64,7 @@ public class Hash {
             index = (index + (i * i)) % allRecords.length;
             i++;
         }
-        //TODO
+        
         //should it be this line 
         //allRecords[index] = record;
         //or should it be this line
