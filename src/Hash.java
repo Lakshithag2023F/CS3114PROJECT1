@@ -49,18 +49,22 @@ public class Hash {
         String key = record.getKey();
         int index = h(key, allRecords.length);
         int hIndex = index;
-        int i = 0;
+        int i = 1;
 
         while (allRecords[index] != null && allRecords[index] != tombstone
 
             && !allRecords[index].getKey().equals(key)) {
             // index = (index + 1) % allRecords.length;
-            index = ((hIndex) + i * i) % allRecords.length;
+            index = (hIndex + (i * i)) % allRecords.length;
             i++;
         }
 
         allRecords[index] = record;
         numberOfRecords++;
+        
+        if(numberOfRecords > allRecords.length / 2) {
+            rehash();
+        }
 
         
 
