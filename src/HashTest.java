@@ -111,12 +111,17 @@ public class HashTest extends TestCase {
     
 
     public void testRemove() {
-
+        hash.insert(record);
+        hash.remove("hokies");
+        hash.remove("notThere");
+        
     }
 
 
     public void testFind() {
-
+        hash.insert(record);
+        hash.remove("hokies");
+        hash.find("hokies");
     }
 
 
