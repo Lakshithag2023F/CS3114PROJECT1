@@ -44,7 +44,7 @@ public class Hash {
         String key = record.getKey();
         int index = h(key, allRecords.length);
         int hIndex = index;
-        int i = 1;
+        int i = 0;
 
         while (i < numberOfRecords) {
             if (allRecords[index] != null && allRecords[index] != tombstone
