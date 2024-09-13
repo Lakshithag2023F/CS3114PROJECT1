@@ -28,7 +28,11 @@ public class Hash {
     }
 
     // public methods
-
+    public int getNumberOfRecords()
+    {
+        return numberOfRecords;
+    }
+    
     public Record[] getAllRecords() 
     {
         return allRecords;
@@ -48,7 +52,7 @@ public class Hash {
         while (allRecords[index] != null && allRecords[index] != tombstone
             && !allRecords[index].getKey().equals(key)) {
             //index = (index + 1) % allRecords.length;
-            index = (hIndex + i * i) % allRecords.length;
+            index =(hIndex+i*i)%allRecords.length;
             i++;
         }
 
