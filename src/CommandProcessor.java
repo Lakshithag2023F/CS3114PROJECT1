@@ -2,6 +2,12 @@ import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
+    
+    private String file;
+    
+    public CommandProcessor(String file) {
+        this.file = file;
+    }
 
     public static void beginParsingByLine(String filename) {
         try {
