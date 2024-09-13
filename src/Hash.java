@@ -49,6 +49,7 @@ public class Hash {
             && !allRecords[index].getKey().equals(key)) {
             //index = (index + 1) % allRecords.length;
             index = (hIndex + i * i) % allRecords.length;
+            i++;
         }
 
         allRecords[index] = record;
