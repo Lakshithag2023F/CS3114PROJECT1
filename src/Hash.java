@@ -62,9 +62,7 @@ public class Hash {
         allRecords[index] = record;
         numberOfRecords++;
         
-        if(numberOfRecords > allRecords.length / 2) {
-            rehash();
-        }
+        
 
         
 
