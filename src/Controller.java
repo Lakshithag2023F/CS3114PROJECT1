@@ -63,6 +63,11 @@ public class Controller {
     public void printSong() {
         song.print();
     }
+    
+    public void printBlock()
+    {
+        
+    }
 
 
     public void printGraph() {
