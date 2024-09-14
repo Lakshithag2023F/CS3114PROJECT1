@@ -25,28 +25,7 @@ public class HashTest extends TestCase {
 
     }
 
-    public void testGetNext()
-    {
-        int initialNext = hash.getNext();
-        assertEquals(0, initialNext);
-        int nextValue = hash.getNext();
-        assertEquals(1, nextValue);
-        nextValue = hash.getNext();
-        assertEquals(2, nextValue);
-    }
 
-    
-    public void testGetRecordAt()
-    {
-        hash.insert(record);
-        hash.insert(record2);
-        int ind1 = hash.find("hokies");
-        int in2 = hash.find("wassup");
-//       // assertEquals(record.equals(hash.getRecordAt(1)));
-//        assertEquals(record2, hash.getRecordAt(in2));
-//        assertNull(hash.getRecordAt(-1));
-//        assertNull(hash.getRecordAt(10));
-    }
     public void testInsert() {
         Node node5 = new Node(2);
         Record record5 = new Record("hokiesssss", node5);
@@ -56,60 +35,10 @@ public class HashTest extends TestCase {
         int index = hash.find("hokies");
 
         Record[] allRecords = hash.getAllRecords();
-       // assertEquals("hokies", allRecords[index].getKey());
+        // assertEquals("hokies", allRecords[index].getKey());
         // doesnt have tombstone
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 
     public void testInsertTombstone() {
@@ -145,7 +74,7 @@ public class HashTest extends TestCase {
         int index = hash.find("testing");
 
         Record[] allRecords = hash.getAllRecords();
-       
+
     }
 
 
@@ -167,7 +96,7 @@ public class HashTest extends TestCase {
 
         Node node10 = new Node(4);
         Record record10 = new Record("six", node10);
-        
+
         Node node11 = new Node(7);
         Record record11 = new Record("seven", node11);
 
@@ -179,22 +108,17 @@ public class HashTest extends TestCase {
         hash.insert(record10);
         hash.insert(record11);
 
-        
         Record[] allRecords = hash.getAllRecords();
 
         for (Record record : allRecords) {
             System.out.print(record + " ");
         }
         System.out.println();
-        
-        
 
     }
-    
-    
-    
-    public void testRehash()
-    {
+
+
+    public void testRehash() {
         Node node5 = new Node(4);
         Record record5 = new Record("one", node5);
 
@@ -212,10 +136,10 @@ public class HashTest extends TestCase {
 
         Node node10 = new Node(4);
         Record record10 = new Record("six", node10);
-        
+
         Node node11 = new Node(7);
         Record record11 = new Record("seven", node11);
-        
+
         hash.insert(record5);
         hash.insert(record6);
         hash.insert(record7);
@@ -225,8 +149,7 @@ public class HashTest extends TestCase {
         hash.insert(record9);
         hash.insert(record10);
         hash.insert(record11);
-        
-        
+
     }
 
 

@@ -15,7 +15,6 @@ public class Hash {
     private boolean whichTable; // artist or song table
     private int numberOfRecords; // number of records
     private Record tombstone; // deleted records
-    private int next;
 
     /**
      * Constructor
@@ -27,7 +26,6 @@ public class Hash {
         allRecords = new Record[size];
         numberOfRecords = 0;
         tombstone = new Record(null, null);
-        next = 0;
     }
 
     // public methods
@@ -36,16 +34,25 @@ public class Hash {
     public Record[] getAllRecords() {
         return allRecords;
     }
-    
-    public int getNext() {
-        return next++;
-    }
-    
-    public Record getRecordAt(int index) {
-        if (index >=0 && index < allRecords.length) {
-            return allRecords[index];
+
+
+    // Insert e into hash table HT
+    public void insert(Record record) {
+        if (numberOfRecords >= allRecords.length / 2) {
+            rehash(); // Perform rehashing if needed
         }
-        return null;
+        int home; // Home position for e
+        String key = record.getKey();
+        int pos = home = h(key, allRecords.length); // Init probe sequence
+        for (int i = 1; null != allRecords[pos]
+            || tombstone == allRecords[pos]; i++) {
+            if (key == allRecords[pos].getKey()) {
+                return;
+            }
+            pos = (home + (i * i)) % allRecords.length; // probe
+        }
+        allRecords[pos] = record;
+        numberOfRecords++;
     }
 
 
@@ -54,51 +61,49 @@ public class Hash {
      * 
      * @param record
      */
-    public void insert(Record record) {
-        
-        if (numberOfRecords>=(allRecords.length/2)) {
-            rehash();
-        }
-        
-        String key = record.getKey();
-        Node node = record.getNode();
-        int index = h(key, allRecords.length);
-//        int hIndex = index;
-        int i = 1;
-
-        while (allRecords[index] != null && allRecords[index] != tombstone)
-        {   
-            if (!allRecords[index].getKey().equals(key))
-            {
-                return;
-            }
-        
-            // index = (index + 1) % allRecords.length;
-            index = (index + (i * i)) % allRecords.length;
-            i++;
-        }
-        
-        //should it be this line 
-        //allRecords[index] = record;
-        //or should it be this line
-        allRecords[index]= new Record(key, node);
-        
-        numberOfRecords++;
-
-    }
-
+// public void insert(Record record) {
+//
+// if (numberOfRecords>=(allRecords.length/2)) {
+// rehash();
+// }
+//
+// String key = record.getKey();
+// Node node = record.getNode();
+// int index = h(key, allRecords.length);
+//// int hIndex = index;
+// int i = 1;
+//
+// while (allRecords[index] != null && allRecords[index] != tombstone)
+// {
+// if (!allRecords[index].getKey().equals(key))
+// {
+// return;
+// }
+//
+// // index = (index + 1) % allRecords.length;
+// index = (index + (i * i)) % allRecords.length;
+// i++;
+// }
+//
+// //should it be this line
+// //allRecords[index] = record;
+// //or should it be this line
+// allRecords[index]= new Record(key, node);
+//
+// numberOfRecords++;
+//
+// }
 
     private void rehash() {
         Record[] oldRecords = allRecords;
-        
 
         allRecords = new Record[oldRecords.length * 2];
         numberOfRecords = 0;
-        
-    
+
         for (Record record : oldRecords) {
             if (record != null && record != tombstone) {
-                insert(record); // Reinsert each existing record using the updated insert method
+                insert(record); // Reinsert each existing record using the
+                                // updated insert method
             }
         }
 
