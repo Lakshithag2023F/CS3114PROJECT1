@@ -17,7 +17,7 @@ public class DoubleLL<E> {
     private class DLLNode {
         E data;
         DLLNode prev;
-        DLLNode next;
+        DLLNode next; 
 
         public DLLNode(E data) {
             this.data = data;
