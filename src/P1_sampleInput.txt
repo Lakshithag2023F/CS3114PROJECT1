@@ -17,3 +17,4 @@ remove song Sleepy
 remove artist ma rainey
 remove artist Ma Rainey
 print artist
+j

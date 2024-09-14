@@ -124,6 +124,20 @@ public class Hash {
     }
 
 
+    boolean hashSearch(String key) {
+        int home;              // Home position for K
+        int pos = home = h(key, allRecords.length); // Initial position is the home slot
+        for (int i = 1;
+             (key != allRecords[pos].getKey()) && (null != allRecords[pos]);
+             i++) {
+          pos = (home + i * i) % allRecords.length; // Next on probe sequence
+             }
+        if (key == (allRecords[pos]).getKey()) {   // Found it
+          e = HT[pos];
+          return true;
+        }
+        else { return false; }            // K not in hash table
+      }
     /**
      * Find record index with its key
      * 
