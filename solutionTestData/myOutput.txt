@@ -1,8 +1,20 @@
-java.io.FileNotFoundException: P1_sampleInput.txt (The system cannot find the file specified)
-	at java.base/java.io.FileInputStream.open0(Native Method)
-	at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
-	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
-	at java.base/java.util.Scanner.<init>(Scanner.java:639)
-	at CommandProcessor.beginParsingByLine(CommandProcessor.java:17)
-	at GraphProject.main(GraphProject.java:43)
+Song Delete:  When Summer's Through
+Print song mode
+Print artist mode
+Error bad print typegraph
+Insert  Blind Lemon Jefferson \ Long Lonesome Blues
+Insert  Blind Lemon Jefferson \ Long Lonesome Blues
+Insert  Blind Lemon Jefferson \ Long   Lonesome Blues
+Insert  Blind Lemon Jefferson \ long Lonesome Blues
+Insert  Ma Rainey \ Ma Rainey's Black Bottom
+Insert  Ma Rainey \ Long Lonesome Blues
+Insert  Ma Rainey \ Mississippi Boweavil Blues
+Insert  Ma Rainey \ Fixin' To Die Blues
+Print artist mode
+Print song mode
+Error bad print typegraph
+Song Delete:  Sleepy
+Artist Delete:  ma rainey
+Artist Delete:  Ma Rainey
+Print artist mode
 Finished processing command file

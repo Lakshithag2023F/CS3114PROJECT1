@@ -128,9 +128,15 @@ public class Hash {
         int home; // Home position for K
         int pos = home = h(key, allRecords.length); // Initial position is the
                                                     // home slot
-        for (int i = 1; (key != allRecords[pos].getKey())
-            && (null != allRecords[pos]); i++) {
-            pos = (home + i * i) % allRecords.length; // Next on probe sequence
+        for (int i = 1; (null != allRecords[pos]); i++) {
+            if (key != allRecords[pos].getKey()) {
+
+                pos = (home + i * i) % allRecords.length; // Next on probe
+                                                          // sequence
+            }
+            else {
+                break;
+            }
         }
         if (key == (allRecords[pos]).getKey()) { // Found it
             return pos;
