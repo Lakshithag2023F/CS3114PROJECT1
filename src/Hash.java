@@ -123,46 +123,46 @@ public class Hash {
     }
 
 
-    public int find(String key) {
-        int home; // Home position for K
-        int pos = home = h(key, allRecords.length); // Initial position is the
-                                                    // home slot
-        for (int i = 1; (null != allRecords[pos]); i++) {
-            if (key != allRecords[pos].getKey()) {
-
-                pos = (home + i * i) % allRecords.length; // Next on probe
-                                                          // sequence
-            }
-            else {
-                break;
-            }
-        }
-        if (key == (allRecords[pos]).getKey()) { // Found it
-            return pos;
-        }
-        else {
-            return -1;
-        } // K not in hash table
-    }
+// public int find(String key) {
+// int home; // Home position for K
+// int pos = home = h(key, allRecords.length); // Initial position is the
+// // home slot
+// for (int i = 1; (null != allRecords[pos]); i++) {
+// if (key != allRecords[pos].getKey()) {
+//
+// pos = (home + i * i) % allRecords.length; // Next on probe
+// // sequence
+// }
+// else {
+// break;
+// }
+// }
+// if (key == (allRecords[pos]).getKey()) { // Found it
+// return pos;
+// }
+// else {
+// return -1;
+// } // K not in hash table
+// }
     /**
      * Find record index with its key
      * 
      * @param key
      * @return integer value
      */
-// public int find(String key) {
-// int index = h(key, allRecords.length);
-// while (allRecords[index] != null) {
-// if (allRecords[index] != tombstone && allRecords[index].getKey()
-// .equals(key)) {
-// return index;
-// }
-// index = (index + 1) % allRecords.length;
-//
-// }
-//
-// return -1;
-// }
+    public int find(String key) {
+        int index = h(key, allRecords.length);
+        while (allRecords[index] != null) {
+            if (allRecords[index] != tombstone && allRecords[index].getKey()
+                .equals(key)) {
+                return index;
+            }
+            index = (index + 1) % allRecords.length;
+
+        }
+
+        return -1;
+    }
 
 
     /**
