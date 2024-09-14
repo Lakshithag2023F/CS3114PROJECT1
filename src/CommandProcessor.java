@@ -2,15 +2,14 @@ import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
-    
-    Controller controller;
-    private String file;
-    
-    public CommandProcessor(Controller controller, String file) {
-        
+
+    private static Controller controller;
+
+    public CommandProcessor(Controller controller) {
+
         this.controller = controller;
-        this.file = file;
     }
+
 
     public static void beginParsingByLine(String filename) {
         try {
@@ -31,7 +30,8 @@ public class CommandProcessor {
                                                        // it is before <SEP>
                         String song = scancmd.next();// Get the song title that
                                                      // follows <SEP>
-                        System.out.println("Insert " + artist + " \\ " + song);
+                        controller.insert(artist, song);
+
                         break;
                     case "remove":
                         type = scancmd.next();// Get the mode of deletion
@@ -62,7 +62,10 @@ public class CommandProcessor {
                                 System.out.println("Print song mode");
                                 break;
                             case "blocks":
-                                System.out.println("Print block mode"); // look at the output 
+                                System.out.println("Print block mode"); // look
+                                                                        // at
+                                                                        // the
+                                                                        // output
                                 break;
                             default:
                                 System.out.println("Error bad print type"

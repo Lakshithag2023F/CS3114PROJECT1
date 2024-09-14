@@ -24,7 +24,7 @@
 // of this program with other students, and that another student
 // may help me debug my program so long as neither of us writes
 // anything during the discussion or modifies any computer file
-// during the discussion. I have violated neither the spirit nor 
+// during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
 
 public class GraphProject {
@@ -38,10 +38,10 @@ public class GraphProject {
         String commandFile = args[1];
 
         Controller controller = new Controller(initHashSize);
-        CommandProcessor commandProcessor = new CommandProcessor(controller, commandFile);
-        
+        CommandProcessor commandProcessor = new CommandProcessor(controller);
+
         commandProcessor.beginParsingByLine(commandFile);
-        System.out.println("Finished processing command file");
+// System.out.println("Finished processing command file");
 
     }
 }

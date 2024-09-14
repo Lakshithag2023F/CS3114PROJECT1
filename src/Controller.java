@@ -8,28 +8,29 @@ public class Controller {
     public Controller(int hashSize) {
         artist = new Hash(hashSize);
         song = new Hash(hashSize);
-        fullGraph = new Graph(100);
+        fullGraph = new Graph(hashSize);
     }
     // ~Public Methods ........................................................
 
 
     public void insert(String artistName, String songName) {
         int aIndex = artist.find(artistName);
-        Node artistNode;
+        Node artistNode = null;
         if (aIndex == -1) {
-            artistNode = new Node(artist.getNext());
+            //artistNode = new Node(artist.getNext());
             artist.insert(new Record(artistName, artistNode));
             fullGraph.newNode(artistNode);
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
         }
         else {
-            artistNode = artist.getRecordAt(aIndex).getNode();
+            //artistNode = artist.getRecordAt(aIndex).getNode();
         }
 
         int sIndex = song.find(songName);
         if (sIndex == -1) {
-            Node songNode = new Node(song.getNext());
+            Node songNode = null;
+            //Node songNode = new Node(song.getNext());
             song.insert(new Record(songName, songNode));
             fullGraph.newNode(songNode);
             fullGraph.addEdge(artistNode, songNode);
