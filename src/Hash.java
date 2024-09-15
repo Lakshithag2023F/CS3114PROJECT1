@@ -11,7 +11,6 @@
 
 public class Hash {
     private Record[] allRecords; // array which stores records
-    private boolean whichTable; // artist or song table
     private int numberOfRecords; // number of records
     private Record tombstone; // deleted records
 
@@ -30,22 +29,35 @@ public class Hash {
     // public methods
 
 
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @return all records 
+     */
     public Record[] getAllRecords() {
         return allRecords;
     }
 
 
     // Insert e into hash table HT
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @param record
+     */
     public void insert(Record record) {
-        if (numberOfRecords >= allRecords.length / 2) {
+        if (numberOfRecords >= allRecords.length / 2) 
+        {
             rehash(); // Perform rehashing if needed
         }
+        
         int home; // Home position for e
         String key = record.getKey();
         int pos = home = h(key, allRecords.length); // Init probe sequence
-        for (int i = 1; null != allRecords[pos]
-            || tombstone == allRecords[pos]; i++) {
-            if (key == allRecords[pos].getKey()) {
+        for (int i = 1; null != allRecords[pos]|| tombstone == allRecords[pos]; i++) 
+        {
+            if (key == allRecords[pos].getKey()) 
+            {
                 return;
             }
             pos = (home + (i * i)) % allRecords.length; // probe
@@ -164,6 +176,12 @@ public class Hash {
         return -1;
     }
     
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @param value
+     * @return record
+     */
     public Record getRecord(String value) {
         int pos = find(value);
         if (pos == -1) {
