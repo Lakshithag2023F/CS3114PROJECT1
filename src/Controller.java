@@ -41,6 +41,9 @@ public class Controller {
                 + "| is added to the Song database.");
         }
         else {
+            if (artist.find(artistName) != -1) {
+                return;
+            }
             System.out.println("|" + artistName + "<SEP>" + songName
                 + "| duplicates a record already in the database.");
         }
