@@ -68,16 +68,47 @@ public class Controller {
     }
 
 
-    public void removeArtist(String key) {
-        artist.remove(key);
+
+    public void removeArtist(String artistName) {
+        
+
+        int artistIndex = artist.find(artistName);
+        if (artistIndex == -1) // artist isnt in there 
+        {
+            System.out.println("|" + artistName.trim()
+                + "| does not exist in the Artist database.");
+            //print |ma rainey| does not exist in the Artist database.
+        }
+        else
+        {
+            artist.remove(artistName);
+            System.out.println("|" + artistName
+                + " is removed from the Artist database.");
+            //|Ma Rainey| is removed from the Artist database.
+        }
+        
+
     }
 
 
-    public void removeSong(String key) {
-        song.remove(key);
+    public void removeSong(String songName) {
+        int songIndex = song.find(songName);
+        songName = songName.trim();
+        if (songIndex == -1) // artist isnt in there 
+        {
+            System.out.println("|" + songName
+                + "| does not exist in the Song database.");
+            //print |ma rainey| does not exist in the Artist database.
+        }
+        else
+        {
+            artist.remove(songName);
+            System.out.println("|" + songName
+                + " is removed from the Song database.");
+            //|Ma Rainey| is removed from the Artist database.
+        }
+        
     }
-
-
     public void printArtist() {
         artist.print();
     }

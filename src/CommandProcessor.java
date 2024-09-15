@@ -45,11 +45,11 @@ public class CommandProcessor {
                         switch (type) {
                             
                             case "artist":
-                                System.out.println("Artist Delete: " + token);
+                                //System.out.println("Artist Delete: " + token);
                                 controller.removeArtist(token);
                                 break;
                             case "song":
-                                System.out.println("Song Delete: " + token);
+                                //System.out.println("Song Delete: " + token);
                                 controller.removeSong(token);
                                 break;
                             default:// Error bad token
