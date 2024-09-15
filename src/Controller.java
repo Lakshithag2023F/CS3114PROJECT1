@@ -26,7 +26,7 @@ public class Controller {
         if (artistIndex == -1) { // artist not in artist hash
             artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
-            fullGraph.newNode(artistNode);
+           // fullGraph.newNode(artistNode);
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
         }
@@ -35,8 +35,8 @@ public class Controller {
         if (songIndex == -1) {
             songNode = new Node(calculateNode());
             song.insert(new Record(songName, songNode));
-            fullGraph.newNode(songNode);
-            fullGraph.addEdge(artistNode, songNode);
+           // fullGraph.newNode(songNode);
+            // fullGraph.addEdge(artistNode, songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
         }
