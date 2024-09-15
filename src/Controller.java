@@ -43,20 +43,20 @@ public class Controller {
             songNode = new Node(calculateNode());
             song.insert(new Record(songName, songNode));
             fullGraph.newNode(songNode);
-            fullGraph.addEdge(artistNode, songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
         }
+        else {
             songNode = song.getRecord(songName).getNode();
-        
+        }
 
-        if (fullGraph.hasEdge(artistNode, songNode)) {
+        if (!fullGraph.hasEdge(artistNode, songNode)) {
+            fullGraph.addEdge(artistNode, songNode);
+        }
+        else {
             artistName = artistName.trim();
             System.out.println("|" + artistName + "<SEP>" + songName
                 + "| duplicates a record already in the database.");
-        }
-        else {
-            return;
         }
 
     }
