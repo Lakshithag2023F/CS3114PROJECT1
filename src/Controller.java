@@ -24,6 +24,7 @@ public class Controller {
 
 
     public void insert(String artistName, String songName) {
+        // check for an artist node
         Node artistNode = null;
         int artistIndex = artist.find(artistName);
         if (artistIndex == -1) { // artist not in artist hash
@@ -37,6 +38,8 @@ public class Controller {
         else {
             artistNode = artist.getRecord(artistName).getNode();
         }
+
+        // check for a song node
         Node songNode = null;
         int songIndex = song.find(songName);
         if (songIndex == -1) {
@@ -50,6 +53,7 @@ public class Controller {
             songNode = song.getRecord(songName).getNode();
         }
 
+        // check if an edge exists between the two
         if (!fullGraph.hasEdge(artistNode, songNode)) {
             fullGraph.addEdge(artistNode, songNode);
         }
@@ -63,6 +67,7 @@ public class Controller {
 
 
     public void removeArtist(String artistName) {
+        Node artistNode;
         int artistIndex = artist.find(artistName);
         if (artistIndex == -1) // artist isnt in there
         {
@@ -70,10 +75,12 @@ public class Controller {
                 + "| does not exist in the Artist database.");
         }
         else {
+            artistNode = artist.getRecord(artistName).getNode();
             artist.remove(artistName);
             System.out.println("|" + artistName
                 + " is removed from the Artist database.");
-            // |Ma Rainey| is removed from the Artist database.
+            for (Edge edge : )
+            fullGraph.removeNode(artistNode);
         }
 
     }
