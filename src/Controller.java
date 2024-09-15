@@ -27,6 +27,7 @@ public class Controller {
             artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
            // fullGraph.newNode(artistNode);
+            artistName = artistName.trim();
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
         }
@@ -44,6 +45,7 @@ public class Controller {
             if (artist.find(artistName) != -1) {
                 return;
             }
+            artistName = artistName.trim();
             System.out.println("|" + artistName + "<SEP>" + songName
                 + "| duplicates a record already in the database.");
         }
