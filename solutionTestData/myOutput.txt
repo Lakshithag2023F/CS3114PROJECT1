@@ -4,27 +4,8 @@ Print artist mode
 Error bad print typegraph
 |Blind Lemon Jefferson| is added to the Artist database.
 |Long Lonesome Blues| is added to the Song database.
-|Blind Lemon Jefferson<SEP>Long Lonesome Blues| duplicates a record already in the database.
-|Long   Lonesome Blues| is added to the Song database.
-|long Lonesome Blues| is added to the Song database.
-|Ma Rainey| is added to the Artist database.
-|Ma Rainey's Black Bottom| is added to the Song database.
-|Ma Rainey<SEP>Long Lonesome Blues| duplicates a record already in the database.
-|Mississippi Boweavil Blues| is added to the Song database.
-|Fixin' To Die Blues| is added to the Song database.
-Print artist mode
-Index 2: Blind Lemon Jefferson
-Index 9: Ma Rainey
-Print song mode
-Index 1:Fixin' To Die Blues
-Index 2:Mississippi Boweavil Blues
-Index 7:long Lonesome Blues
-Index 15:Long Lonesome Blues
-Index 16:Ma Rainey's Black Bottom
-Index 19:Long   Lonesome Blues
-Error bad print typegraph
-Song Delete:  Sleepy
-Artist Delete:  ma rainey
-Artist Delete:  Ma Rainey
-Print artist mode
-Index 2: Blind Lemon Jefferson
+java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 10
+	at Graph.hasEdge(Graph.java:64)
+	at Controller.insert(Controller.java:58)
+	at CommandProcessor.beginParsingByLine(CommandProcessor.java:33)
+	at GraphProject.main(GraphProject.java:43)

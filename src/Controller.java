@@ -4,6 +4,8 @@ public class Controller {
     private Hash song;
     private Graph fullGraph;
     private int nodeNumber;
+    private boolean artistThere;
+    private boolean songThere;
     // ~ Constructors ..........................................................
 
     public Controller(int hashSize) {
@@ -11,6 +13,8 @@ public class Controller {
         song = new Hash(hashSize);
         fullGraph = new Graph(hashSize);
         nodeNumber = -1;
+        artistThere = false;
+        songThere = false;
     }
     // ~Public Methods ........................................................
 
@@ -23,7 +27,6 @@ public class Controller {
     public void insert(String artistName, String songName) {
         Node artistNode = null;
         int artistIndex = artist.find(artistName);
-        boolean artistFound = true;
         if (artistIndex == -1) { // artist not in artist hash
             artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
@@ -31,10 +34,11 @@ public class Controller {
             artistName = artistName.trim();
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
-            artistFound = false;
+            artistThere = true;
         }
-
-        boolean songFound = true;
+        else {
+            artistThere = true;
+        }
         Node songNode = null;
         int songIndex = song.find(songName);
         if (songIndex == -1) {
@@ -44,14 +48,20 @@ public class Controller {
             // fullGraph.addEdge(artistNode, songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
-            songFound = false;
+            songThere = true;
         }
         else {
-
-            if (artistFound && songFound) {
+            songThere = true;
+        }
+      
+        if (artistThere && songThere) {
+            if (fullGraph.hasEdge(artistNode, songNode)) {
                 artistName = artistName.trim();
                 System.out.println("|" + artistName + "<SEP>" + songName
                     + "| duplicates a record already in the database.");
+            }
+            else {
+                return;
             }
         }
 
