@@ -2,29 +2,18 @@ Song Delete:  When Summer's Through
 Print song mode
 Print artist mode
 Error bad print typegraph
-| Blind Lemon Jefferson| is added to the Artist database.
-|Long Lonesome Blues| is added to the Song database.
-| Blind Lemon Jefferson<SEP>Long Lonesome Blues| duplicates a record already in the databse.
-|Long   Lonesome Blues| is added to the Song database.
-|long Lonesome Blues| is added to the Song database.
-| Ma Rainey| is added to the Artist database.
-|Ma Rainey's Black Bottom| is added to the Song database.
-| Ma Rainey<SEP>Long Lonesome Blues| duplicates a record already in the databse.
-|Mississippi Boweavil Blues| is added to the Song database.
-|Fixin' To Die Blues| is added to the Song database.
+Unrecognized input
+Unrecognized input
+Unrecognized input
+Unrecognized input
+Unrecognized input
+Unrecognized input
+Unrecognized input
+Unrecognized input
 Print artist mode
-Index 2: Blind Lemon Jefferson
-Index 9: Ma Rainey
 Print song mode
-Index 1:Fixin' To Die Blues
-Index 2:Mississippi Boweavil Blues
-Index 7:long Lonesome Blues
-Index 15:Long Lonesome Blues
-Index 16:Ma Rainey's Black Bottom
-Index 19:Long   Lonesome Blues
 Error bad print typegraph
 Song Delete:  Sleepy
 Artist Delete:  ma rainey
 Artist Delete:  Ma Rainey
 Print artist mode
-Index 2: Blind Lemon Jefferson
