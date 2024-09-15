@@ -42,7 +42,7 @@ public class Controller {
         }
         else {
             System.out.println("|" + artistName + "<SEP>" + songName
-                + "| duplicates a record already in the databse.");
+                + "| duplicates a record already in the database.");
         }
 
     }
