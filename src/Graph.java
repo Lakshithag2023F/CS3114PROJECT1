@@ -2,26 +2,22 @@ public class Graph {
     // ~ Fields ................................................................
     private DoubleLL<Node>[] vertex;
 
-    private int[] parent;
-    private int[] weight;
+    private int[] array;
     private int numberOfNodes;
-    private int currentSize;
     private int maxSize;
 
     // ~ Constructors ..........................................................
     @SuppressWarnings("unchecked")
     public Graph(int maxSize) {
-        this.currentSize = 0;
+        this.numberOfNodes = 0;
         this.maxSize = maxSize;
         this.numberOfNodes = 0;
         this.vertex = new DoubleLL[maxSize];
 
-        parent = new int[maxSize];
-        weight = new int[maxSize];
+        array = new int[maxSize];
 
         for (int i = 0; i < maxSize; i++) {
-            parent[i] = -1;
-            weight[i] = 1;
+            array[i] = -1;
         }
 
     }
@@ -35,13 +31,13 @@ public class Graph {
      * @param node
      */
     public void newNode(Node node) {
-        if (currentSize >= maxSize / 2) {
+        if (numberOfNodes >= maxSize / 2) {
             expand();
         }
         DoubleLL<Node> currentList = new DoubleLL<>();
         currentList.insert(node);
-        vertex[currentSize] = currentList;
-        currentSize++;
+        vertex[numberOfNodes] = currentList;
+        numberOfNodes++;
 
     }
 
@@ -92,22 +88,29 @@ public class Graph {
     public void union(int node1, int node2) {
         int root1 = find(node1);
         int root2 = find(node2);
-        
         if (root1 != root2) {
-            if (wei)
+            array[root1] = root2;
         }
-        
+
     }
 
 
-    public int find(int node) {
-        if (parent[node] == -1) {
-            return node;
+    public int find(int curr) {
+        while (array[curr] != -1) {
+            curr = array[curr];
         }
 
-        parent[node] = find(parent[node]);
-        return parent[node];
+        return curr;
 
+    }
+
+
+    // Return the root of curr's tree with path compression
+    public int FIND(int curr) {
+        if (array[curr] == -1)
+            return curr; // At root
+        array[curr] = FIND(array[curr]);
+        return array[curr];
     }
 
 
@@ -128,6 +131,9 @@ public class Graph {
 
 
     public void connectedComponent() {
+        for (int i = 0; i < numberOfNodes; i++) {
+            System.out.println();
+        }
 
     }
 
