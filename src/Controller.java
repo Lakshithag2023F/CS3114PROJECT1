@@ -23,31 +23,36 @@ public class Controller {
     public void insert(String artistName, String songName) {
         Node artistNode = null;
         int artistIndex = artist.find(artistName);
+        boolean artistFound = true;
         if (artistIndex == -1) { // artist not in artist hash
             artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
-           // fullGraph.newNode(artistNode);
+            // fullGraph.newNode(artistNode);
             artistName = artistName.trim();
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
+            artistFound = false;
         }
+
+        boolean songFound = true;
         Node songNode = null;
         int songIndex = song.find(songName);
         if (songIndex == -1) {
             songNode = new Node(calculateNode());
             song.insert(new Record(songName, songNode));
-           // fullGraph.newNode(songNode);
+            // fullGraph.newNode(songNode);
             // fullGraph.addEdge(artistNode, songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
+            songFound = false;
         }
         else {
-            if (artist.find(artistName) != -1) {
-                return;
+
+            if (artistFound && songFound) {
+                artistName = artistName.trim();
+                System.out.println("|" + artistName + "<SEP>" + songName
+                    + "| duplicates a record already in the database.");
             }
-            artistName = artistName.trim();
-            System.out.println("|" + artistName + "<SEP>" + songName
-                + "| duplicates a record already in the database.");
         }
 
     }
