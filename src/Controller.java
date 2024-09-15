@@ -8,8 +8,7 @@ public class Controller {
     private boolean songThere;
     // ~ Constructors ..........................................................
 
-    public Controller(int hashSize) 
-    {
+    public Controller(int hashSize) {
         artist = new Hash(hashSize);
         song = new Hash(hashSize);
         fullGraph = new Graph(hashSize);
@@ -19,18 +18,15 @@ public class Controller {
     // ~Public Methods ........................................................
 
 
-    private int calculateNode() 
-    {
+    private int calculateNode() {
         return nodeNumber++;
     }
 
 
-    public void insert(String artistName, String songName) 
-    {
+    public void insert(String artistName, String songName) {
         Node artistNode = null;
         int artistIndex = artist.find(artistName);
-        if (artistIndex == -1) 
-        { // artist not in artist hash
+        if (artistIndex == -1) { // artist not in artist hash
             artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
             fullGraph.newNode(artistNode);
@@ -38,31 +34,26 @@ public class Controller {
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
         }
-        else 
-        {
+        else {
             artistNode = artist.getRecord(artistName).getNode();
         }
         Node songNode = null;
         int songIndex = song.find(songName);
-        if (songIndex == -1) 
-        {
+        if (songIndex == -1) {
             songNode = new Node(calculateNode());
             song.insert(new Record(songName, songNode));
             fullGraph.newNode(songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
         }
-        else 
-        {
+        else {
             songNode = song.getRecord(songName).getNode();
         }
 
-        if (!fullGraph.hasEdge(artistNode, songNode)) 
-        {
+        if (!fullGraph.hasEdge(artistNode, songNode)) {
             fullGraph.addEdge(artistNode, songNode);
         }
-        else 
-        {
+        else {
             artistName = artistName.trim();
             System.out.println("|" + artistName + "<SEP>" + songName
                 + "| duplicates a record already in the database.");
@@ -72,13 +63,11 @@ public class Controller {
 
 
     public void removeArtist(String artistName) {
-
         int artistIndex = artist.find(artistName);
         if (artistIndex == -1) // artist isnt in there
         {
             System.out.println("|" + artistName.trim()
                 + "| does not exist in the Artist database.");
-            // print |ma rainey| does not exist in the Artist database.
         }
         else {
             artist.remove(artistName);
