@@ -1,18 +1,29 @@
 public class Graph {
     // ~ Fields ................................................................
     private DoubleLL<Node>[] vertex;
+
+    private int[] parent;
+    private int[] weight;
     private int numberOfNodes;
-    private int size;
+    private int currentSize;
+    private int maxSize;
 
     // ~ Constructors ..........................................................
     @SuppressWarnings("unchecked")
-    public Graph(int startSize) {
-        this.size = startSize;
+    public Graph(int maxSize) {
+        this.currentSize = 0;
+        this.maxSize = maxSize;
         this.numberOfNodes = 0;
-        this.vertex = new DoubleLL[startSize];
-        for (int i = 0; i < startSize; i++) {
-            vertex[i] = new DoubleLL<Node>();
+        this.vertex = new DoubleLL[maxSize];
+
+        parent = new int[maxSize];
+        weight = new int[maxSize];
+
+        for (int i = 0; i < maxSize; i++) {
+            parent[i] = -1;
+            weight[i] = 1;
         }
+
     }
 
     // ~Public Methods ........................................................
@@ -24,15 +35,14 @@ public class Graph {
      * @param node
      */
     public void newNode(Node node) {
-        int index = node.getIndex();
-        if (index >= size) {
+        if (currentSize >= maxSize / 2) {
             expand();
         }
+        DoubleLL<Node> currentList = new DoubleLL<>();
+        currentList.insert(node);
+        vertex[currentSize] = currentList;
+        currentSize++;
 
-        if (vertex[index] == null) {
-            vertex[index] = new DoubleLL<>();
-            numberOfNodes++;
-        }
     }
 
 
@@ -42,13 +52,11 @@ public class Graph {
      * @param start
      * @param end
      */
-    public void addEdge(Node start, Node end) {
+    public void addEdge(int artistNode, int songNode) {
 
-        newNode(start);
-        newNode(end);
-
-        vertex[start.getIndex()].insert(end);
-        vertex[end.getIndex()].insert(start);
+        if (find(artistNode) != find(songNode)) {
+            union(artistNode, songNode);
+        }
     }
 
 
@@ -78,6 +86,28 @@ public class Graph {
      */
     public void removeNode(Node node) {
         // implemenet
+    }
+
+
+    public void union(int node1, int node2) {
+        int root1 = find(node1);
+        int root2 = find(node2);
+        
+        if (root1 != root2) {
+            if (wei)
+        }
+        
+    }
+
+
+    public int find(int node) {
+        if (parent[node] == -1) {
+            return node;
+        }
+
+        parent[node] = find(parent[node]);
+        return parent[node];
+
     }
 
 
