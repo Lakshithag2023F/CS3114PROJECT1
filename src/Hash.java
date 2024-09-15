@@ -163,6 +163,14 @@ public class Hash {
 
         return -1;
     }
+    
+    public Record getRecord(String value) {
+        int pos = find(value);
+        if (pos == -1) {
+            return null;
+        }
+        return allRecords[pos];
+    }
 
 
     /**
@@ -209,4 +217,6 @@ public class Hash {
 
         return (int)(Math.abs(sum) % length);
     }
+    
+    
 }
