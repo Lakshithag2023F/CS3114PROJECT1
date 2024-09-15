@@ -3,34 +3,37 @@ public class Controller {
     private Hash artist;
     private Hash song;
     private Graph fullGraph;
+    private int nodeNumber;
     // ~ Constructors ..........................................................
 
     public Controller(int hashSize) {
         artist = new Hash(hashSize);
         song = new Hash(hashSize);
         fullGraph = new Graph(hashSize);
+        nodeNumber = -1;
     }
     // ~Public Methods ........................................................
 
 
+    private int calculateNode() {
+        return nodeNumber++;
+    }
+
+
     public void insert(String artistName, String songName) {
-        int aIndex = artist.find(artistName);
         Node artistNode = null;
-        if (aIndex == -1) {
-            //artistNode = new Node(artist.getNext());
+        int artistIndex = artist.find(artistName);
+        if (artistIndex == -1) { // artist not in artist hash
+            artistNode = new Node(calculateNode());
             artist.insert(new Record(artistName, artistNode));
             fullGraph.newNode(artistNode);
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
         }
-        else {
-            //artistNode = artist.getRecordAt(aIndex).getNode();
-        }
-
-        int sIndex = song.find(songName);
-        if (sIndex == -1) {
-            Node songNode = null;
-            //Node songNode = new Node(song.getNext());
+        Node songNode = null;
+        int songIndex = song.find(songName);
+        if (songIndex == -1) {
+            songNode = new Node(calculateNode());
             song.insert(new Record(songName, songNode));
             fullGraph.newNode(songNode);
             fullGraph.addEdge(artistNode, songNode);
@@ -63,10 +66,10 @@ public class Controller {
     public void printSong() {
         song.print();
     }
-    
-    public void printBlock()
-    {
-        
+
+
+    public void printBlock() {
+
     }
 
 
