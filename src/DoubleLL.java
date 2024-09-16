@@ -78,5 +78,10 @@ public class DoubleLL<E> {
         return false;
 
     }
+    
+    public int getSize()
+    {
+        return size;
+    }
 
 }

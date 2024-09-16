@@ -43,6 +43,8 @@ public class DoubleLLTest extends TestCase{
         assertTrue(numList.contains(3));
 
         assertFalse(numList.contains(4));
+        assertEquals(3, numList.getSize());
+
     }
 
 
