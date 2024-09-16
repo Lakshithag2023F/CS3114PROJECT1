@@ -19,7 +19,7 @@ public class Controller {
 
 
     private int calculateNode() {
-        return nodeNumber++;
+        return ++nodeNumber;
     }
 
 
@@ -36,6 +36,7 @@ public class Controller {
             artistName = artistName.trim();
             System.out.println("|" + artistName
                 + "| is added to the Artist database.");
+            artistIndex = artist.find(artistName);
         }
         else {
             artistNode = artist.getRecord(artistName).getNode();
@@ -51,6 +52,8 @@ public class Controller {
             fullGraph.newNode(songNode);
             System.out.println("|" + songName
                 + "| is added to the Song database.");
+            songIndex = song.find(songName);
+
         }
         else {
             songFound = true;
