@@ -19,7 +19,7 @@ public class Controller {
 
 
     private int calculateNode() {
-        return nodeNumber++;
+        return ++nodeNumber;
     }
 
 
