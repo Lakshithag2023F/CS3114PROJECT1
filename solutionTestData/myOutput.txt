@@ -8,6 +8,6 @@ The largest connected component has 0 elements
 java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 10
 	at Graph.find(Graph.java:100)
 	at Graph.hasEdge(Graph.java:67)
-	at Controller.insert(Controller.java:57)
+	at Controller.insert(Controller.java:61)
 	at CommandProcessor.beginParsingByLine(CommandProcessor.java:33)
 	at GraphProject.main(GraphProject.java:43)

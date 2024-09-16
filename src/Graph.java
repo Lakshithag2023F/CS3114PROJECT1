@@ -97,8 +97,9 @@ public class Graph {
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
-        if (array[curr] == -1)
+        if (array[curr] == -1) {
             return curr; // At root
+        }
         array[curr] = find(array[curr]);
         return array[curr];
     }
@@ -108,7 +109,25 @@ public class Graph {
      * expand size of adjacency list array
      */
     public void expand() {
-        
+        int newSize = numberOfNodes * 2; // Double the size of the array
+        @SuppressWarnings("unchecked")
+        DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
+
+        // Copy old adjacency lists to the new array
+        for (int i = 0; i < numberOfNodes; i++) {
+            newAdjacencyList[i] = vertex[i];
+        }
+
+        // Initialize the new parts of the array
+        for (int i = numberOfNodes; i < newSize; i++) {
+            newAdjacencyList[i] = new DoubleLL<>();
+        }
+
+        // Replace the old adjacency list with the new one
+        vertex = newAdjacencyList;
+        maxSize = newSize;
+
+        System.out.println("Graph expanded to " + maxSize + " nodes.");
 
     }
 
