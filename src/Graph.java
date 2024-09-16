@@ -72,8 +72,12 @@ public class Graph {
     /**
      * removes edge between nodes
      */
-    public void removeEdge(Node start, Node end) {
+    public void removeEdge(int artistNode, int songNode) {
         // implemetn
+        if (hasEdge(artistNode,songNode))
+        {
+            //
+        }
     }
 
 
