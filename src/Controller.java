@@ -89,11 +89,10 @@ public class Controller {
     public void removeSong(String songName) {
         Node songNode;
         int songIndex = song.find(songName);
-        if (songIndex == -1) // artist isnt in there
+        if (songIndex == -1) // song isnt in there
         {
             System.out.println("|" + songName
                 + "| does not exist in the Song database.");
-            // print |ma rainey| does not exist in the Artist database.
         }
         else {
             songNode = song.getRecord(songName).getNode();
@@ -108,11 +107,15 @@ public class Controller {
 
     public void printArtist() {
         artist.print();
+        System.out.println("total artists: " + artist.getNumberOfRecords());
+
     }
 
 
     public void printSong() {
         song.print();
+        System.out.println("total songs: " + song.getNumberOfRecords());
+
     }
 
 

@@ -1,9 +1,13 @@
-Exception in thread "main" java.lang.Error: Unresolved compilation problems: 
-	Type safety: The expression of type DoubleLL[] needs unchecked conversion to conform to DoubleLL<Node>[]
-	Cannot invoke get(Node) on the array type DoubleLL<Node>[]
-	Syntax error, insert "... VariableDeclaratorId" to complete FormalParameter
-	Syntax error on token ")", Statement expected after this token
-
-	at Graph.<init>(Graph.java:14)
-	at Controller.<init>(Controller.java:14)
-	at GraphProject.main(GraphProject.java:40)
+| When Summer's Through| does not exist in the Song database.
+total songs: 0
+total artists: 0
+There are 0 connected components
+The largest connected component has 0 elements
+|Blind Lemon Jefferson| is added to the Artist database.
+|Long Lonesome Blues| is added to the Song database.
+java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 10
+	at Graph.find(Graph.java:100)
+	at Graph.hasEdge(Graph.java:67)
+	at Controller.insert(Controller.java:57)
+	at CommandProcessor.beginParsingByLine(CommandProcessor.java:33)
+	at GraphProject.main(GraphProject.java:43)

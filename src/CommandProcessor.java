@@ -33,9 +33,7 @@ public class CommandProcessor {
                         controller.insert(artist, song);
 
                         break;
-                        
-                        
-                        
+
                     case "remove":
                         type = scancmd.next();// Get the mode of deletion
                                               // artist/song
@@ -43,13 +41,14 @@ public class CommandProcessor {
                         // Since both artist titles and song titles have spaces
                         // get the rest of the line for the song/artist name
                         switch (type) {
-                            
+
                             case "artist":
-                                //System.out.println("Artist Delete: " + token);
+                                // System.out.println("Artist Delete: " +
+                                // token);
                                 controller.removeArtist(token);
                                 break;
                             case "song":
-                                //System.out.println("Song Delete: " + token);
+                                // System.out.println("Song Delete: " + token);
                                 controller.removeSong(token);
                                 break;
                             default:// Error bad token
@@ -58,30 +57,23 @@ public class CommandProcessor {
                                 break;
                         }
                         break;
-                        
-                        
-                        
-                        
-                        
+
                     case "print":// Print command
                         type = scancmd.next();// get the type of print command
                         switch (type) {
                             case "artist":
-                                System.out.println("Print artist mode");
                                 controller.printArtist();
                                 break;
                             case "song":
-                                System.out.println("Print song mode");
                                 controller.printSong();
 
                                 break;
-                            case "blocks":
-                                System.out.println("Print block mode");
+                            case "graph":
                                 controller.printBlock();
 // look
-                                                                        // at
-                                                                        // the
-                                                                        // output
+// at
+// the
+// output
                                 break;
                             default:
                                 System.out.println("Error bad print type"
