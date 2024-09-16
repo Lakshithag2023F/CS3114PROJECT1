@@ -1,4 +1,7 @@
 import student.TestCase;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 
 /**
  * @author <Put something here>
@@ -37,6 +40,13 @@ public class HashTest extends TestCase {
 
         Record[] allRecords = hash.getAllRecords();
          assertEquals("hokies", allRecords[index].getKey());
+         
+         Node node6 = new Node(4);
+         Record record6 = new Record("hello", node6);
+         hash.insert(record6);
+         int index2 = hash.find("hello");
+         //TODO
+        // assertEquals(index, index2); // E
 
     }
 
@@ -68,6 +78,8 @@ public class HashTest extends TestCase {
 
 
         Record[] allRecords = hash.getAllRecords();
+        hash.insert(record5); // Inserting "testing" again should not change state
+        assertEquals(1, hash.find("testing"));
 
     }
 
@@ -105,6 +117,14 @@ public class HashTest extends TestCase {
         hash.insert(record9);
         hash.insert(record10);
         hash.insert(record11);
+        
+        assertNotNull(hash.getRecord("one"));
+        assertNotNull(hash.getRecord("two"));
+        assertNotNull(hash.getRecord("three"));
+        assertNotNull(hash.getRecord("four"));
+        assertNotNull(hash.getRecord("five"));
+        assertNotNull(hash.getRecord("six"));
+        assertNotNull(hash.getRecord("seven"));
 
     }
 
@@ -113,6 +133,17 @@ public class HashTest extends TestCase {
         hash.insert(record);
         hash.remove("hokies");
         hash.remove("notThere");
+        
+        assertEquals(-1, hash.find("hokies")); // Ensure "hokies" is not found
+        assertNull(hash.getRecord("hokies")); 
+        assertEquals(hash.getNumberOfRecords(), 0);
+        
+        hash.insert(record);
+        hash.insert(record2);
+        assertEquals(hash.getNumberOfRecords(), 2);
+
+
+
 
     }
 
@@ -148,22 +179,61 @@ public class HashTest extends TestCase {
     
     
     public void testPrint() {
-        String str = hash.print();
-        assertEquals("", str);
-
-        hash.insert(record);
-        str = hash.print();
-        assertEquals("Index 3:hokies", str);
+//        String str = hash.print();
+//        assertEquals("", str);
+//
+//        hash.insert(record);
+//        str = hash.print();
+//        assertEquals("Index 3:hokies", str);
+//        
+//        hash.remove("hokies");
+//        str = hash.print();
+//        assertEquals("", str);
+//
+//        
+//        Record record2 = new Record("test", new Node(2));
+//        hash.insert(record2);
+//        str = hash.print();
+//        assertEquals("Index 8:test", str);
         
-        hash.remove("hokies");
-        str = hash.print();
-        assertEquals("", str);
-
         
-        Record record2 = new Record("test", new Node(2));
-        hash.insert(record2);
-        str = hash.print();
-        assertEquals("Index 8:test", str);
+        // Create a stream to hold the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Test case 1: Print when the hash table is empty
+            hash.print();
+            String expectedOutput = "";
+            assertEquals(expectedOutput, outputStream.toString().trim());
+
+            // Test case 2: Print after inserting a record
+            hash.insert(record);
+            outputStream.reset();  // Clear the previous output
+            hash.print();
+            expectedOutput = "3: |hokies|"; // Expected format based on insertion
+            assertEquals(expectedOutput, outputStream.toString().trim());
+
+            // Test case 3: Print after removing a record
+            hash.remove("hokies");
+            outputStream.reset();  // Clear the previous output
+            hash.print();
+            expectedOutput = "";  // Should be empty since "hokies" is removed
+            assertEquals(expectedOutput, outputStream.toString().trim());
+
+            // Test case 4: Insert multiple records and print again
+            Record record2 = new Record("test", new Node(2));
+            hash.insert(record2);
+            outputStream.reset();  // Clear the previous output
+            hash.print();
+            expectedOutput = "8: |test|"; // Assuming "test" hashes to index 8
+            assertEquals(expectedOutput, outputStream.toString().trim());
+
+        } finally {
+            // Reset System.out back to the original
+            System.setOut(originalOut);
+        }
         
     }
     
