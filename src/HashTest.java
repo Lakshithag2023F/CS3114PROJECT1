@@ -33,6 +33,7 @@ public class HashTest extends TestCase {
         hash.insert(record);
         hash.insert(record5);
         int index = hash.find("hokies");
+        assertEquals(index, 3);
 
         Record[] allRecords = hash.getAllRecords();
          assertEquals("hokies", allRecords[index].getKey());
@@ -63,6 +64,8 @@ public class HashTest extends TestCase {
         hash.insert(record9);
 
         int index = hash.find("testing");
+        assertEquals(index, 1);
+
 
         Record[] allRecords = hash.getAllRecords();
 
@@ -117,7 +120,15 @@ public class HashTest extends TestCase {
     public void testFind() {
         hash.insert(record);
         hash.remove("hokies");
-        hash.find("hokies");
+        int index = hash.find("hokies");
+        assertEquals(index, -1);
+        
+        index = hash.find("notThere");
+        assertEquals(-1, index);
+        
+        index = hash.find("anotherKey");
+        assertEquals(-1, index);
+
     }
 
 

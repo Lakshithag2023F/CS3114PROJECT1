@@ -29,10 +29,16 @@ public class Hash {
     // public methods
 
 
+    public int getNumberOfRecords() {
+        return numberOfRecords;
+    }
+
+
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
-     * @return all records 
+     * 
+     * @return all records
      */
     public Record[] getAllRecords() {
         return allRecords;
@@ -43,21 +49,20 @@ public class Hash {
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
+     * 
      * @param record
      */
     public void insert(Record record) {
-        if (numberOfRecords >= allRecords.length / 2) 
-        {
+        if (numberOfRecords >= allRecords.length / 2) {
             rehash(); // Perform rehashing if needed
         }
-        
+
         int home; // Home position for e
         String key = record.getKey();
         int pos = home = h(key, allRecords.length); // Init probe sequence
-        for (int i = 1; null != allRecords[pos]|| tombstone == allRecords[pos]; i++) 
-        {
-            if (key == allRecords[pos].getKey()) 
-            {
+        for (int i = 1; null != allRecords[pos]
+            || tombstone == allRecords[pos]; i++) {
+            if (key == allRecords[pos].getKey()) {
                 return;
             }
             pos = (home + (i * i)) % allRecords.length; // probe
@@ -175,10 +180,12 @@ public class Hash {
 
         return -1;
     }
-    
+
+
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
+     * 
      * @param value
      * @return record
      */
@@ -194,15 +201,14 @@ public class Hash {
     /**
      * Prints hash table contents
      */
-    public String print() {
-        String str = "";
+    public void print() {
 
         for (int i = 0; i < allRecords.length; i++) {
             if (allRecords[i] != null && allRecords[i] != tombstone) {
-                str = ("Index " + i + ":" + allRecords[i].getKey());
+                System.out.println(i + ": |" + allRecords[i].getKey() + "|");
             }
         }
-        return str;
+
     }
 
 
@@ -238,6 +244,5 @@ public class Hash {
 
         return (int)(Math.abs(sum) % length);
     }
-    
-    
+
 }
