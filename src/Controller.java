@@ -80,7 +80,6 @@ public class Controller {
             artist.remove(artistName);
             System.out.println("|" + artistName
                 + " is removed from the Artist database.");
-            for (Edge edge : )
             fullGraph.removeNode(artistNode);
         }
 
@@ -88,8 +87,8 @@ public class Controller {
 
 
     public void removeSong(String songName) {
+        Node songNode;
         int songIndex = song.find(songName);
-        songName = songName.trim();
         if (songIndex == -1) // artist isnt in there
         {
             System.out.println("|" + songName
@@ -97,10 +96,11 @@ public class Controller {
             // print |ma rainey| does not exist in the Artist database.
         }
         else {
-            artist.remove(songName);
+            songNode = song.getRecord(songName).getNode();
+            song.remove(songName);
             System.out.println("|" + songName
                 + " is removed from the Song database.");
-            // |Ma Rainey| is removed from the Artist database.
+            fullGraph.removeNode(songNode);
         }
 
     }
@@ -117,11 +117,8 @@ public class Controller {
 
 
     public void printBlock() {
+        fullGraph.printGraph();
 
     }
 
-
-    public void printGraph() {
-
-    }
 }
