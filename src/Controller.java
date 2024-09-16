@@ -54,9 +54,10 @@ public class Controller {
         }
 
         // check if an edge exists between the two
-        if (!fullGraph.hasEdge(artistNode, songNode)) {
-            fullGraph.addEdge(artistNode, songNode);
+        if (!fullGraph.hasEdge(artistNode.getIndex(), songNode.getIndex())) {
+            fullGraph.addEdge(artistNode.getIndex(), songNode.getIndex());
         }
+
         else {
             artistName = artistName.trim();
             System.out.println("|" + artistName + "<SEP>" + songName

@@ -50,7 +50,7 @@ public class Graph {
      */
     public void addEdge(int artistNode, int songNode) {
 
-        if (find(artistNode) != find(songNode)) {
+        if (!hasEdge(artistNode, songNode)) {
             union(artistNode, songNode);
         }
     }
@@ -112,25 +112,6 @@ public class Graph {
     }
 
 
-    /**
-     * print the graph
-     */
-    public void print() {
-
-    }
-
-
-    public int largestComponent() {
-        return 0;
-    }
-
-
-    public int connectedComponent() {
-        return 0;
-
-    }
-
-
     public void printGraph() {
         int[] components = new int[numberOfNodes];
         int numberOfComponents = 0;
@@ -156,8 +137,4 @@ public class Graph {
             + largestComponent + " elements");
     }
 
-
-    public int diameter() {
-        return 0;
-    }
 }
