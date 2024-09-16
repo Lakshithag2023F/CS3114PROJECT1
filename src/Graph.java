@@ -83,14 +83,18 @@ public class Graph {
     /**
      * remove node and edges
      */
-    public void removeNode(Node node) {
+    public void removeNode(Node node) 
+    {
         DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
         if (adjacencyList != null) {
-            for (Node adjacentNode : adjacencyList) {
+            //for (Node adjacentNode : adjacencyList) 
+            {
                 // Remove the connection from the adjacent node's list
-                vertex[adjacentNode.getIndex()].remove(node);
+                //vertex[adjacentNode.getIndex()].remove(node);
             
         }
+        }
+            
     }
 
 
