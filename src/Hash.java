@@ -194,12 +194,15 @@ public class Hash {
     /**
      * Prints hash table contents
      */
-    public void print() {
+    public String print() {
+        String str = "";
+
         for (int i = 0; i < allRecords.length; i++) {
             if (allRecords[i] != null && allRecords[i] != tombstone) {
-                System.out.println("Index " + i + ":" + allRecords[i].getKey());
+                str = ("Index " + i + ":" + allRecords[i].getKey());
             }
         }
+        return str;
     }
 
 

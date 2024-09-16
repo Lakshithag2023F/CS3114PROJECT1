@@ -137,12 +137,27 @@ public class HashTest extends TestCase {
     
     
     public void testPrint() {
-        hash.print();
+        String str = hash.print();
+        assertEquals("", str);
+
         hash.insert(record);
-        hash.print();
+        str = hash.print();
+        assertEquals("Index 3:hokies", str);
+        
         hash.remove("hokies");
-        hash.print();
+        str = hash.print();
+        assertEquals("", str);
+
+        
+        Record record2 = new Record("test", new Node(2));
+        hash.insert(record2);
+        str = hash.print();
+        assertEquals("Index 8:test", str);
+        
     }
+    
+    
+
 
     /**
      * Check out the sfold method
