@@ -69,10 +69,11 @@ public class Controller {
 
     public void removeArtist(String artistName) {
         Node artistNode;
+        artistName = artistName.trim();
         int artistIndex = artist.find(artistName);
         if (artistIndex == -1) // artist isnt in there
         {
-            System.out.println("|" + artistName.trim()
+            System.out.println("|" + artistName
                 + "| does not exist in the Artist database.");
         }
         else {
@@ -88,6 +89,7 @@ public class Controller {
 
     public void removeSong(String songName) {
         Node songNode;
+        songName = songName.trim();
         int songIndex = song.find(songName);
         if (songIndex == -1) // song isnt in there
         {
