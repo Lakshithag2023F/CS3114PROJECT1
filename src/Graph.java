@@ -74,8 +74,7 @@ public class Graph {
      */
     public void removeEdge(int artistNode, int songNode) {
         // implemetn
-        if (hasEdge(artistNode,songNode))
-        {
+        if (hasEdge(artistNode, songNode)) {
             //
         }
     }
@@ -85,7 +84,13 @@ public class Graph {
      * remove node and edges
      */
     public void removeNode(Node node) {
-        // implemenet
+        DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
+        if (adjacencyList != null) {
+            for (Node adjacentNode : adjacencyList) {
+                // Remove the connection from the adjacent node's list
+                vertex[adjacentNode.getIndex()].remove(node);
+            
+        }
     }
 
 

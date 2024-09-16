@@ -17,7 +17,7 @@ public class DoubleLL<E> {
     private class DLLNode {
         E data;
         DLLNode prev;
-        DLLNode next; 
+        DLLNode next;
 
         public DLLNode(E data) {
             this.data = data;
@@ -78,10 +78,45 @@ public class DoubleLL<E> {
         return false;
 
     }
-    
-    public int getSize()
-    {
+
+
+    public int getSize() {
         return size;
+    }
+
+
+    public boolean remove(E data) {
+
+        DLLNode current = head;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                if (current == head && current == tail) {
+                    head = null;
+                    tail = null;
+                }
+                else if (current == head) {
+                    head = head.next;
+                    if (head != null) {
+                        head.prev = null;
+                    }
+                }
+                else if (current == tail) {
+                    tail = tail.prev;
+                    if (tail != null) {
+                        tail.next = null;
+                    }
+                }
+                else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                size--;
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
     }
 
 }
