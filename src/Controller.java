@@ -24,6 +24,8 @@ public class Controller {
 
 
     public void insert(String artistName, String songName) {
+        boolean artistFound = false;
+        boolean songFound = false;
         // check for an artist node
         Node artistNode = null;
         int artistIndex = artist.find(artistName);
@@ -37,6 +39,7 @@ public class Controller {
         }
         else {
             artistNode = artist.getRecord(artistName).getNode();
+            artistFound = true;
         }
 
         // check for a song node
@@ -50,18 +53,20 @@ public class Controller {
                 + "| is added to the Song database.");
         }
         else {
+            songFound = true;
             songNode = song.getRecord(songName).getNode();
         }
 
         // check if an edge exists between the two
-        if (!fullGraph.hasEdge(artistNode.getIndex(), songNode.getIndex())) {
-            fullGraph.addEdge(artistNode.getIndex(), songNode.getIndex());
-        }
-
-        else {
+        if (fullGraph.hasEdge(artistNode.getIndex(), songNode.getIndex())) {
             artistName = artistName.trim();
             System.out.println("|" + artistName + "<SEP>" + songName
                 + "| duplicates a record already in the database.");
+        }
+
+        else {
+            fullGraph.addEdge(artistNode.getIndex(), songNode.getIndex());
+
         }
 
     }
