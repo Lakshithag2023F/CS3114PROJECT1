@@ -63,9 +63,9 @@ public class Graph {
      * @param end
      * @return true or false whether edge exists
      */
-    public boolean hasEdge(Node start, Node end) {
-        int index = start.getIndex();
-        return vertex[index].contains(end);
+    public boolean hasEdge(int artistNode, int songNode) {
+        return find(artistNode) == find(songNode);
+
     }
 
 
@@ -95,21 +95,11 @@ public class Graph {
     }
 
 
-    public int find(int curr) {
-        while (array[curr] != -1) {
-            curr = array[curr];
-        }
-
-        return curr;
-
-    }
-
-
     // Return the root of curr's tree with path compression
-    public int FIND(int curr) {
+    public int find(int curr) {
         if (array[curr] == -1)
             return curr; // At root
-        array[curr] = FIND(array[curr]);
+        array[curr] = find(array[curr]);
         return array[curr];
     }
 
@@ -130,11 +120,40 @@ public class Graph {
     }
 
 
-    public void connectedComponent() {
+    public int largestComponent() {
+        return 0;
+    }
+
+
+    public int connectedComponent() {
+        return 0;
+
+    }
+
+
+    public void printGraph() {
+        int[] components = new int[numberOfNodes];
+        int numberOfComponents = 0;
+        int largestComponent = 0;
+
         for (int i = 0; i < numberOfNodes; i++) {
-            System.out.println();
+            int root = find(i);
+            components[root]++;
         }
 
+        for (int i = 0; i < numberOfNodes; i++) {
+            if (components[i] > 0) {
+                numberOfComponents++;
+                if (components[i] > largestComponent) {
+                    largestComponent = components[i];
+                }
+            }
+        }
+
+        System.out.println("There are " + numberOfComponents
+            + " connected components");
+        System.out.println("The largest connected component has "
+            + largestComponent + " elements");
     }
 
 
