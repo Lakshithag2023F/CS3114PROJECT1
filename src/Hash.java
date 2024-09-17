@@ -207,7 +207,9 @@ public class Hash {
            
             temp = (index + (i * i)) % allRecords.length;
         }
+        allRecords[temp].setTombstone();
         allRecords[temp] = tombstone;
+
         numberOfRecords--;
 
         

@@ -36,4 +36,11 @@ public class Record {
     public void setType(String type) {
         this.type = type;
     }
+
+    public void setTombstone() {
+        this.setKey(null);
+        this.setNode(null);
+        this.setType(null);
+        
+    }
 }
