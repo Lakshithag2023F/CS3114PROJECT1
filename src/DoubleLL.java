@@ -118,5 +118,15 @@ public class DoubleLL<E> {
 
         return false;
     }
+    
+    public E getHeadData() {
+        return head != null ? head.data : null;
+    }
+
+    public E getTailData() {
+        return tail != null ? tail.data : null;
+    }
+
+
 
 }
