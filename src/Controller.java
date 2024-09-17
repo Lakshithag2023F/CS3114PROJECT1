@@ -105,7 +105,7 @@ public class Controller {
             songNode = song.getRecord(songName).getNode();
             song.remove(songName);
             System.out.println("|" + songName
-                + " is removed from the Song database.");
+                + "| is removed from the Song database.");
             fullGraph.removeNode(songNode);
         }
 

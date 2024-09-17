@@ -55,6 +55,8 @@ public class Hash {
     public void insert(Record record) {
         if (numberOfRecords >= allRecords.length / 2) {
             rehash(); // Perform rehashing if needed
+            //TODO print 
+            //figure out if the record is a song or artist print the fact that it was rehashed. 
         }
 
         int home; // Home position for e
@@ -65,7 +67,8 @@ public class Hash {
             if (key == allRecords[pos].getKey()) {
                 return;
             }
-            pos = (home + (i * i)) % allRecords.length; // probe
+            pos = (home + (i * i)) % allRecords.length; 
+            //System.out.println("quadtatic probing !!!!!!!!");// probe
         }
         allRecords[pos] = record;
         numberOfRecords++;
@@ -122,6 +125,8 @@ public class Hash {
                                 // updated insert method
             }
         }
+        
+        
 
     }
 
@@ -205,11 +210,27 @@ public class Hash {
 
         for (int i = 0; i < allRecords.length; i++) {
             if (allRecords[i] != null && allRecords[i] != tombstone) {
-                System.out.println(i + ": |" + allRecords[i].getKey() + "|");
+                System.out.println(i + ": |" + allRecords[i].getKey().trim() + "|");
             }
+            //TODO if tombstone print TOMBSTONE
         }
 
     }
+    
+    
+    
+   public void printTA() {
+
+       int count = 0;
+       for (int i = 0; i < allRecords.length; i++) {
+           if (allRecords[i] != null && allRecords[i] != tombstone) {
+               System.out.println(i + ": |" + allRecords[i].getKey().trim() + "|");
+           }
+           //TODO if tombstone print TOMBSTONE
+       }
+
+   }
+
 
 
     /**

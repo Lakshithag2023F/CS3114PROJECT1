@@ -74,7 +74,7 @@ public class Graph {
      * removes edge between nodes
      */
     public void removeEdge(int artistNode, int songNode) {
-        // implemetn
+        // implemetn TODO
         if (hasEdge(artistNode, songNode)) {
             //
         }
@@ -140,7 +140,7 @@ public class Graph {
         setVertex(newAdjacencyList);
         maxSize = newSize;
 
-        System.out.println("Graph expanded to " + maxSize + " nodes.");
+        //System.out.println("Graph expanded to " + maxSize + " nodes.");
     }
 
 
