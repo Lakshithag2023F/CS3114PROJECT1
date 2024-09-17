@@ -96,15 +96,15 @@ public class DoubleLL<E> {
                 }
                 else if (current == head) {
                     head = head.next;
-                    if (head != null) {
-                        head.prev = null;
-                    }
+//                    if (head != null) {
+                      head.prev = null;
+//                    }
                 }
                 else if (current == tail) {
                     tail = tail.prev;
-                    if (tail != null) {
-                        tail.next = null;
-                    }
+//                    if (tail != null) {
+                       tail.next = null;
+//                    }
                 }
                 else {
                     current.prev.next = current.next;

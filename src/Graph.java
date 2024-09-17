@@ -31,7 +31,8 @@ public class Graph {
      * @param node
      */
     public void newNode(Node node) {
-        if (numberOfNodes >= maxSize / 2) {
+        if (numberOfNodes >= maxSize / 2) 
+        {
             expand();
         }
         DoubleLL<Node> currentList = new DoubleLL<>();
