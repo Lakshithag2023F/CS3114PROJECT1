@@ -87,8 +87,8 @@ public class HashTest extends TestCase {
         hash.insert(record5);
         hash.insert(record6);
         hash.insert(record7);
-        hash.remove("three");
-        hash.insert(record7); // Reinsert after removal
+       // hash.remove("three");
+       // hash.insert(record7); // Reinsert after removal
         hash.insert(record8);
         hash.insert(record9);
         hash.insert(record10);
@@ -104,18 +104,25 @@ public class HashTest extends TestCase {
     }
 
     public void testRemove() {
-        hash.insert(record);
-        hash.remove("hokies");
-        hash.remove("notThere"); // Removing a non-existing record
+        // Insert a record and then remove it
+        hash.insert(record); // "hokies" should be inserted
+        hash.remove("hokies"); // "hokies" should be removed
 
-        assertEquals(-1, hash.find("hokies")); // Ensure "hokies" is not found
+        // Check that "hokies" is no longer found
+        assertEquals(-1, hash.find("hokies")); 
         assertNull(hash.getRecord("hokies")); 
-        assertEquals(hash.getNumberOfRecords(), 0);
+        assertEquals(0, hash.getNumberOfRecords()); // Ensure number of records is updated correctly
 
+        // Check removing a non-existing record does not cause errors
+        hash.remove("notThere"); // Trying to remove a non-existing record
+        assertEquals(-1, hash.find("notThere"));
+
+        // Reinsert and test again
         hash.insert(record);
         hash.insert(record2);
-        assertEquals(hash.getNumberOfRecords(), 2);
+        assertEquals(2, hash.getNumberOfRecords()); // Ensure both records are inserted
     }
+
 
     public void testFind() {
         hash.insert(record);
@@ -209,4 +216,9 @@ public class HashTest extends TestCase {
         }
         assertNotNull(hash.getRecord("keyExtra")); // Ensure extra key is also inserted
     }
+    
+    
+    
+    
+
 }

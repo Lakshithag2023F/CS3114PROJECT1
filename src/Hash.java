@@ -125,6 +125,13 @@ public class Hash {
     }
 
 
+    
+
+
+    
+    
+    
+    
     /**
      * Inserts new record into hash table
      * 
@@ -198,28 +205,49 @@ public class Hash {
      * @param key
      */
     
+//    public void remove(String key) {
+//        int index = h(key, allRecords.length);
+//        int temp = index;
+//        
+//        for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
+//        {
+//           
+//            temp = (index + (i * i)) % allRecords.length;
+//        }
+//        allRecords[temp].setTombstone();
+//        allRecords[temp] = tombstone;
+//
+//        numberOfRecords--;
+
+        
+    
+    
     public void remove(String key) {
+        
+
         int index = h(key, allRecords.length);
         int temp = index;
-        
-        for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
-        {
-           
-            temp = (index + (i * i)) % allRecords.length;
+
+        // Use quadratic probing to find the key
+        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey().equals(key); i++) {
+            temp = (index + (i * i)) % allRecords.length; // Update temp with quadratic probing
         }
-        allRecords[temp].setTombstone();
-        allRecords[temp] = tombstone;
 
-        numberOfRecords--;
+        // Check if the key is found and not null
+        if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
+         //   allRecords[temp].setTombstone();
+            allRecords[temp] = tombstone;
+            numberOfRecords--;
+        }
+    }
 
-        
         //int index = find(key);
         //if (int i = 1, index != -1) 
 //        {
 //            allRecords[index] = tombstone;
 //            numberOfRecords--;
 //        }
-    }
+    
 
 
 // public int find(String key) {
