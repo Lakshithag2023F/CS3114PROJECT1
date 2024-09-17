@@ -9,10 +9,10 @@ public class Graph {
     // ~ Constructors ..........................................................
     @SuppressWarnings("unchecked")
     public Graph(int maxSize) {
-        this.numberOfNodes = 0;
+        this.setNumberOfNodes(0);
         this.maxSize = maxSize;
-        this.numberOfNodes = 0;
-        this.vertex = new DoubleLL[maxSize];
+        this.setNumberOfNodes(0);
+        this.setVertex(new DoubleLL[maxSize]);
 
         array = new int[maxSize];
 
@@ -31,14 +31,14 @@ public class Graph {
      * @param node
      */
     public void newNode(Node node) {
-        if (numberOfNodes >= maxSize / 2) 
+        if (getNumberOfNodes() >= maxSize / 2) 
         {
             expand();
         }
         DoubleLL<Node> currentList = new DoubleLL<>();
         currentList.insert(node);
-        vertex[numberOfNodes] = currentList;
-        numberOfNodes++;
+        getVertex()[getNumberOfNodes()] = currentList;
+        setNumberOfNodes(getNumberOfNodes() + 1);
 
     }
 
@@ -122,40 +122,39 @@ public class Graph {
      * expand size of adjacency list array
      */
     public void expand() {
-        int newSize = numberOfNodes * 2; // Double the size of the array
+        int newSize = maxSize * 2; // Correctly double the current maxSize
         @SuppressWarnings("unchecked")
         DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
 
         // Copy old adjacency lists to the new array
-        for (int i = 0; i < numberOfNodes; i++) {
-            newAdjacencyList[i] = vertex[i];
+        for (int i = 0; i < getNumberOfNodes(); i++) {
+            newAdjacencyList[i] = getVertex()[i];
         }
 
         // Initialize the new parts of the array
-        for (int i = numberOfNodes; i < newSize; i++) {
+        for (int i = getNumberOfNodes(); i < newSize; i++) {
             newAdjacencyList[i] = new DoubleLL<>();
         }
 
         // Replace the old adjacency list with the new one
-        vertex = newAdjacencyList;
+        setVertex(newAdjacencyList);
         maxSize = newSize;
 
         System.out.println("Graph expanded to " + maxSize + " nodes.");
-
     }
 
 
     public void printGraph() {
-        int[] components = new int[numberOfNodes];
+        int[] components = new int[getNumberOfNodes()];
         int numberOfComponents = 0;
         int largestComponent = 0;
 
-        for (int i = 0; i < numberOfNodes; i++) {
+        for (int i = 0; i < getNumberOfNodes(); i++) {
             int root = find(i);
             components[root]++;
         }
 
-        for (int i = 0; i < numberOfNodes; i++) {
+        for (int i = 0; i < getNumberOfNodes(); i++) {
             if (components[i] > 0) {
                 numberOfComponents++;
                 if (components[i] > largestComponent) {
@@ -168,6 +167,22 @@ public class Graph {
             + " connected components");
         System.out.println("The largest connected component has "
             + largestComponent + " elements");
+    }
+
+    public int getNumberOfNodes() {
+        return numberOfNodes;
+    }
+
+    public void setNumberOfNodes(int numberOfNodes) {
+        this.numberOfNodes = numberOfNodes;
+    }
+
+    public DoubleLL<Node>[] getVertex() {
+        return vertex;
+    }
+
+    public void setVertex(DoubleLL<Node>[] vertex) {
+        this.vertex = vertex;
     }
 
 }
