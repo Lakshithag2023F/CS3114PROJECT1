@@ -23,7 +23,7 @@ public class Hash {
     public Hash(int size) {
         allRecords = new Record[size];
         numberOfRecords = 0;
-        tombstone = new Record(null, null);
+        tombstone = new Record(null, null, null);
     }
 
     // public methods
@@ -44,31 +44,69 @@ public class Hash {
         return allRecords;
     }
 
+    
+//    public void insert(Record record) {
+//        if (numberOfRecords >= allRecords.length / 2) {
+//            rehash(); // Perform rehashing if needed
+//
+//            // Determine the type of the record and print the appropriate message
+//            String type = record.getType();
+//            if ("song".equals(type)) {
+//                System.out.println("Song hash table size doubled.");
+//            } else if ("artist".equals(type)) {
+//                System.out.println("Artist hash table size doubled.");
+//            } else {
+//                System.out.println("Unknown type hash table size doubled."); // Fallback for unexpected types
+//            }
+//        }
+//
+//        String key = record.getKey();
+//        int home = h(key, allRecords.length); // Initial hash position
+//        int pos = home; // Current position in the probe sequence
+//
+//        System.out.println("Hash position for " + record.getType() + " '" + key + "': " + pos);
+//
+//        // Handle collisions with quadratic probing
+//        for (int i = 1; allRecords[pos] != null && tombstone != allRecords[pos]; i++) {
+//            if (key.equals(allRecords[pos].getKey())) {
+//                System.out.println("Duplicate found for key '" + key + "' at position " + pos);
+//                return; // Record with the same key already exists, no insertion needed
+//            }
+//            pos = (home + (i * i)) % allRecords.length; 
+//            System.out.println("Collision occurred, new position for '" + key + "': " + pos);
+//        }
+//
+//        allRecords[pos] = record;
+//        numberOfRecords++;
+//        System.out.println("Inserted '" + key + "' at position " + pos);
+//    }
 
-    // Insert e into hash table HT
-    // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * 
-     * @param record
-     */
+
     public void insert(Record record) {
         if (numberOfRecords >= allRecords.length / 2) {
             rehash(); // Perform rehashing if needed
-            //TODO print 
-            //figure out if the record is a song or artist print the fact that it was rehashed. 
+
+            // Determine the type of the record and print the appropriate message
+            String type = record.getType();
+            if ("song".equals(type)) {
+                System.out.println("Song hash table size doubled.");
+            } else if ("artist".equals(type)) {
+                System.out.println("Artist hash table size doubled.");
+            } else {
+                System.out.println("Unknown type hash table size doubled."); // Fallback for unexpected types
+            }
         }
 
         int home; // Home position for e
         String key = record.getKey();
         int pos = home = h(key, allRecords.length); // Init probe sequence
-        for (int i = 1; null != allRecords[pos]
-            || tombstone == allRecords[pos]; i++) {
-            if (key == allRecords[pos].getKey()) {
-                return;
+
+        // Handle collisions with quadratic probing
+        for (int i = 1; allRecords[pos] != null || tombstone == allRecords[pos]; i++) {
+            if (key.equals(allRecords[pos].getKey())) {
+                return; // Record with the same key already exists, no insertion needed
             }
             pos = (home + (i * i)) % allRecords.length; 
-            //System.out.println("quadtatic probing !!!!!!!!");// probe
         }
         allRecords[pos] = record;
         numberOfRecords++;
@@ -129,6 +167,20 @@ public class Hash {
         
 
     }
+    
+//    private void rehash() {
+//        Record[] oldRecords = allRecords;
+//        allRecords = new Record[oldRecords.length * 2];
+//        numberOfRecords = 0; // Reset number of records
+//
+//        for (Record record : oldRecords) {
+//            if (record != null && record != tombstone) {
+//                System.out.println("Rehashing record: " + record.getKey());
+//                insert(record); // Reinsert each existing record
+//            }
+//        }
+//    }
+
 
 
     /**
@@ -207,31 +259,17 @@ public class Hash {
      * Prints hash table contents
      */
     public void print() {
-
         for (int i = 0; i < allRecords.length; i++) {
             if (allRecords[i] != null && allRecords[i] != tombstone) {
                 System.out.println(i + ": |" + allRecords[i].getKey().trim() + "|");
+            } else if (allRecords[i] == tombstone) {
+                System.out.println(i + ": TOMBSTONE");
             }
-            //TODO if tombstone print TOMBSTONE
         }
-
     }
+
     
-    
-    
-   public void printTA() {
-
-       int count = 0;
-       for (int i = 0; i < allRecords.length; i++) {
-           if (allRecords[i] != null && allRecords[i] != tombstone) {
-               System.out.println(i + ": |" + allRecords[i].getKey().trim() + "|");
-           }
-           //TODO if tombstone print TOMBSTONE
-       }
-
-   }
-
-
+ 
 
     /**
      * Compute the hash function
