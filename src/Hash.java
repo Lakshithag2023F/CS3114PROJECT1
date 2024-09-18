@@ -125,13 +125,6 @@ public class Hash {
     }
 
 
-    
-
-
-    
-    
-    
-    
     /**
      * Inserts new record into hash table
      * 
@@ -204,50 +197,47 @@ public class Hash {
      * 
      * @param key
      */
-    
-//    public void remove(String key) {
-//        int index = h(key, allRecords.length);
-//        int temp = index;
-//        
-//        for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
-//        {
-//           
-//            temp = (index + (i * i)) % allRecords.length;
-//        }
-//        allRecords[temp].setTombstone();
-//        allRecords[temp] = tombstone;
-//
-//        numberOfRecords--;
 
-        
-    
-    
+// public void remove(String key) {
+// int index = h(key, allRecords.length);
+// int temp = index;
+//
+// for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
+// {
+//
+// temp = (index + (i * i)) % allRecords.length;
+// }
+// allRecords[temp].setTombstone();
+// allRecords[temp] = tombstone;
+//
+// numberOfRecords--;
+
     public void remove(String key) {
-        
 
         int index = h(key, allRecords.length);
         int temp = index;
 
         // Use quadratic probing to find the key
-        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey().equals(key); i++) {
-            temp = (index + (i * i)) % allRecords.length; // Update temp with quadratic probing
+        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey()
+            .equals(key); i++) {
+            temp = (index + (i * i)) % allRecords.length; // Update temp with
+                                                          // quadratic probing
         }
 
         // Check if the key is found and not null
         if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
-         //   allRecords[temp].setTombstone();
+            // allRecords[temp].setTombstone();
             allRecords[temp] = tombstone;
             numberOfRecords--;
         }
     }
 
-        //int index = find(key);
-        //if (int i = 1, index != -1) 
-//        {
-//            allRecords[index] = tombstone;
-//            numberOfRecords--;
-//        }
-    
+    // int index = find(key);
+    // if (int i = 1, index != -1)
+// {
+// allRecords[index] = tombstone;
+// numberOfRecords--;
+// }
 
 
 // public int find(String key) {
@@ -278,25 +268,49 @@ public class Hash {
      * @return integer value
      */
     public int find(String key) {
-
         int index = h(key, allRecords.length);
         int temp = index;
-        int i = 1;
 
-        while (allRecords[temp] != null && i < allRecords.length) 
-        {
+        // Improved for loop with added safety check to avoid infinite loops
+        for (int i = 1; allRecords[temp] != null
+            && i < allRecords.length; i++) {
             if (allRecords[temp] != tombstone && allRecords[temp].getKey()
                 .equals(key)) {
                 return temp;
             }
-            // index = (index + 1) % allRecords.length;
 
+            // Update temp using quadratic probing
             temp = (index + (i * i)) % allRecords.length;
-            i++;
+
+            // Break if we've looped back to the starting index
+            if (temp == index) {
+                break;
+            }
         }
 
         return -1;
     }
+
+// public int find(String key) {
+//
+// int index = h(key, allRecords.length);
+// int temp = index;
+// int i = 1;
+//
+// while (allRecords[temp] != null && i < allRecords.length)
+// {
+// if (allRecords[temp] != tombstone && allRecords[temp].getKey()
+// .equals(key)) {
+// return temp;
+// }
+// // index = (index + 1) % allRecords.length;
+//
+// temp = (index + (i * i)) % allRecords.length;
+// i++;
+// }
+//
+// return -1;
+// }
 
 
     // ----------------------------------------------------------

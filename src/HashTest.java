@@ -184,18 +184,7 @@ public class HashTest extends TestCase {
         }
     }
 
-    public void testSfold() throws Exception {
-        assertTrue(Hash.h("a", 10000) == 97);
-        assertTrue(Hash.h("b", 10000) == 98);
-        assertTrue(Hash.h("aaaa", 10000) == 1873);
-        assertTrue(Hash.h("aaab", 10000) == 9089);
-        assertTrue(Hash.h("baaa", 10000) == 1874);
-        assertTrue(Hash.h("aaaaaaa", 10000) == 3794);
-        assertTrue(Hash.h("Long Lonesome Blues", 10000) == 4635);
-        assertTrue(Hash.h("Long   Lonesome Blues", 10000) == 4159);
-        assertTrue(Hash.h("long Lonesome Blues", 10000) == 4667);
-    }
-
+    
     public void testRehashingWorks() {
         for (int i = 0; i < 6; i++) {
             Node node = new Node(i);
@@ -216,6 +205,203 @@ public class HashTest extends TestCase {
         }
         assertNotNull(hash.getRecord("keyExtra")); // Ensure extra key is also inserted
     }
+    
+    public void testSfold() throws Exception {
+        assertTrue(Hash.h("a", 10000) == 97);
+        assertTrue(Hash.h("b", 10000) == 98);
+        assertTrue(Hash.h("aaaa", 10000) == 1873);
+        assertTrue(Hash.h("aaab", 10000) == 9089);
+        assertTrue(Hash.h("baaa", 10000) == 1874);
+        assertTrue(Hash.h("aaaaaaa", 10000) == 3794);
+        assertTrue(Hash.h("Long Lonesome Blues", 10000) == 4635);
+        assertTrue(Hash.h("Long   Lonesome Blues", 10000) == 4159);
+        assertTrue(Hash.h("long Lonesome Blues", 10000) == 4667);
+    }
+
+  
+    
+    
+    public void testFindWithSingleCollision() {
+        // Insert two records that will cause a collision
+        Record record1 = new Record("key1", new Node(1), "artist");
+        Record record2 = new Record("key1Collide", new Node(2), "artist");
+
+        // Insert records into the hash table
+        hash.insert(record1);
+        hash.insert(record2);
+
+        // Find both records
+        int index1 = hash.find("key1");
+        int index2 = hash.find("key1Collide");
+
+        // Ensure both are found
+        assertTrue(index1 >= 0); // Ensure "key1" is found
+        assertTrue(index2 >= 0); // Ensure "key1Collide" is found
+
+        // Ensure they are not in the same slot
+        assertTrue(index1 != index2); // Different indices due to collision resolution
+        assertEquals(record1, hash.getRecord("key1")); 
+        assertEquals(record2, hash.getRecord("key1Collide"));
+    }
+
+    public void testFindWithMultipleCollisions() {
+        // Insert records that will cause multiple collisions
+        hash.insert(new Record("collision1", new Node(1), "song"));
+        hash.insert(new Record("collision2", new Node(2), "song"));
+        hash.insert(new Record("collision3", new Node(3), "song"));
+
+        // Ensure that all records are found and are not in the same index
+        int index1 = hash.find("collision1");
+        int index2 = hash.find("collision2");
+        int index3 = hash.find("collision3");
+
+        assertTrue(index1 >= 0);
+        assertTrue(index2 >= 0);
+        assertTrue(index3 >= 0);
+
+        assertFalse(index1 == index2); // Ensure different slots
+        assertFalse(index1 == index3); 
+        assertFalse(index2 == index3); 
+    }
+
+    public void testQuadraticProbingWrapAround() {
+        // Fill part of the table to create conditions for a wrap-around
+        for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
+            hash.insert(new Record("key" + i, new Node(i), "artist"));
+        }
+
+        // Insert a record that will wrap around due to quadratic probing
+        hash.insert(new Record("wrapAroundKey", new Node(100), "artist"));
+
+        // Ensure that the record is still found despite the wrap-around
+        int index = hash.find("wrapAroundKey");
+        assertTrue(index >= 0); // Ensure it is found
+        assertEquals("wrapAroundKey", hash.getRecord("wrapAroundKey").getKey());
+    }
+
+    
+    public void testFindWithFullTableProbing() {
+        // Fill the table to a safe threshold, leaving some empty slots
+        for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
+            hash.insert(new Record("key" + i, new Node(i), "song"));
+        }
+
+        // Insert a key that will require probing but won't cause timeout
+        int index = hash.find("key" + (hash.getAllRecords().length / 2 - 2));
+        assertTrue(index >= 0); // Ensure it finds the key
+
+        // Check that the probing loop handled the search correctly
+        Record result = hash.getRecord("key" + (hash.getAllRecords().length / 2 - 2));
+        assertNotNull(result);
+        assertEquals("key" + (hash.getAllRecords().length / 2 - 2), result.getKey());
+    }
+
+    public void testFindWithTombstones() {
+        // Insert and then remove records to create tombstones
+        hash.insert(new Record("toBeRemoved1", new Node(1), "artist"));
+        hash.insert(new Record("toBeRemoved2", new Node(2), "artist"));
+        hash.remove("toBeRemoved1");
+        hash.remove("toBeRemoved2");
+
+        // Insert a new record that will require probing past tombstones
+        hash.insert(new Record("newKeyAfterTombstones", new Node(3), "artist"));
+
+        // Ensure the key is found correctly
+        int index = hash.find("newKeyAfterTombstones");
+        assertTrue(index >= 0);
+        assertEquals("newKeyAfterTombstones", hash.getRecord("newKeyAfterTombstones").getKey());
+    }
+
+    
+
+    public void testRehashSongType() {
+        // Create a stream to capture the console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Fill the hash table to trigger rehash
+            for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
+                hash.insert(new Record("song" + i, new Node(i), "song"));
+            }
+
+            // Reset the output stream
+            outputStream.reset();
+            
+            // Insert a song record that will trigger rehash
+            hash.insert(new Record("testSong", new Node(1), "song"));
+
+            // Capture the output
+            String output = outputStream.toString().trim();
+
+            // Print the output to see what was captured (for debugging)
+            System.out.println("Captured output: " + output);
+
+            // Assert that the expected message is in the output
+            assertTrue(output.contains("Song hash table size doubled."));
+        } finally {
+            // Reset the System.out to its original stream
+            System.setOut(originalOut);
+        }
+    }
+
+    public void testRehashArtistType() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Fill the hash table to trigger rehash
+            for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
+                hash.insert(new Record("artist" + i, new Node(i), "artist"));
+            }
+
+            // Reset the output stream
+            outputStream.reset();
+            
+            // Insert an artist record that will trigger rehash
+            hash.insert(new Record("testArtist", new Node(2), "artist"));
+
+            String output = outputStream.toString().trim();
+            System.out.println("Captured output: " + output); // Debugging output
+
+            assertTrue(output.contains("Artist hash table size doubled."));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    public void testRehashUnknownType() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Fill the hash table to trigger rehash
+            for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
+                hash.insert(new Record("unknown" + i, new Node(i), "unknown"));
+            }
+
+            // Reset the output stream
+            outputStream.reset();
+            
+            // Insert an unknown record type that will trigger rehash
+            hash.insert(new Record("testUnknown", new Node(3), "unknown"));
+
+            String output = outputStream.toString().trim();
+            System.out.println("Captured output: " + output); // Debugging output
+
+            assertTrue(output.contains("Unknown type hash table size doubled."));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    
+    
+    
+    
     
     
     
