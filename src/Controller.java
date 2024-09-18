@@ -24,7 +24,6 @@ public class Controller {
         return ++nodeNumber;
     }
 
-
 //    public void insert(String artistName, String songName) {
 //        boolean artistFound = false;
 //        boolean songFound = false;

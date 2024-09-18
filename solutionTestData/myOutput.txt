@@ -30,6 +30,6 @@ The largest connected component has 8 elements
 |Ma Rainey| is removed from the Artist database.
 java.lang.NullPointerException: Cannot invoke "DoubleLL.remove(Object)" because "adjacency" is null
 	at Graph.removeNode(Graph.java:105)
-	at Controller.removeArtist(Controller.java:137)
+	at Controller.removeArtist(Controller.java:138)
 	at CommandProcessor.beginParsingByLine(CommandProcessor.java:48)
 	at GraphProject.main(GraphProject.java:43)

@@ -87,8 +87,7 @@ public class Graph {
     /**
      * remove node and edges
      */
-<<<<<<< Updated upstream
-    public void removeNode(Node node) {
+
 // DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
 // if (adjacencyList != null) {
 // //for (Node adjacentNode : adjacencyList)
@@ -99,29 +98,25 @@ public class Graph {
 // }
 // }
 
-=======
-    public void removeNode(Node node) 
-    {
-//        DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
-//        if (adjacencyList != null) {
-//            //for (Node adjacentNode : adjacencyList) 
-//            {
-//                // Remove the connection from the adjacent node's list
-//                //vertex[adjacentNode.getIndex()].remove(node);
-//            
-//        }
-//        }
-        
+    public void removeNode(Node node) {
+// DoubleLL<Node> adjacencyList = vertexF[node.getIndex()];
+// if (adjacencyList != null) {
+// //for (Node adjacentNode : adjacencyList)
+// {
+// // Remove the connection from the adjacent node's list
+// //vertex[adjacentNode.getIndex()].remove(node);
+//
+// }
+// }
+
         int index = node.getIndex();
         // look for connected nodes in vertex[index]
-        
+
         vertex[index] = null;
         for (int i = 0; i < maxSize; i++) {
             DoubleLL<Node> adjacency = vertex[i];
             adjacency.remove(node);
         }
-            
->>>>>>> Stashed changes
     }
 
 
