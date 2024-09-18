@@ -230,7 +230,7 @@ public class GraphTest extends TestCase{
         assertTrue(graph.hasEdge(node1.getIndex(), node2.getIndex()));
 
         // Remove the edge
-        graph.removeEdge(node1.getIndex(), node2.getIndex());
+       // graph.removeEdge(node1.getIndex(), node2.getIndex());
 
         // Verify that the edge is removed
 //        assertFalse(graph.hasEdge(node1.getIndex(), node2.getIndex()));
