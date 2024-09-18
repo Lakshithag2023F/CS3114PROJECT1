@@ -121,7 +121,7 @@ public class Hash {
             pos = (home + (i * i)) % allRecords.length;
         }
         allRecords[pos] = record;
-        numberOfRecords++;
+        numberOfRecords++; 
     }
 
 
@@ -173,6 +173,7 @@ public class Hash {
             if (record != null && record != tombstone) {
                 insert(record); // Reinsert each existing record using the
                                 // updated insert method
+               
             }
         }
 
@@ -293,7 +294,7 @@ public class Hash {
 
         // Improved for loop with added safety check to avoid infinite loops
         for (int i = 1; allRecords[temp] != null
-            && i < allRecords.length; i++) {
+            && allRecords[temp] != tombstone && i < allRecords.length; i++) {
             if (allRecords[temp] != tombstone && allRecords[temp].getKey()
                 .equals(key)) {
                 return temp;
@@ -307,6 +308,7 @@ public class Hash {
                 break;
             }
         }
+        // skip tombstone instead of ignoring
 
         return -1;
     }

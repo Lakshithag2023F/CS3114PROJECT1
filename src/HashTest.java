@@ -120,7 +120,7 @@ public class HashTest extends TestCase {
         hash.insert(record2);
         assertEquals(2, hash.getNumberOfRecords()); // Ensure both records are inserted
     }
-
+  
 
     public void testFind() {
         hash.insert(record);

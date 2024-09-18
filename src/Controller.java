@@ -15,6 +15,8 @@ public class Controller {
         nodeNumber = -1;
 
     }
+    // fix advanced insert for hash before anything else, write additional test cases
+    // issue is from when doubling size of hash table
     // ~Public Methods ........................................................
 
 
@@ -92,8 +94,7 @@ public class Controller {
             System.out.println("|" + artistName + "| is added to the Artist database.");
         } else {
             artistNode = artist.getRecord(artistName).getNode();
-            artistFound = true;
-        }
+        }  
 
         // Check for a song node
         Node songNode = null;
@@ -107,7 +108,6 @@ public class Controller {
             fullGraph.newNode(songNode);
             System.out.println("|" + songName + "| is added to the Song database.");
         } else {
-            songFound = true;
             songNode = song.getRecord(songName).getNode();
         }
 

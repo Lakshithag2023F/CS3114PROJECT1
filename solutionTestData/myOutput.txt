@@ -9,14 +9,12 @@ The largest connected component has 0 elements
 |Long   Lonesome Blues| is added to the Song database.
 |long Lonesome Blues| is added to the Song database.
 |Ma Rainey| is added to the Artist database.
-Graph expanded to 10 nodes.
 |Ma Rainey's Black Bottom| is added to the Song database.
-Graph expanded to 12 nodes.
 |Mississippi Boweavil Blues| is added to the Song database.
-Graph expanded to 14 nodes.
+Song hash table size doubled.
 |Fixin' To Die Blues| is added to the Song database.
-2: | Blind Lemon Jefferson|
-9: | Ma Rainey|
+0: |Blind Lemon Jefferson|
+7: |Ma Rainey|
 total artists: 2
 1: |Fixin' To Die Blues|
 2: |Mississippi Boweavil Blues|
@@ -29,7 +27,9 @@ There are 1 connected components
 The largest connected component has 8 elements
 |Sleepy| does not exist in the Song database.
 |ma rainey| does not exist in the Artist database.
-|Ma Rainey| does not exist in the Artist database.
-2: | Blind Lemon Jefferson|
-9: | Ma Rainey|
-total artists: 2
+|Ma Rainey| is removed from the Artist database.
+java.lang.NullPointerException: Cannot invoke "DoubleLL.remove(Object)" because "adjacency" is null
+	at Graph.removeNode(Graph.java:105)
+	at Controller.removeArtist(Controller.java:137)
+	at CommandProcessor.beginParsingByLine(CommandProcessor.java:48)
+	at GraphProject.main(GraphProject.java:43)
