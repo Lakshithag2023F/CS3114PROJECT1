@@ -77,7 +77,7 @@ public class Controller {
 
         // Trim whitespace from artist and song names
         artistName = artistName.trim();
-        songName = songName.trim();
+        songName = songName.trim(); 
 
         // Check for an artist node
         Node artistNode = null;

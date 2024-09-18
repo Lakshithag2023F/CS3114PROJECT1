@@ -31,13 +31,16 @@ public class Graph {
      * @param node
      */
     public void newNode(Node node) {
-        if (getNumberOfNodes() >= maxSize / 2) 
-        {
+        if (getNumberOfNodes() >= maxSize / 2) {
             expand();
         }
         DoubleLL<Node> currentList = new DoubleLL<>();
-        currentList.insert(node);
-        getVertex()[getNumberOfNodes()] = currentList;
+        // currentList.insert(node);
+        // getVertex()[getNumberOfNodes()] = currentList;
+        getVertex()[node.getIndex()] = currentList; // node of the graph should
+                                                    // be the same as the one in
+                                                    // the adjacenty list
+
         setNumberOfNodes(getNumberOfNodes() + 1);
 
     }
@@ -84,18 +87,17 @@ public class Graph {
     /**
      * remove node and edges
      */
-    public void removeNode(Node node) 
-    {
-//        DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
-//        if (adjacencyList != null) {
-//            //for (Node adjacentNode : adjacencyList) 
-//            {
-//                // Remove the connection from the adjacent node's list
-//                //vertex[adjacentNode.getIndex()].remove(node);
-//            
-//        }
-//        }
-            
+    public void removeNode(Node node) {
+// DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
+// if (adjacencyList != null) {
+// //for (Node adjacentNode : adjacencyList)
+// {
+// // Remove the connection from the adjacent node's list
+// //vertex[adjacentNode.getIndex()].remove(node);
+//
+// }
+// }
+
     }
 
 
@@ -140,7 +142,7 @@ public class Graph {
         setVertex(newAdjacencyList);
         maxSize = newSize;
 
-        //System.out.println("Graph expanded to " + maxSize + " nodes.");
+        // System.out.println("Graph expanded to " + maxSize + " nodes.");
     }
 
 
@@ -169,17 +171,21 @@ public class Graph {
             + largestComponent + " elements");
     }
 
+
     public int getNumberOfNodes() {
         return numberOfNodes;
     }
+
 
     public void setNumberOfNodes(int numberOfNodes) {
         this.numberOfNodes = numberOfNodes;
     }
 
+
     public DoubleLL<Node>[] getVertex() {
         return vertex;
     }
+
 
     public void setVertex(DoubleLL<Node>[] vertex) {
         this.vertex = vertex;
