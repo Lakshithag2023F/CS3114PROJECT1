@@ -28,8 +28,6 @@ The largest connected component has 8 elements
 |Sleepy| does not exist in the Song database.
 |ma rainey| does not exist in the Artist database.
 |Ma Rainey| is removed from the Artist database.
-java.lang.NullPointerException: Cannot invoke "DoubleLL.remove(Object)" because "adjacency" is null
-	at Graph.removeNode(Graph.java:105)
-	at Controller.removeArtist(Controller.java:138)
-	at CommandProcessor.beginParsingByLine(CommandProcessor.java:48)
-	at GraphProject.main(GraphProject.java:43)
+0: |Blind Lemon Jefferson|
+7: TOMBSTONE
+total artists: 1

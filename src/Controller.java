@@ -73,8 +73,6 @@ public class Controller {
 
     
     public void insert(String artistName, String songName) {
-        boolean artistFound = false;
-        boolean songFound = false;
 
         // Trim whitespace from artist and song names
         artistName = artistName.trim();
