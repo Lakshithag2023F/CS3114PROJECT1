@@ -82,44 +82,44 @@ public class GraphTest extends TestCase{
     public void testNewNode() {
         // Setup: Initialize the graph structure
         int initialMaxSize = 4; // Example initial size
-        Graph graph = new Graph(initialMaxSize); // Assuming you have a Graph class that uses DoubleLL
+        Graph graph = new Graph(initialMaxSize);
 
         // Insert nodes to trigger expansion
-        Node node1 = new Node(1);
+        Node node1 = new Node(0);
         graph.newNode(node1);
-        assertNotNull(graph.getVertex()[0]); // Check that the first node is added
-        assertEquals(node1, graph.getVertex()[0].getHeadData()); // Verify correct insertion
+        assertNotNull(graph.getVertex()[node1.getIndex()]); // Check that the adjacency list is initialized
+        assertEquals(0, graph.getVertex()[node1.getIndex()].getSize()); // Adjacency list should be empty
         assertEquals(1, graph.getNumberOfNodes()); // Verify number of nodes increment
 
-        // Continue inserting nodes to reach the expansion threshold
-        Node node2 = new Node(2);
+        // Continue inserting nodes
+        Node node2 = new Node(1);
         graph.newNode(node2);
-        assertNotNull(graph.getVertex()[1]); // Check that the second node is added
-        assertEquals(node2, graph.getVertex()[1].getHeadData()); // Verify correct insertion
-        assertEquals(2, graph.getNumberOfNodes()); // Verify number of nodes increment
+        assertNotNull(graph.getVertex()[node2.getIndex()]);
+        assertEquals(0, graph.getVertex()[node2.getIndex()].getSize());
+        assertEquals(2, graph.getNumberOfNodes());
 
-        Node node3 = new Node(3);
+        Node node3 = new Node(2);
         graph.newNode(node3);
-        assertNotNull(graph.getVertex()[2]); // Check that the third node is added
-        assertEquals(node3, graph.getVertex()[2].getHeadData()); // Verify correct insertion
-        assertEquals(3, graph.getNumberOfNodes()); // Verify number of nodes increment
+        assertNotNull(graph.getVertex()[node3.getIndex()]);
+        assertEquals(0, graph.getVertex()[node3.getIndex()].getSize());
+        assertEquals(3, graph.getNumberOfNodes());
 
         // Trigger expansion by inserting another node
-        Node node4 = new Node(4);
+        Node node4 = new Node(3);
         graph.newNode(node4);
-        
+
         // Assert that expansion has occurred
         assertEquals(8, graph.getVertex().length); // Check that the vertex array size has doubled (initially 4, now 8)
         assertEquals(4, graph.getNumberOfNodes()); // Verify number of nodes after expansion
 
-        // Insert another node to continue testing post-expansion
-        Node node5 = new Node(5);
+        // Insert another node post-expansion
+        Node node5 = new Node(4);
         graph.newNode(node5);
-        assertNotNull(graph.getVertex()[4]); // Check that the fifth node is added
-        assertEquals(node5, graph.getVertex()[4].getHeadData()); // Verify correct insertion
-        assertEquals(5, graph.getNumberOfNodes()); // Verify number of nodes increment post-expansion
+        assertNotNull(graph.getVertex()[node5.getIndex()]);
+        assertEquals(0, graph.getVertex()[node5.getIndex()].getSize());
+        assertEquals(5, graph.getNumberOfNodes());
     }
-    
+
     public void testPrintGraph2() {
         // Initialize the graph with 6 nodes
         int initialSize = 6;

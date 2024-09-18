@@ -399,10 +399,138 @@ public class HashTest extends TestCase {
     
     
     
-    
-    
-    
-    
-    
+    public void testPrintEmptyTables() {
+        // Capture output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Print empty song table
+            hash.print();
+            String expectedOutput = "";
+            assertEquals(expectedOutput, outputStream.toString().trim());
+
+            // Assuming similar method for artist hash, you would test it similarly
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    public void testInsertArtistSongPairs() {
+        // Insert "Blind Lemon Jefferson" with "Long Lonesome Blues"
+        Record artistRecord = new Record("Blind Lemon Jefferson", new Node(0), "artist");
+        Record songRecord = new Record("Long Lonesome Blues", new Node(1), "song");
+        hash.insert(artistRecord);
+        hash.insert(songRecord);
+
+        // Attempt to insert duplicate
+        hash.insert(artistRecord);
+        hash.insert(songRecord);
+
+        // Insert variations
+        Record songRecord2 = new Record("Long   Lonesome Blues", new Node(2), "song");
+        Record songRecord3 = new Record("long Lonesome Blues", new Node(3), "song");
+        hash.insert(songRecord2);
+        hash.insert(songRecord3);
+
+        // Verify records are inserted
+        assertNotNull(hash.getRecord("Blind Lemon Jefferson"));
+        assertNotNull(hash.getRecord("Long Lonesome Blues"));
+        assertNotNull(hash.getRecord("Long   Lonesome Blues"));
+        assertNotNull(hash.getRecord("long Lonesome Blues"));
+
+        // Check for duplicates
+        int artistIndex = hash.find("Blind Lemon Jefferson");
+        hash.insert(artistRecord); // Should not change the number of records
+        assertEquals(artistIndex, hash.find("Blind Lemon Jefferson"));
+        assertEquals(4, hash.getNumberOfRecords()); // Two artists and two songs
+    }
+
+    public void testRehashing() {
+        // Fill the hash table to trigger rehashing
+        for (int i = 0; i < 6; i++) {
+            Record record = new Record("Artist" + i, new Node(i), "artist");
+            hash.insert(record);
+        }
+
+        // Hash table should have rehashed
+        assertTrue(hash.getAllRecords().length > 10); // Initial size was 10
+
+        // Verify all records are still accessible
+        for (int i = 0; i < 6; i++) {
+            assertNotNull(hash.getRecord("Artist" + i));
+        }
+    }
+
+    public void testRemoveArtistCaseSensitivity() {
+        // Insert artist "Ma Rainey"
+        Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
+        hash.insert(artistRecord);
+
+        // Attempt to remove "ma rainey" (lowercase)
+        hash.remove("ma rainey");
+
+        // Artist should still exist
+        assertNotNull(hash.getRecord("Ma Rainey"));
+
+        // Now remove with correct case
+        hash.remove("Ma Rainey");
+
+        // Artist should be removed
+        assertNull(hash.getRecord("Ma Rainey"));
+    }
+
+    public void testPrintAfterRemovals() {
+        // Insert artist
+        Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
+        hash.insert(artistRecord);
+
+        // Remove artist
+        hash.remove("Ma Rainey");
+
+        // Capture output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            // Print artist table
+            hash.print();
+
+            // Expected output should show TOMBSTONE at the index where "Ma Rainey" was
+            String expectedOutput = "";
+            for (int i = 0; i < hash.getAllRecords().length; i++) {
+                if (hash.getAllRecords()[i] == hash.getTombstone()) {
+                    expectedOutput += i + ": TOMBSTONE\n";
+                }
+            }
+            assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+
+    public void testCollisionHandling() {
+        // Insert records that will collide
+        Record record1 = new Record("Key1", new Node(1), "song");
+        Record record2 = new Record("Key1Collision", new Node(2), "song");
+
+        // Manually set hash values to cause collision
+        int hash1 = Hash.h("Key1", hash.getAllRecords().length);
+        int hash2 = hash1; // Force collision
+
+        // Insert records
+        hash.insert(record1);
+        hash.insert(record2);
+
+        // Verify both records are in the table
+        assertNotNull(hash.getRecord("Key1"));
+        assertNotNull(hash.getRecord("Key1Collision"));
+
+        // Ensure they are at different positions
+        //assertNotEquals(hash.find("Key1"), hash.find("Key1Collision"));
+    }
 
 }

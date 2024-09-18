@@ -98,26 +98,45 @@ public class Graph {
 // }
 // }
 
-    public void removeNode(Node node) {
-// DoubleLL<Node> adjacencyList = vertexF[node.getIndex()];
-// if (adjacencyList != null) {
-// //for (Node adjacentNode : adjacencyList)
-// {
-// // Remove the connection from the adjacent node's list
-// //vertex[adjacentNode.getIndex()].remove(node);
+//    public void removeNode(Node node) {
+//// DoubleLL<Node> adjacencyList = vertexF[node.getIndex()];
+//// if (adjacencyList != null) {
+//// //for (Node adjacentNode : adjacencyList)
+//// {
+//// // Remove the connection from the adjacent node's list
+//// //vertex[adjacentNode.getIndex()].remove(node);
+////
+//// }
+//// }
 //
-// }
-// }
-
+//        int index = node.getIndex();
+//        // look for connected nodes in vertex[index]
+//
+//        vertex[index] = null;
+//        for (int i = 0; i < maxSize; i++) {
+//            DoubleLL<Node> adjacency = vertex[i];
+//            adjacency.remove(node);
+//        }
+//    }
+    
+    
+    public void removeNode(Node node) {
         int index = node.getIndex();
-        // look for connected nodes in vertex[index]
 
+        // Remove the adjacency list for this node
         vertex[index] = null;
+
+        // Remove this node from the adjacency lists of other nodes
         for (int i = 0; i < maxSize; i++) {
-            DoubleLL<Node> adjacency = vertex[i];
-            adjacency.remove(node);
+            if (vertex[i] != null) {
+                vertex[i].remove(node);
+            }
         }
+
+        // Update the Union-Find parent array
+        array[index] = -1;
     }
+
 
 
     public void union(int node1, int node2) {
@@ -142,27 +161,58 @@ public class Graph {
     /**
      * expand size of adjacency list array
      */
+//    public void expand() {
+//        int newSize = maxSize * 2; // Correctly double the current maxSize
+//        @SuppressWarnings("unchecked")
+//        DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
+//
+//        // Copy old adjacency lists to the new array
+//        for (int i = 0; i < getNumberOfNodes(); i++) {
+//            newAdjacencyList[i] = getVertex()[i];
+//        }
+//
+//        // Initialize the new parts of the array
+//        for (int i = getNumberOfNodes(); i < newSize; i++) {
+//            newAdjacencyList[i] = new DoubleLL<>();
+//        }
+//
+//        // Replace the old adjacency list with the new one
+//        setVertex(newAdjacencyList);
+//        maxSize = newSize;
+//
+//        // System.out.println("Graph expanded to " + maxSize + " nodes.");
+//    }
+    
     public void expand() {
         int newSize = maxSize * 2; // Correctly double the current maxSize
         @SuppressWarnings("unchecked")
         DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
 
         // Copy old adjacency lists to the new array
-        for (int i = 0; i < getNumberOfNodes(); i++) {
-            newAdjacencyList[i] = getVertex()[i];
+        for (int i = 0; i < maxSize; i++) { // Use maxSize instead of getNumberOfNodes()
+            newAdjacencyList[i] = vertex[i];
         }
 
-        // Initialize the new parts of the array
-        for (int i = getNumberOfNodes(); i < newSize; i++) {
-            newAdjacencyList[i] = new DoubleLL<>();
-        }
+        // No need to initialize the rest of the array; we'll handle it when adding new nodes
 
         // Replace the old adjacency list with the new one
         setVertex(newAdjacencyList);
-        maxSize = newSize;
 
-        // System.out.println("Graph expanded to " + maxSize + " nodes.");
+        // Expand the Union-Find array
+        int[] newArray = new int[newSize];
+        // Copy old Union-Find parent array
+        for (int i = 0; i < maxSize; i++) {
+            newArray[i] = array[i];
+        }
+        // Initialize the rest of the array
+        for (int i = maxSize; i < newSize; i++) {
+            newArray[i] = -1;
+        }
+        array = newArray;
+
+        maxSize = newSize;
     }
+
 
 
     public void printGraph() {
