@@ -74,17 +74,6 @@ public class Graph {
 
 
     /**
-     * removes edge between nodes
-     */
-    public void removeEdge(int artistNode, int songNode) {
-        // implemetn TODO
-        if (hasEdge(artistNode, songNode)) {
-            //
-        }
-    }
-
-
-    /**
      * remove node and edges
      */
 
@@ -98,7 +87,7 @@ public class Graph {
 // }
 // }
 
-//    public void removeNode(Node node) {
+// public void removeNode(Node node) {
 //// DoubleLL<Node> adjacencyList = vertexF[node.getIndex()];
 //// if (adjacencyList != null) {
 //// //for (Node adjacentNode : adjacencyList)
@@ -109,21 +98,21 @@ public class Graph {
 //// }
 //// }
 //
-//        int index = node.getIndex();
-//        // look for connected nodes in vertex[index]
+// int index = node.getIndex();
+// // look for connected nodes in vertex[index]
 //
-//        vertex[index] = null;
-//        for (int i = 0; i < maxSize; i++) {
-//            DoubleLL<Node> adjacency = vertex[i];
-//            adjacency.remove(node);
-//        }
-//    }
-    
-    
+// vertex[index] = null;
+// for (int i = 0; i < maxSize; i++) {
+// DoubleLL<Node> adjacency = vertex[i];
+// adjacency.remove(node);
+// }
+// }
+
     public void removeNode(Node node) {
         int index = node.getIndex();
 
         // Remove the adjacency list for this node
+
         vertex[index] = null;
 
         // Remove this node from the adjacency lists of other nodes
@@ -136,7 +125,6 @@ public class Graph {
         // Update the Union-Find parent array
         array[index] = -1;
     }
-
 
 
     public void union(int node1, int node2) {
@@ -161,39 +149,41 @@ public class Graph {
     /**
      * expand size of adjacency list array
      */
-//    public void expand() {
-//        int newSize = maxSize * 2; // Correctly double the current maxSize
-//        @SuppressWarnings("unchecked")
-//        DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
+// public void expand() {
+// int newSize = maxSize * 2; // Correctly double the current maxSize
+// @SuppressWarnings("unchecked")
+// DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
 //
-//        // Copy old adjacency lists to the new array
-//        for (int i = 0; i < getNumberOfNodes(); i++) {
-//            newAdjacencyList[i] = getVertex()[i];
-//        }
+// // Copy old adjacency lists to the new array
+// for (int i = 0; i < getNumberOfNodes(); i++) {
+// newAdjacencyList[i] = getVertex()[i];
+// }
 //
-//        // Initialize the new parts of the array
-//        for (int i = getNumberOfNodes(); i < newSize; i++) {
-//            newAdjacencyList[i] = new DoubleLL<>();
-//        }
+// // Initialize the new parts of the array
+// for (int i = getNumberOfNodes(); i < newSize; i++) {
+// newAdjacencyList[i] = new DoubleLL<>();
+// }
 //
-//        // Replace the old adjacency list with the new one
-//        setVertex(newAdjacencyList);
-//        maxSize = newSize;
+// // Replace the old adjacency list with the new one
+// setVertex(newAdjacencyList);
+// maxSize = newSize;
 //
-//        // System.out.println("Graph expanded to " + maxSize + " nodes.");
-//    }
-    
+// // System.out.println("Graph expanded to " + maxSize + " nodes.");
+// }
+
     public void expand() {
         int newSize = maxSize * 2; // Correctly double the current maxSize
         @SuppressWarnings("unchecked")
         DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
 
         // Copy old adjacency lists to the new array
-        for (int i = 0; i < maxSize; i++) { // Use maxSize instead of getNumberOfNodes()
+        for (int i = 0; i < maxSize; i++) { // Use maxSize instead of
+                                            // getNumberOfNodes()
             newAdjacencyList[i] = vertex[i];
         }
 
-        // No need to initialize the rest of the array; we'll handle it when adding new nodes
+        // No need to initialize the rest of the array; we'll handle it when
+        // adding new nodes
 
         // Replace the old adjacency list with the new one
         setVertex(newAdjacencyList);
@@ -212,7 +202,6 @@ public class Graph {
 
         maxSize = newSize;
     }
-
 
 
     public void printGraph() {
