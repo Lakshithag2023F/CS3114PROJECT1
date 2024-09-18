@@ -198,39 +198,59 @@ public class Hash {
      * @param key
      */
 
-// public void remove(String key) {
-// int index = h(key, allRecords.length);
-// int temp = index;
+ public void remove(String key) {
+     
+ int index = h(key, allRecords.length);
+ int temp = index;
+
+ for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
+ {
+ temp = (index + (i * i)) % allRecords.length;
+ }
+ allRecords[temp] = tombstone;
+ allRecords[temp].setKey("Tombstone");
+
+  numberOfRecords--;
+  
+ }
+
+//    public void remove(String key) {
 //
-// for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
-// {
+//        int index = h(key, allRecords.length);
+//        int temp = index;
 //
-// temp = (index + (i * i)) % allRecords.length;
-// }
-// allRecords[temp].setTombstone();
-// allRecords[temp] = tombstone;
+//        // Use quadratic probing to find the key
+//        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey()
+//            .equals(key); i++) {
+//            temp = (index + (i * i)) % allRecords.length; // Update temp with
+//                                                          // quadratic probing
+//        }
 //
-// numberOfRecords--;
-
-    public void remove(String key) {
-
-        int index = h(key, allRecords.length);
-        int temp = index;
-
-        // Use quadratic probing to find the key
-        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey()
-            .equals(key); i++) {
-            temp = (index + (i * i)) % allRecords.length; // Update temp with
-                                                          // quadratic probing
-        }
-
-        // Check if the key is found and not null
-        if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
-            // allRecords[temp].setTombstone();
-            allRecords[temp] = tombstone;
-            numberOfRecords--;
-        }
-    }
+//        // Check if the key is found and not null
+//        if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
+//            allRecords[temp].setKey("TOMBSTONE");
+//            allRecords[temp] = tombstone;
+//            numberOfRecords--;
+//        }
+//    }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
     // int index = find(key);
     // if (int i = 1, index != -1)
