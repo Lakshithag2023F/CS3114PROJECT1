@@ -163,5 +163,83 @@ public class GraphTest extends TestCase{
         System.setOut(System.out);
     }
 
+    
+    public void testRemoveNode() {
+        // Initialize the graph
+        Graph graph = new Graph(10);
+
+        // Add nodes and edges
+        Node artistNode = new Node(0);
+        Node songNode1 = new Node(1);
+        Node songNode2 = new Node(2);
+
+        graph.newNode(artistNode);
+        graph.newNode(songNode1);
+        graph.newNode(songNode2);
+
+        // Add edges
+        graph.addEdge(artistNode.getIndex(), songNode1.getIndex());
+        graph.addEdge(artistNode.getIndex(), songNode2.getIndex());
+
+        // Verify initial connections
+        assertTrue(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));
+        assertTrue(graph.hasEdge(artistNode.getIndex(), songNode2.getIndex()));
+
+        // Remove artist node
+        graph.removeNode(artistNode);
+
+        // Verify that the artist node's adjacency list is null
+        assertNull(graph.getVertex()[artistNode.getIndex()]);
+
+        // Verify that the artist node is removed from other nodes' adjacency lists
+        assertFalse(graph.getVertex()[songNode1.getIndex()].contains(artistNode));
+        assertFalse(graph.getVertex()[songNode2.getIndex()].contains(artistNode));
+
+        // Verify that edges are no longer present
+        assertFalse(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));
+        assertFalse(graph.hasEdge(artistNode.getIndex(), songNode2.getIndex()));
+    }
+
+    
+    
+    public void testRemoveNonExistentNode() {
+        Graph graph = new Graph(10);
+
+        // Attempt to remove a node that doesn't exist
+        Node nonExistentNode = new Node(5);
+        graph.removeNode(nonExistentNode);
+
+        // Since the node doesn't exist, the graph should remain unchanged
+        assertEquals(0, graph.getNumberOfNodes());
+        // No exception should be thrown
+    }
+
+    
+    public void testRemoveEdge2() {
+        // Initialize the graph
+        Graph graph = new Graph(10);
+
+        // Add nodes and edges
+        Node node1 = new Node(0);
+        Node node2 = new Node(1);
+        graph.newNode(node1);
+        graph.newNode(node2);
+        graph.addEdge(node1.getIndex(), node2.getIndex());
+
+        // Verify initial connection
+        assertTrue(graph.hasEdge(node1.getIndex(), node2.getIndex()));
+
+        // Remove the edge
+        graph.removeEdge(node1.getIndex(), node2.getIndex());
+
+        // Verify that the edge is removed
+        assertFalse(graph.hasEdge(node1.getIndex(), node2.getIndex()));
+
+        // Verify that nodes still exist
+        assertNotNull(graph.getVertex()[node1.getIndex()]);
+        assertNotNull(graph.getVertex()[node2.getIndex()]);
+    }
+
+
 }
 
