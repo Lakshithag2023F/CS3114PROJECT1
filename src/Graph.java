@@ -110,7 +110,12 @@ public class Graph {
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
                 removeEdge(index, toRemove);
-                //array[toRemove] = toRemove;
+                if (vertex[toRemove].getSize() != 2) {
+                    array[toRemove] = toRemove;
+                }
+                else {
+                    array[toRemove] = vertex[toRemove].getNext();
+                }
 
             }
         }
@@ -125,7 +130,7 @@ public class Graph {
         int root2 = find(node2);
         if (root1 != root2) {
 
-            array[root1] = root2;
+            array[root2] = root1;
         }
 
     }
@@ -133,13 +138,11 @@ public class Graph {
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
-        if (array[curr] == -1) {
-            return curr; // This node is the root
+        if (array[curr] == -1 || array[curr] == curr) {
+            return curr;
         }
-
         array[curr] = find(array[curr]);
         return array[curr];
-        // return curr;
 
     }
 
@@ -228,5 +231,7 @@ public class Graph {
     public void setVertex(DoubleLL<Node>[] vertex) {
         this.vertex = vertex;
     }
+
+
 
 }

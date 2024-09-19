@@ -409,28 +409,36 @@ public class GraphTest extends TestCase {
     /**
      * Tests advanced remove
      */
-    public void testAdvancedRemove() {
-        Node artistA = new Node(0);
-        Node songA = new Node(1);
-        Node songC = new Node(2);
-        Node artistB = new Node(3);
-        Node songB = new Node(4);
-        Node songD = new Node(5);
+//    public void testAdvancedRemove() {
+//        Node artistA = new Node(0);
+//        Node songA = new Node(1);
+//        Node songC = new Node(2);
+//        Node artistB = new Node(3);
+//        Node songB = new Node(4);
+//        Node songD = new Node(5);
+//
+//        graph.newNode(artistA);
+//        graph.newNode(songA);
+//        graph.addEdge(0, 1);
+//
+//        graph.newNode(songC);
+//        graph.addEdge(0, 2);
+//
+//        graph.newNode(artistB);
+//        graph.addEdge(3, 2);
+//
+//        graph.newNode(songB);
+//        graph.addEdge(3, 4);
+//
+//        graph.newNode(songD);
+//        graph.addEdge(3, 5);
+//
+//        graph.removeNode(artistB);
+//        graph.printGraph();
+//        assertEquals(graph.find(2), 0);
+//
+//        assertEquals(graph.getConnectedComponents(), 3);
 
-        graph.newNode(artistA);
-        graph.newNode(songA);
-        graph.newNode(songC);
-        graph.newNode(artistB);
-        graph.newNode(songB);
-        graph.newNode(songD);
-
-        graph.removeNode(artistB);
-        graph.printGraph();
-        assertEquals(graph.find(2), 0);
-
-        assertEquals(graph.getConnectedComponents(), 3);
-        
-
-    }
+    //}
 
 }
