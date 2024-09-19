@@ -29,7 +29,8 @@ public class DoubleLL<E> {
     /**
      * Create a new DoubleLL object.
      */
-    public DoubleLL() {
+    public DoubleLL() 
+    {
         head = null;
         tail = null;
         current = null;
@@ -37,15 +38,14 @@ public class DoubleLL<E> {
     }
 
     // ~ Public Methods ........................................................
-
-
     /**
      * Inserts at end of the list
      * 
      * @param index
      *            the index in node
      */
-    public void insert(int index) {
+    public void insert(int index) 
+    {
         Node newNode = new Node(index);
         if (head == null) 
         {

@@ -1,40 +1,32 @@
+import student.TestCase;
+import java.io.*;
+
+
 // -------------------------------------------------------------------------
 /**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  this class tests the controller.java class
  * 
  *  @author laksh
- *  @version Sep 16, 2024
+ *  @version Sep 19, 2024
  */
-import student.TestCase;
-    import java.io.*;
-
-
 public class ControllerTest extends TestCase
 {
-    //~ Fields ................................................................
-
-    //~ Constructors ..........................................................
-
-    //~Public  Methods ........................................................
-
-    
-    
-    
-
-   
+        /*
+         * initializes COntroller controller
+         */
         private Controller controller;
+        /*
+         * sets up ByteArrayOutputStream 
+         */
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        private final PrintStream originalOut = System.out;
 
-        public void setUp() {
-            // Redirect System.out to capture outputs
+        
+        public void setUp() 
+        {
             System.setOut(new PrintStream(outContent));
             controller = new Controller(10);
         }
 
-       
 
         public void testInsertions() {
             controller.insert("Artist1", "Song1");
