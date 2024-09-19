@@ -14,15 +14,44 @@ public class GraphTest extends TestCase {
     // ~Public Methods ........................................................
 
 
-    public void testAddEdge1() {
-        try {
-            graph.addEdge(1, 2);
-        }
-        catch (NullPointerException e) {
-            System.out.println("Null point error.");
-        }
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
+    /**
+     * Tests adding edge between two valid nodes
+     */
+    public void testAddEdgeValid() {
+        Graph graph = new Graph(10);
+        graph.newNode(new Node(0));
+        graph.newNode(new Node(1));
+
+        graph.addEdge(0, 1);
+        assertTrue(graph.hasEdge(0, 1));
+        assertTrue(graph.hasEdge(1, 0));
+
+        assertEquals(graph.find(0), graph.find(1));
+    }
+
+
+    /**
+     * Tests adding edge between non existent nodes
+     */
+    public void testAddEdgeNonExistent() {
+        graph.addEdge(1, 2);
+
+        assertTrue(graph.hasEdge(1, 2));
+        assertTrue(graph.hasEdge(2, 1));
+        assertNotNull(graph.getVertex()[1]);
+        assertNotNull(graph.getVertex()[2]);
+
+    }
+
+
+    /**
+     * Tests adding edge between two nodes that have edge already
+     */
+    public void testAddEdgeExisting() {
+
+        graph.newNode(new Node(1));
+        graph.newNode(new Node(2));
+
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
 
@@ -31,15 +60,91 @@ public class GraphTest extends TestCase {
     }
 
 
-    public void testRemoveEdge1() {
+    /**
+     * Tests adding edge between the same node
+     */
+    public void testAddEdgeSame() {
+        graph.newNode(new Node(1));
+        graph.addEdge(1, 1);
+        assertTrue(graph.hasEdge(1, 1));
+    }
 
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
+
+    /**
+     * Tests adding edge after expanding
+     */
+    public void testAddEdgeExpanding() {
+        Graph testGraph = new Graph(1);
+        testGraph.newNode(new Node(0));
+        testGraph.newNode(new Node(1));
+        graph.addEdge(0, 1);
+        assertTrue(graph.hasEdge(0, 1));
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
+    }
+
+
+    /**
+     * Tests adding edge with out of bound index
+     */
+    public void testAddEdgeOutOfBounds() {
+        try {
+            graph.addEdge(-1, 3);
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Out of bounds");
+        }
+    }
+
+
+    /**
+     * Tests removing edge between two valid nodes that have edge
+     */
+    public void testRemoveEdgeValid() {
+
+        graph.addEdge(1, 2);
+        assertTrue(graph.hasEdge(1, 2));
+        assertTrue(graph.hasEdge(2, 1));
 
         graph.removeEdge(1, 2);
         assertFalse(graph.hasEdge(1, 2));
+        assertFalse(graph.hasEdge(2, 1));
+
+    }
+
+
+    /**
+     * Tests removing edge that isn't there
+     */
+    public void testRemoveEdgeNotThere() {
+        graph.newNode(new Node(0));
+        graph.newNode(new Node(1));
+        assertFalse(graph.hasEdge(0, 1));
+
+        graph.removeEdge(0, 1);
+        assertFalse(graph.hasEdge(0, 1));
+    }
+
+
+    /**
+     * Tests remove edge from null node
+     */
+    public void testRemoveEdgeNullNode() {
+        graph.newNode(new Node(0));
+        assertNull(graph.getVertex()[1]);
+        graph.removeEdge(0, 1);
+        assertFalse(graph.hasEdge(0, 1));
+    }
+
+
+    /**
+     * Tests remove edge from empty graph
+     */
+    public void testRemoveEdgeEmptyGraph() {
+        assertNull(graph.getVertex()[2]);
+        assertNull(graph.getVertex()[3]);
+        graph.removeEdge(2, 3);
+        assertFalse(graph.hasEdge(2, 3));
     }
 
 
@@ -53,14 +158,19 @@ public class GraphTest extends TestCase {
     }
 
 
+    /**
+     * Tests the union and find method after an edge is added between two valid
+     * nodes
+     */
     public void testUnionFind() {
         graph.addEdge(1, 2);
         graph.addEdge(3, 4);
 
-        assertTrue(graph.hasEdge(1, 2));
-        assertFalse(graph.hasEdge(1, 3));
-        assertEquals(graph.find(1), graph.find(2));
-        // assertNotEquals(graph.find(1), graph.find(3));
+        assertTrue(graph.hasEdge(1, 2)); // Both are connected
+        assertFalse(graph.hasEdge(1, 3)); // Not connected
+
+        assertTrue(graph.find(1) == graph.find(2));
+        assertFalse(graph.find(1) == graph.find(3));
     }
 
 
@@ -187,115 +297,89 @@ public class GraphTest extends TestCase {
     }
 
 
+    /**
+     * Tests removing a node with edges
+     */
     public void testRemoveNode() {
-        // Initialize the graph
-        Graph graph = new Graph(10);
-
         // Add nodes and edges
-        Node artistNode = new Node(0);
-        Node songNode1 = new Node(1);
-        Node songNode2 = new Node(2);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
 
-        graph.newNode(artistNode);
-        graph.newNode(songNode1);
-        graph.newNode(songNode2);
-
-        // Add edges
-        graph.addEdge(artistNode.getIndex(), songNode1.getIndex());
-        graph.addEdge(artistNode.getIndex(), songNode2.getIndex());
-
-        // Verify initial connections
-        assertTrue(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));
-        assertTrue(graph.hasEdge(artistNode.getIndex(), songNode2.getIndex()));
-
-        // Remove artist node
-        graph.removeNode(artistNode);
-
-        // Verify that the artist node's adjacency list is null
-        assertNull(graph.getVertex()[artistNode.getIndex()]);
-
-        // Verify that the artist node is removed from other nodes' adjacency
-        // lists
-        assertFalse(graph.getVertex()[songNode1.getIndex()].contains(artistNode
-            .getIndex()));
-        assertFalse(graph.getVertex()[songNode2.getIndex()].contains(artistNode
-            .getIndex()));
-
-        // Verify that edges are no longer present
-        assertFalse(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));
-        assertFalse(graph.hasEdge(artistNode.getIndex(), songNode2.getIndex()));
-    }
-
-
-    public void testRemoveNonExistentNode() {
-        Graph graph = new Graph(10);
-
-        // Attempt to remove a node that doesn't exist
-        Node nonExistentNode = new Node(5);
-        graph.removeNode(nonExistentNode);
-
-        // Since the node doesn't exist, the graph should remain unchanged
-// assertEquals(0, graph.getNumberOfNodes());
-// No exception should be thrown
-    }
-
-
-    public void testRemoveEdge2() {
-        // Initialize the graph
-        Graph graph = new Graph(10);
-
-        // Add nodes and edges
-        Node node1 = new Node(0);
-        Node node2 = new Node(1);
         graph.newNode(node1);
         graph.newNode(node2);
-        graph.addEdge(node1.getIndex(), node2.getIndex());
+        graph.newNode(node3);
 
-        // Verify initial connection
-        assertTrue(graph.hasEdge(node1.getIndex(), node2.getIndex()));
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
 
-        // Remove the edge
-        graph.removeEdge(node1.getIndex(), node2.getIndex());
+        assertTrue(graph.hasEdge(1, 2));
+        assertTrue(graph.hasEdge(2, 3));
 
-        // Verify that the edge is removed
-        assertFalse(graph.hasEdge(node1.getIndex(), node2.getIndex()));
+        assertNotNull(graph.getVertex()[1]);
+        assertNotNull(graph.getVertex()[2]);
+        assertNotNull(graph.getVertex()[3]);
 
-        // Verify that nodes still exist
-        assertNotNull(graph.getVertex()[node1.getIndex()]);
-        assertNotNull(graph.getVertex()[node2.getIndex()]);
+        assertEquals(graph.getVertex()[1].getSize(), 1);
+
+        graph.removeNode(node1);
+
+        assertNull(graph.getVertex()[1]);
+
+        assertFalse(graph.getVertex()[2].contains(1));
+        assertFalse(graph.getVertex()[3].contains(1));
+
+        assertFalse(graph.hasEdge(1, 2));
+        assertFalse(graph.hasEdge(1, 3));
+
     }
 
 
-    public void testAddEdge() {
-        Graph graph = new Graph(10);
-
+    /**
+     * Tests removing node without edges
+     */
+    public void testRemoveNodeNoEdge() {
         graph.newNode(new Node(0));
-        graph.newNode(new Node(1));
+        assertNotNull(graph.getVertex()[0]);
+        graph.removeNode(new Node(0));
+        assertNull(graph.getVertex()[(new Node(0)).getIndex()]);
 
-        graph.addEdge(0, 1);
-
-        assertTrue(graph.hasEdge(0, 1));
-        assertTrue(graph.hasEdge(1, 0));
-
-        // Check Union-Find structure
-        assertEquals(graph.find(0), graph.find(1));
     }
 
 
-    public void testRemoveEdge() {
-        Graph graph = new Graph(10);
+    /**
+     * Tests removing node that doesn't exist
+     */
+    public void testRemoveNonExistingNode() {
 
-        graph.newNode(new Node(0));
-        graph.newNode(new Node(1));
+        Node testNode = new Node(0);
+        graph.newNode(testNode);
 
-        graph.addEdge(0, 1);
-        // graph.removeEdge(0, 1);
+        Node nonExistingNode = new Node(4);
+        graph.removeNode(nonExistingNode);
 
-// assertFalse(graph.hasEdge(0, 1));
-// assertFalse(graph.hasEdge(1, 0));
+        assertNotNull(graph.getVertex()[testNode.getIndex()]);
+        assertNull(graph.getVertex()[nonExistingNode.getIndex()]);
 
-        // Check Union-Find structure
-        // assertNotEquals(graph.find(0), graph.find(1));
+    }
+
+
+    /**
+     * Tests removing node with out of bounds index
+     */
+    public void testRemoveOutOfBounds() {
+        Node negative = new Node(-1);
+        Node greater = new Node(6);
+
+        graph.removeNode(negative);
+        graph.removeNode(greater);
+
+        assertNull(graph.getVertex()[0]);
+        assertNull(graph.getVertex()[1]);
+        assertNull(graph.getVertex()[2]);
+        assertNull(graph.getVertex()[3]);
+        assertNull(graph.getVertex()[4]);
+
     }
 
 }

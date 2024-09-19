@@ -102,17 +102,7 @@ public class Graph {
             return; // Exit early if node does not exist or index is invalid
         }
 
-// if (numberOfNodes > 0) {
-// if (vertex[index].getSize() > 0) {
-// for (int i = 0; i < vertex[index].getSize() - 1; i++) {
-// int toRemove = vertex[index].getNext();
-// array[toRemove]--;
-// removeEdge(index, toRemove);
-// }
-// }
-// }
-
-        if (vertex[index] != null && vertex[index].getSize() > 0) {
+        if (vertex[index] != null) {
             vertex[index].resetTraversal();
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
