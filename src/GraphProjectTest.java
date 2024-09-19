@@ -6,8 +6,8 @@ import java.nio.file.Paths;
 /**
  * This class was designed to test the GraphProject
  *
- * @author <Put something here>
- * @version <Put something here>
+ * @author lakshithag
+ * @version 9/19/2024
  */
 public class GraphProjectTest extends TestCase {
     // ----------------------------------------------------------
@@ -53,7 +53,7 @@ public class GraphProjectTest extends TestCase {
         // Setting up all the parameters
         String[] args = new String[2];
         args[0] = "10";
-        args[1] = "solutionTestData/P1_sampleInput.txt";
+        args[1] = "src/P1_sampleInput.txt";
 
         // Invoke main method of our Graph Project
         GraphProject.main(args);
@@ -65,9 +65,7 @@ public class GraphProjectTest extends TestCase {
         String expectedOutput = readFile(
             "solutionTestData/P1_sampleOutput.txt");
 
-        // Compare the two outputs
-        // TODO: uncomment the following line
-        // once you have implemented your project
+       
          assertFuzzyEquals(expectedOutput, actualOutput);
 
     }
