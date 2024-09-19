@@ -356,8 +356,7 @@ public class Hash {
         int home = h(key, allRecords.length);
         int pos = home;
 
-        for (int i = 0; allRecords[pos] != null && allRecords[pos] != tombstone
-            && i < allRecords.length; i++) {
+        for (int i = 0; allRecords[pos] != null && i < allRecords.length; i++) {
             if (allRecords[pos] != tombstone && key.equals(allRecords[pos]
                 .getKey())) {
                 return pos;
