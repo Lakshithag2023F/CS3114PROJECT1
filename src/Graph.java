@@ -94,6 +94,7 @@ public class Graph {
         if (vertex[artistNode] != null && vertex[songNode] != null) {
             vertex[artistNode].remove(songNode);
             vertex[songNode].remove(artistNode);
+            array[songNode] = find(songNode);
         }
 
     }
@@ -138,7 +139,7 @@ public class Graph {
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
-        if (array[curr] == -1 || array[curr] == curr) {
+        if (array[curr] == -1) {
             return curr;
         }
         array[curr] = find(array[curr]);
