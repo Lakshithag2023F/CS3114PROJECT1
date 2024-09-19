@@ -17,6 +17,7 @@ public class Node {
     private int index;
     
     private Node next;
+   
     
     // ~ Constructors ..........................................................
     /**
@@ -28,6 +29,7 @@ public class Node {
     {
         this.index = index; 
         this.next = null;
+     
     }
 
     // ~Public Methods ........................................................
