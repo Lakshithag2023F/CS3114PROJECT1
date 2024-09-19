@@ -3,8 +3,8 @@
  * Main for Graph project (CS3114/CS5040 Fall 2023 Project 4).
  * Usage: java GraphProject <init-hash-size> <command-file>
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author lakshitha gattu and Shurti Narayanan
+ * @version 9/19/2024
  *
  */
 
@@ -32,6 +32,7 @@ public class GraphProject {
      * @param args
      *            Command line parameters
      */
+    @SuppressWarnings("static-access")
     public static void main(String[] args) {
         // This is the main file for the program.
         int initHashSize = Integer.parseInt(args[0]);
@@ -41,7 +42,6 @@ public class GraphProject {
         CommandProcessor commandProcessor = new CommandProcessor(controller);
 
         commandProcessor.beginParsingByLine(commandFile);
-// System.out.println("Finished processing command file");
 
     }
 }

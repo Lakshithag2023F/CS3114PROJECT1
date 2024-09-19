@@ -143,19 +143,25 @@ public class DoubleLL<E> {
     /**
      * Gets the data at the head of the list.
      * 
-     * @return the data at the head, or null if the list is empty
+     * @return the data at the head, or -1 if the list is empty
      */
     public int getHeadData() {
-        return head != null ? head.getIndex() : -1;
+        if (head == null) {
+            return -1;  // List is empty
+        }
+        return head.getIndex();  // Return the data at the head
     }
-
 
     /**
      * Gets the data at the tail of the list.
      * 
-     * @return the data at the tail, or null if the list is empty
+     * @return the data at the tail, or -1 if the list is empty
      */
     public int getTailData() {
-        return tail != null ? tail.getIndex() : -1;
+        if (tail == null) {
+            return -1;  // List is empty
+        }
+        return tail.getIndex();  // Return the data at the tail
     }
+
 }

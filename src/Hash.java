@@ -248,7 +248,7 @@ public class Hash {
                 numberOfRecords--;
                 return;
             }
-          //  pos = (home + (i * i)) % allRecords.length;
+            pos = (home + (i * i)) % allRecords.length;
         }
         // Key not found; you may print a message or handle it as needed
     }

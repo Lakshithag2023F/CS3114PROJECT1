@@ -1,16 +1,36 @@
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * This class has a function that calls the line reader and extracts the data
+ * from that line of the input file
+ * 
+ * @author laksh
+ * @version Sep 19, 2024
+ */
 public class CommandProcessor {
 
     private static Controller controller;
 
+    /**
+     * Create a new CommandProcessor object.
+     * 
+     * @param controller
+     * creates controller
+     */
+    @SuppressWarnings("static-access")
     public CommandProcessor(Controller controller) {
 
         this.controller = controller;
     }
 
 
+    /**
+     * Method runs through all lines in file and gets the data
+     * 
+     * @param filename
+     * input file
+     */
     public static void beginParsingByLine(String filename) {
         try {
             Scanner sc = new Scanner(new File(filename));
@@ -70,10 +90,7 @@ public class CommandProcessor {
                                 break;
                             case "graph":
                                 controller.printBlock();
-// look
-// at
-// the
-// output
+
                                 break;
                             default:
                                 System.out.println("Error bad print type"
@@ -91,10 +108,4 @@ public class CommandProcessor {
             e.printStackTrace();
         }
     }
-    // ~ Fields ................................................................
-
-    // ~ Constructors ..........................................................
-
-    // ~Public Methods ........................................................
-
 }
