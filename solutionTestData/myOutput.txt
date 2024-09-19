@@ -31,6 +31,3 @@ The largest connected component has 8 elements
 0: |Blind Lemon Jefferson|
 7: TOMBSTONE
 total artists: 1
-|Mississippi Boweavil Blues| is removed from the Song database.
-|Ma Rainey| is added to the Artist database.
-|Mississippi Boweavil Blues| is added to the Song database.

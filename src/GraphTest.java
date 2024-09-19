@@ -322,15 +322,15 @@ public class GraphTest extends TestCase {
 
         assertEquals(graph.getVertex()[1].getSize(), 1);
 
-        graph.removeNode(node1);
+        graph.removeNode(node2);
 
-        assertNull(graph.getVertex()[1]);
+        assertNull(graph.getVertex()[2]);
 
-        assertFalse(graph.getVertex()[2].contains(1));
-        assertFalse(graph.getVertex()[3].contains(1));
+        assertFalse(graph.getVertex()[1].contains(2));
+        assertFalse(graph.getVertex()[3].contains(2));
 
         assertFalse(graph.hasEdge(1, 2));
-        assertFalse(graph.hasEdge(1, 3));
+        assertFalse(graph.hasEdge(2, 3));
 
     }
 
@@ -388,7 +388,7 @@ public class GraphTest extends TestCase {
      */
     public void testRemoveNodeNull() {
         try {
-        graph.removeNode(null);
+            graph.removeNode(null);
         }
         catch (NullPointerException e) {
             System.out.println("Null point exception");
@@ -400,10 +400,36 @@ public class GraphTest extends TestCase {
         assertNull(graph.getVertex()[4]);
         assertEquals(graph.getNumberOfNodes(), 0);
 
-        
         graph.newNode(new Node(1));
         assertNotNull(graph.getVertex()[1]);
 
+    }
+
+
+    /**
+     * Tests advanced remove
+     */
+    public void testAdvancedRemove() {
+        Node artistA = new Node(0);
+        Node songA = new Node(1);
+        Node songC = new Node(2);
+        Node artistB = new Node(3);
+        Node songB = new Node(4);
+        Node songD = new Node(5);
+
+        graph.newNode(artistA);
+        graph.newNode(songA);
+        graph.newNode(songC);
+        graph.newNode(artistB);
+        graph.newNode(songB);
+        graph.newNode(songD);
+
+        graph.removeNode(artistB);
+        graph.printGraph();
+        assertEquals(graph.find(2), 0);
+
+        assertEquals(graph.getConnectedComponents(), 3);
+        
 
     }
 

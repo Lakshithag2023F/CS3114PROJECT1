@@ -5,6 +5,7 @@ public class Graph {
     private int[] array;
     private int numberOfNodes;
     private int maxSize;
+    private int connectedComponents;
 
     // ~ Constructors ..........................................................
     @SuppressWarnings("unchecked")
@@ -19,6 +20,8 @@ public class Graph {
         for (int i = 0; i < maxSize; i++) {
             array[i] = -1;
         }
+
+        this.connectedComponents = 0;
 
     }
 
@@ -107,6 +110,8 @@ public class Graph {
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
                 removeEdge(index, toRemove);
+                //array[toRemove] = toRemove;
+
             }
         }
         vertex[index] = null;
@@ -119,6 +124,7 @@ public class Graph {
         int root1 = find(node1);
         int root2 = find(node2);
         if (root1 != root2) {
+
             array[root1] = root2;
         }
 
@@ -194,11 +200,18 @@ public class Graph {
             + " connected components");
         System.out.println("The largest connected component has "
             + largestComponent + " elements");
+
+        this.connectedComponents = numberOfComponents;
     }
 
 
     public int getNumberOfNodes() {
         return numberOfNodes;
+    }
+
+
+    public int getConnectedComponents() {
+        return connectedComponents;
     }
 
 
