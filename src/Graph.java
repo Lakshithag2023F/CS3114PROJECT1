@@ -95,7 +95,7 @@ public class Graph {
         if (numberOfNodes > 0) {
             if (vertex[index].getSize() > 0) {
                 for (int i = 0; i < vertex[index].getSize() - 1; i++) {
-                    int remove = vertex[index].getNext();
+                    int remove = vertex[index].getNext().getIndex();
                     array[remove]--;
                     removeEdge(index, remove);
                 }
