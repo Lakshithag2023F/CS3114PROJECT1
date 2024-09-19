@@ -78,8 +78,8 @@ public class DoubleLL<E> {
      * @return the data of the next node, or null if at the end of the list
      */
     public E getNext() {
-        if (current == null) {
-            return null; // No more elements or traversal not started
+        if (head != null) {
+            current = head;
         }
         E data = current.data; // Store the current node's data
         current = current.next; // Move to the next node

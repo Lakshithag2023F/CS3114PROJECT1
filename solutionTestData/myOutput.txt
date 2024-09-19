@@ -28,9 +28,9 @@ The largest connected component has 8 elements
 |Sleepy| does not exist in the Song database.
 |ma rainey| does not exist in the Artist database.
 |Ma Rainey| is removed from the Artist database.
-java.lang.NullPointerException: Cannot read field "data" because "this.current" is null
-	at DoubleLL.getNext(DoubleLL.java:82)
-	at Graph.removeNode(Graph.java:98)
-	at Controller.removeArtist(Controller.java:136)
-	at CommandProcessor.beginParsingByLine(CommandProcessor.java:48)
-	at GraphProject.main(GraphProject.java:43)
+0: |Blind Lemon Jefferson|
+7: TOMBSTONE
+total artists: 1
+|Mississippi Boweavil Blues| is removed from the Song database.
+|Ma Rainey| is added to the Artist database.
+|Mississippi Boweavil Blues| is added to the Song database.
