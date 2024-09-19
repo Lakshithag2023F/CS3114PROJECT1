@@ -92,20 +92,19 @@ public class Graph {
 
     public void removeNode(Node node) {
         int index = node.getIndex();
-        for (int i = 0; i < vertex[index].getSize(); i++) {
-            removeEdge(index, i);
+        if (numberOfNodes > 0) {
+            if (vertex[index].getSize() > 0) {
+                for (int i = 0; i < vertex[index].getSize() - 1; i++) {
+                    int remove = vertex[index].getNext().getIndex();
+                    array[remove]--;
+                    removeEdge(index, remove);
+                }
+            }
         }
         vertex[index] = null;
 
-        // Remove this node from the adjacency lists of other nodes
-        for (int i = 0; i < vertex.length; i++) {
-            if (vertex[i] != null) {
-                vertex[i].remove(node);
-            }
-        }
-
         // Update the Union-Find parent array
-        array[index] = -1;
+        array[index] = 0;
         numberOfNodes--;
     }
 

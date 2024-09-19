@@ -1,16 +1,18 @@
 /**
  * The DoubleLL class is a doubly linked list.
- * A doubly linked list is a data structure where each node contains data (the value),
+ * A doubly linked list is a data structure where each node contains data (the
+ * value),
  * a reference to the previous node, and a reference to the next node, allowing
  * traversal in both directions.
  * 
- * @param <E> the type of elements in this list
+ * @param <E>
+ *            the type of elements in this list
  * @author shrut
  * @version Sep 11, 2024
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
-    
+
     private class DLLNode {
         E data;
         DLLNode prev;
@@ -25,11 +27,11 @@ public class DoubleLL<E> {
 
     private DLLNode head;
     private DLLNode tail;
-    private DLLNode current;  // For traversal purposes
+    private DLLNode current; // For traversal purposes
     private int size;
 
     // ~ Constructors ..........................................................
-    
+
     // Empty constructor for DoubleLL
     public DoubleLL() {
         head = null;
@@ -40,23 +42,27 @@ public class DoubleLL<E> {
 
     // ~ Public Methods ........................................................
 
+
     /**
      * Inserts a new element at the end of the list.
      * 
-     * @param data the data to be inserted into the list
+     * @param data
+     *            the data to be inserted into the list
      */
     public void insert(E data) {
         DLLNode newNode = new DLLNode(data);
         if (head == null) {
             head = newNode;
             tail = newNode;
-        } else {
+        }
+        else {
             tail.next = newNode;
             newNode.prev = tail;
             tail = newNode;
         }
         size++;
     }
+
 
     /**
      * Resets the current node to the start of the list (head) for traversal.
@@ -65,6 +71,7 @@ public class DoubleLL<E> {
         current = head;
     }
 
+
     /**
      * Moves the current node pointer to the next node and returns its data.
      * 
@@ -72,17 +79,19 @@ public class DoubleLL<E> {
      */
     public E getNext() {
         if (current == null) {
-            return null;  // No more elements or traversal not started
+            return null; // No more elements or traversal not started
         }
-        E data = current.data;  // Store the current node's data
-        current = current.next;  // Move to the next node
-        return data;  // Return the stored data
+        E data = current.data; // Store the current node's data
+        current = current.next; // Move to the next node
+        return data; // Return the stored data
     }
+
 
     /**
      * Checks if the list contains a specific data element.
      * 
-     * @param data the data to check
+     * @param data
+     *            the data to check
      * @return true if the list contains the data, false otherwise
      */
     public boolean contains(E data) {
@@ -96,6 +105,7 @@ public class DoubleLL<E> {
         return false;
     }
 
+
     /**
      * Gets the size of the list.
      * 
@@ -105,10 +115,12 @@ public class DoubleLL<E> {
         return size;
     }
 
+
     /**
      * Removes the first occurrence of the specified element from the list.
      * 
-     * @param data the data to remove
+     * @param data
+     *            the data to remove
      * @return true if the element was removed, false if it was not found
      */
     public boolean remove(E data) {
@@ -118,13 +130,16 @@ public class DoubleLL<E> {
                 if (temp == head && temp == tail) {
                     head = null;
                     tail = null;
-                } else if (temp == head) {
+                }
+                else if (temp == head) {
                     head = head.next;
                     head.prev = null;
-                } else if (temp == tail) {
+                }
+                else if (temp == tail) {
                     tail = tail.prev;
                     tail.next = null;
-                } else {
+                }
+                else {
                     temp.prev.next = temp.next;
                     temp.next.prev = temp.prev;
                 }
@@ -136,6 +151,7 @@ public class DoubleLL<E> {
         return false;
     }
 
+
     /**
      * Gets the data at the head of the list.
      * 
@@ -144,6 +160,7 @@ public class DoubleLL<E> {
     public E getHeadData() {
         return head != null ? head.data : null;
     }
+
 
     /**
      * Gets the data at the tail of the list.
