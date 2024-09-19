@@ -117,14 +117,20 @@ public class Graph {
         }
 
     }
-
+    
+  
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
         while (array[curr] != -1) {
             curr = array[curr];
         }
-        return curr;
+        
+        array[curr] = find(array[curr]);
+        return array[curr];
+        //return curr;
+        
+        
     }
 
 
