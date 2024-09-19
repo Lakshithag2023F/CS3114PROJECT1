@@ -157,4 +157,9 @@ public class DoubleLLTest extends TestCase {
         assertEquals(3, listOfNums.getSize());
     }
 
+    
+    public void testRemoveHeadIsNull()
+    {
+        
+    }
 }
