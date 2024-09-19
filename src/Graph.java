@@ -59,7 +59,7 @@ public class Graph {
             vertex[songNode].insert(new Node(artistNode));
             union(artistNode, songNode);
         }
-        
+
     }
 
 
@@ -79,15 +79,22 @@ public class Graph {
     /**
      * remove node and edges
      */
+    public void removeEdge(int artistNode, int songNode) {
+
+        Node song = new Node(songNode);
+        vertex[artistNode].remove(song);
+
+        Node artist = new Node(artistNode);
+        vertex[songNode].remove(artist);
+
+    }
 
 
     public void removeNode(Node node) {
         int index = node.getIndex();
-
-        if (index < 0 || index >= vertex.length || vertex[index] == null) {
-            return;
+        for (int i = 0; i < vertex[index].getSize(); i++) {
+            removeEdge(index, i);
         }
-        // Remove the adjacency list for this node
         vertex[index] = null;
 
         // Remove this node from the adjacency lists of other nodes
@@ -121,8 +128,6 @@ public class Graph {
         return curr;
     }
 
-
- 
 
     public void expand() {
         int newSize = maxSize * 2; // Correctly double the current maxSize
