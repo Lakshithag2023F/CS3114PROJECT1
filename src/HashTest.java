@@ -533,4 +533,85 @@ public class HashTest extends TestCase {
         //assertNotEquals(hash.find("Key1"), hash.find("Key1Collision"));
     }
 
+    
+    
+    
+    
+    public void testSimpleRemoval() {
+        Hash hash = new Hash(10);
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        assertNotNull(hash.getRecord("key1"));
+
+        hash.remove("key1");
+        assertNull(hash.getRecord("key1"));
+    }
+
+    public void testRemovalWithCollision() {
+        Hash hash = new Hash(10);
+
+        // Assuming "key1" and "key2" hash to the same index
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        hash.insert(new Record("key2", new Node(2), "artist"));
+        hash.insert(new Record("key3", new Node(3), "artist"));
+
+        hash.remove("key2");
+        assertNull(hash.getRecord("key2"));
+        assertNotNull(hash.getRecord("key1"));
+        assertNotNull(hash.getRecord("key3"));
+    }
+
+    
+    public void testRemovalAfterMultipleProbes() {
+        Hash hash = new Hash(10);
+        // Insert keys that cause collisions and require multiple probes
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        hash.insert(new Record("keyA", new Node(2), "artist"));
+        hash.insert(new Record("keyB", new Node(3), "artist"));
+
+        hash.remove("keyB");
+        assertNull(hash.getRecord("keyB"));
+        assertNotNull(hash.getRecord("key1"));
+        assertNotNull(hash.getRecord("keyA"));
+    }
+
+    public void testRemovalWithWrapAround() {
+        Hash hash = new Hash(5);
+
+        // Fill the table to force wrap-around
+        hash.insert(new Record("key1", new Node(1), "artist")); // Suppose this hashes to index 4
+        hash.insert(new Record("key2", new Node(2), "artist")); // Causes wrap-around to index 0
+
+        hash.remove("key2");
+        assertNull(hash.getRecord("key2"));
+        assertNotNull(hash.getRecord("key1"));
+    }
+    
+    public void testRemovingNonExistentKey() {
+        Hash hash = new Hash(10);
+
+        hash.insert(new Record("key1", new Node(1), "artist"));
+
+        hash.remove("nonexistent");
+        // Should handle gracefully without exceptions
+        assertNotNull(hash.getRecord("key1"));
+    }
+
+    public void testHandlingTombstones() {
+        Hash hash = new Hash(10);
+
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        hash.remove("key1");
+        assertNull(hash.getRecord("key1"));
+
+        // Insert a new key and ensure it doesn't reuse the tombstone improperly
+        hash.insert(new Record("key2", new Node(2), "artist"));
+        assertNotNull(hash.getRecord("key2"));
+    }
+
+    
+    
+    
+    
+    
+    
 }

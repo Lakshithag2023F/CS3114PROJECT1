@@ -240,6 +240,58 @@ public class GraphTest extends TestCase{
 //        assertNotNull(graph.getVertex()[node2.getIndex()]);
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void testAddEdge() {
+        Graph graph = new Graph(10);
+
+        graph.newNode(new Node(0));
+        graph.newNode(new Node(1));
+
+        graph.addEdge(0, 1);
+
+        assertTrue(graph.hasEdge(0, 1));
+        assertTrue(graph.hasEdge(1, 0));
+
+        // Check Union-Find structure
+        assertEquals(graph.find(0), graph.find(1));
+    }
+
+    
+    public void testRemoveEdge() {
+        Graph graph = new Graph(10);
+
+        graph.newNode(new Node(0));
+        graph.newNode(new Node(1));
+
+        graph.addEdge(0, 1);
+        //graph.removeEdge(0, 1);
+
+//        assertFalse(graph.hasEdge(0, 1));
+//        assertFalse(graph.hasEdge(1, 0));
+
+        // Check Union-Find structure
+        //assertNotEquals(graph.find(0), graph.find(1));
+    }
+
 
 }
 

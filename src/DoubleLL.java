@@ -60,7 +60,16 @@ public class DoubleLL<E> {
         size++;
     }
 
-
+    
+    public E getNext(DLLNode node) 
+    {
+        if (node == null || node.next == null) {
+            return null;  // No next element
+        }
+        return node.next.data;
+    }
+    
+    
     /**
      * Checks if list contains data
      * 
