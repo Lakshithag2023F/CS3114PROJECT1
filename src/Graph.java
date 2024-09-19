@@ -106,7 +106,7 @@ public class Graph {
         }
 
         if (vertex[index] != null) {
-            vertex[index].resetTraversal();
+            vertex[index].resetCurr();
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
                 removeEdge(index, toRemove);
