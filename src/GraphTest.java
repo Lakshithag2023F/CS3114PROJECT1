@@ -216,10 +216,10 @@ public class GraphTest extends TestCase {
 
         // Verify that the artist node is removed from other nodes' adjacency
         // lists
-// assertFalse(graph.getVertex()[songNode1.getIndex()].contains(
-// artistNode));
-// assertFalse(graph.getVertex()[songNode2.getIndex()].contains(
-// artistNode));
+        assertFalse(graph.getVertex()[songNode1.getIndex()].contains(artistNode
+            .getIndex()));
+        assertFalse(graph.getVertex()[songNode2.getIndex()].contains(artistNode
+            .getIndex()));
 
         // Verify that edges are no longer present
         assertFalse(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));

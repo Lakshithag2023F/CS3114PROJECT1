@@ -77,8 +77,10 @@ public class Graph {
      * @return true or false whether edge exists
      */
     public boolean hasEdge(int artistNode, int songNode) {
-        return find(artistNode) == find(songNode);
-
+        if (vertex[artistNode] != null) {
+            return vertex[artistNode].contains(songNode);
+        }
+        return false;
     }
 
 
@@ -97,19 +99,35 @@ public class Graph {
 
     public void removeNode(Node node) {
         int index = node.getIndex();
-        if (numberOfNodes > 0) {
-            if (vertex[index].getSize() > 0) {
-                for (int i = 0; i < vertex[index].getSize() - 1; i++) {
-                    int toRemove = vertex[index].getNext();
-                    array[toRemove]--;
-                    removeEdge(index, toRemove);
-                }
+        if (index < 0 || index >= vertex.length || vertex[index] == null) {
+            return; // Exit early if node does not exist or index is invalid
+        }
+
+// if (numberOfNodes > 0) {
+// if (vertex[index].getSize() > 0) {
+// for (int i = 0; i < vertex[index].getSize() - 1; i++) {
+// int toRemove = vertex[index].getNext();
+// array[toRemove]--;
+// removeEdge(index, toRemove);
+// }
+// }
+// }
+
+        if (vertex[index] != null && vertex[index].getSize() > 0) {
+            vertex[index].resetTraversal(); // Reset traversal to start from
+                                            // head
+            while (vertex[index].getSize() > 0) {
+                int toRemove = vertex[index].getNext(); // Get the next adjacent
+                                                        // node
+                removeEdge(index, toRemove); // Remove the edge between the
+                                             // current node and the adjacent
+                                             // node
             }
         }
         vertex[index] = null;
 
         // Update the Union-Find parent array
-        array[index] = 0;
+        array[index] = -1;
         numberOfNodes--;
     }
 
