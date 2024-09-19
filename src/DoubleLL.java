@@ -1,26 +1,34 @@
 /**
- * The DoubleLL class is a doubly linked list.
- * A doubly linked list is a data structure where each node contains data (the
- * value),
- * a reference to the previous node, and a reference to the next node, allowing
- * traversal in both directions.
+ *This class implements the methods for the doublly linked list
  * 
  * @param <E>
- *            the type of elements in this list
+ *            type E of the entries in the list 
  * @author shrut
  * @version Sep 11, 2024
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
-
+    /*
+     *the node that is the head 
+     */
     private Node head;
+    /*
+     * the node that is the tail
+     */
     private Node tail;
-    private Node current; // For traversal purposes
+    /*
+     * the node that is the curr node
+     */
+    private Node current;
+    /*
+     * the size of the list
+     */
     private int size;
 
     // ~ Constructors ..........................................................
-
-    // Empty constructor for DoubleLL
+    /**
+     * Create a new DoubleLL object.
+     */
     public DoubleLL() {
         head = null;
         tail = null;
@@ -32,18 +40,20 @@ public class DoubleLL<E> {
 
 
     /**
-     * Inserts a new element at the end of the list.
+     * Inserts at end of the list
      * 
-     * @param data
-     *            the data to be inserted into the list
+     * @param index
+     *            the index in node
      */
     public void insert(int index) {
         Node newNode = new Node(index);
-        if (head == null) {
+        if (head == null) 
+        {
             head = newNode;
             tail = newNode;
         }
-        else {
+        else 
+        {
             tail.setNext(newNode);
             tail = newNode;
         }
@@ -52,39 +62,45 @@ public class DoubleLL<E> {
 
 
     /**
-     * Resets the current node to the start of the list (head) for traversal.
+     * sets the curr to head
      */
-    public void resetTraversal() {
+    public void resetCurr() 
+    {
         current = head;
     }
 
 
     /**
-     * Moves the current node pointer to the next node and returns its data.
+     * get Next node and returns index
      * 
-     * @return the data of the next node, or null if at the end of the list
+     * @return -1 if curr is null, index if not
      */
-    public int getNext() {
-        if (current == null) {
+    public int getNext() 
+    {
+        if (current == null) 
+        {
             return -1;
         }
-        int data = current.getIndex(); // Store the current node's data
-        current = current.getNext(); // Move to the next node
-        return data; // Return the stored data
+        int index = current.getIndex();           
+        current = current.getNext();      
+        return index;
     }
 
 
     /**
-     * Checks if the list contains a specific data element.
+     * Loops through the list to find the data
      * 
-     * @param data
-     *            the data to check
-     * @return true if the list contains the data, false otherwise
+     * @param index
+     *            the index to check 
+     * @return true data is there, false if not
      */
-    public boolean contains(int index) {
+    public boolean contains(int index)     
+    {
         Node temp = head;
-        while (temp != null) {
-            if (temp.getIndex() == index) {
+        while (temp != null)           
+        {
+            if (temp.getIndex() == index)       
+            {
                 return true;
             }
             temp = temp.getNext();
@@ -94,38 +110,45 @@ public class DoubleLL<E> {
 
 
     /**
-     * Gets the size of the list.
+     * Gets size
      * 
-     * @return the number of elements in the list
+     * @return size 
      */
-    public int getSize() {
+    public int getSize()    
+    {
         return size;
     }
 
 
     /**
-     * Removes the first occurrence of the specified element from the list.
-     * 
-     * @param data
-     *            the data to remove
-     * @return true if the element was removed, false if it was not found
+     * removes the node data at the index pos
+     * @param pos
+     *            what to remove
+     * @return true if removed and false if not
      */
-    public boolean remove(int index) {
-        if (head == null) {
+    public boolean remove(int pos) {
+        if (head == null) 
+        {
             return false;
         }
-        if (head.getIndex() == index) {
+        if (head.getIndex() == pos) 
+        {
             head = head.getNext();
-            if (head == null) { // If the list becomes empty
+            if (head == null) 
+            {
                 tail = null;
             }
-            size--;
-            return true;
+            size--;    
+            return true;    
         }
         Node previous = head;
+        @SuppressWarnings("hiding")
         Node current = head.getNext();
-        while (current != null) {
-            if (current.getIndex() == index) {
+        //removes the rest 
+        while (current != null)
+        {
+            if (current.getIndex() == pos)
+            {
                 previous.setNext(current.getNext());
                 if (current == tail) {
                     tail = previous;
@@ -136,32 +159,36 @@ public class DoubleLL<E> {
             previous = current;
             current = current.getNext();
         }
-        return false; // Node not found
+        return false;
     }
 
 
     /**
-     * Gets the data at the head of the list.
+     * Gets the data/index of the head node
      * 
-     * @return the data at the head, or -1 if the list is empty
+     * @return -1 is tail is null and index if head is not null
      */
-    public int getHeadData() {
-        if (head == null) {
-            return -1;  // List is empty
+    public int getHeadData()
+    {
+        if (head == null)
+        {
+            return -1;      
         }
-        return head.getIndex();  // Return the data at the head
-    }
+        return head.getIndex();     
+    }    
 
     /**
-     * Gets the data at the tail of the list.
+     * Gets the data/index of the tail node
      * 
-     * @return the data at the tail, or -1 if the list is empty
+     * @return -1 is tail is null and index if tail is not null
      */
-    public int getTailData() {
-        if (tail == null) {
-            return -1;  // List is empty
+    public int getTailData() 
+    {
+        if (tail == null)
+        {
+            return -1;
         }
-        return tail.getIndex();  // Return the data at the tail
+        return tail.getIndex(); 
     }
 
 }
