@@ -21,7 +21,7 @@ public class Graph {
 
         for (int i = 0; i < maxSize; i++) {
             array[i] = -1;
-            weights[i] = 1;
+            weights[i] = 0;
         }
 
         this.connectedComponents = 0;
@@ -91,11 +91,11 @@ public class Graph {
     /**
      * remove node and edges
      */
-    public void removeEdge(int artistNode, int songNode) {
+    public void removeEdge(int src, int dest) {
 
-        if (vertex[artistNode] != null && vertex[songNode] != null) {
-            vertex[artistNode].remove(songNode);
-            vertex[songNode].remove(artistNode);
+        if (vertex[src] != null && vertex[dest] != null) {
+            // vertex[artistNode].remove(songNode);
+            vertex[src].remove(dest);
         }
 
     }
@@ -109,9 +109,9 @@ public class Graph {
 
         if (vertex[index] != null) {
             vertex[index].resetCurr();
-            while (vertex[index].getSize() > 0) {
+            for (int i = 0; i < vertex[index].getSize(); i++) {
                 int toRemove = vertex[index].getNext();
-                removeEdge(index, toRemove);
+                removeEdge(toRemove, index);
 
             }
         }
@@ -207,11 +207,11 @@ public class Graph {
 
     public void printGraph() {
         unionConnectedNodes();
-        int[] components = new int[getNumberOfNodes()];
+        // int[] components = new int[getNumberOfNodes()];
         int numberOfComponents = 0;
         int largestComponent = 0;
 
-        for (int i = 0; i < getNumberOfNodes(); i++) {
+        for (int i = 0; i < vertex.length; i++) {
             if (vertex[i] != null) {
                 if (array[i] == -1) {
                     numberOfComponents++;
@@ -219,7 +219,7 @@ public class Graph {
             }
         }
 
-        for (int i = 0; i < getNumberOfNodes(); i++) {
+        for (int i = 0; i < vertex.length; i++) {
             if (weights[i] > largestComponent) {
                 largestComponent = weights[i];
             }
@@ -241,9 +241,14 @@ public class Graph {
     public void unionConnectedNodes() {
         for (int i = 0; i < maxSize; i++) {
             array[i] = -1;
-            weights[i] = 1;
+            if (vertex[i] == null) {
+                weights[i] = 0;
+            }
+            else {
+                weights[i] = 1;
+            }
         }
-        for (int i = 0; i < numberOfNodes; i++) {
+        for (int i = 0; i < maxSize; i++) {
             if (vertex[i] != null) {
                 vertex[i].resetCurr();
                 for (int j = 0; j < vertex[i].getSize(); j++) {

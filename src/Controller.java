@@ -81,7 +81,7 @@ public class Controller {
             artistNode = artist.getRecord(artistName).getNode();
         }
 
-        // Check for a song node
+        // Check for a song node  
         Node songNode = null;
         int songIndex = song.find(songName);
         if (songIndex == -1) { // Song not in the song hash
