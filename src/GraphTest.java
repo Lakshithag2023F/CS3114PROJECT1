@@ -425,12 +425,18 @@ public class GraphTest extends TestCase {
 
         graph.newNode(artistB);
         graph.addEdge(3, 2);
+        graph.unionConnectedNodes();
+        assertEquals(graph.FIND(3), 0);
 
         graph.newNode(songB);
         graph.addEdge(3, 4);
+        graph.unionConnectedNodes();
+        assertEquals(graph.FIND(4), 0);
 
         graph.newNode(songD);
         graph.addEdge(3, 5);
+        graph.unionConnectedNodes();
+        assertEquals(graph.FIND(5), 0);
 
         graph.removeNode(artistB);
         graph.printGraph();

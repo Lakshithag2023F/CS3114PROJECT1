@@ -175,15 +175,18 @@ public class Graph {
 
         // Expand the Union-Find array
         int[] newArray = new int[newSize];
+        int[] newWeights = new int[newSize];
         // Copy old Union-Find parent array
-        for (int i = 0; i < maxSize; i++) {
-            newArray[i] = array[i];
-        }
+//        for (int i = 0; i < maxSize; i++) {
+//            newArray[i] = array[i];
+//        }
         // Initialize the rest of the array
         for (int i = maxSize; i < newSize; i++) {
             newArray[i] = -1;
+            newWeights[i] = 1;
         }
         array = newArray;
+        weights = newWeights;
 
         maxSize = newSize;
     }
@@ -223,7 +226,7 @@ public class Graph {
     }
 
 
-    private void unionConnectedNodes() {
+    public void unionConnectedNodes() {
         for (int i = 0; i < numberOfNodes; i++) {
             if (vertex[i] != null) {
                 vertex[i].resetCurr();
