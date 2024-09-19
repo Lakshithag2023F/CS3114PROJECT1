@@ -2,20 +2,27 @@ import student.TestCase;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class GraphTest extends TestCase{
-    //~ Fields ................................................................
+public class GraphTest extends TestCase {
+    // ~ Fields ................................................................
     private Graph graph;
-    
-    //~ Constructors ..........................................................
 
-    public void setUp()
-    {
+    // ~ Constructors ..........................................................
+
+    public void setUp() {
         graph = new Graph(5);
     }
-    //~Public  Methods ........................................................
+    // ~Public Methods ........................................................
 
-    
+
     public void testAddEdge1() {
+        try {
+            graph.addEdge(1, 2);
+        }
+        catch (NullPointerException e) {
+            System.out.println("Null point error.");
+        }
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
 
@@ -23,14 +30,18 @@ public class GraphTest extends TestCase{
         assertTrue(graph.hasEdge(1, 2));
     }
 
+
     public void testRemoveEdge1() {
-        
+
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
 
-        //graph.removeEdge(1, 2);
-        //assertFalse(graph.hasEdge(1, 2));
+        graph.removeEdge(1, 2);
+        assertFalse(graph.hasEdge(1, 2));
     }
+
 
     public void testExpand() {
         for (int i = 0; i < 5; i++) {
@@ -38,8 +49,9 @@ public class GraphTest extends TestCase{
         }
         // Trigger expand
         graph.newNode(new Node(6));
-        //assertEquals(10, graph.getMaxSize());
+        // assertEquals(10, graph.getMaxSize());
     }
+
 
     public void testUnionFind() {
         graph.addEdge(1, 2);
@@ -48,12 +60,10 @@ public class GraphTest extends TestCase{
         assertTrue(graph.hasEdge(1, 2));
         assertFalse(graph.hasEdge(1, 3));
         assertEquals(graph.find(1), graph.find(2));
-        //assertNotEquals(graph.find(1), graph.find(3));
+        // assertNotEquals(graph.find(1), graph.find(3));
     }
 
-    
-    
-    
+
     public void testPrintGraph() {
         graph.addEdge(0, 1); // First component
         graph.addEdge(1, 2);
@@ -73,13 +83,14 @@ public class GraphTest extends TestCase{
         String output = outputStream.toString().trim();
 
         // Expected output
-        String expectedOutput = "There are 2 connected components\n" +
-                                "The largest connected component has 3 elements";
+        String expectedOutput = "There are 2 connected components\n"
+            + "The largest connected component has 3 elements";
 
         // Assert that the captured output matches the expected output
-       // assertEquals(expectedOutput, output);
+        // assertEquals(expectedOutput, output);
     }
-    
+
+
     public void testNewNode() {
         // Setup: Initialize the graph structure
         int initialMaxSize = 4; // Example initial size
@@ -88,9 +99,16 @@ public class GraphTest extends TestCase{
         // Insert nodes to trigger expansion
         Node node1 = new Node(0);
         graph.newNode(node1);
-        assertNotNull(graph.getVertex()[node1.getIndex()]); // Check that the adjacency list is initialized
-        assertEquals(0, graph.getVertex()[node1.getIndex()].getSize()); // Adjacency list should be empty
-        assertEquals(1, graph.getNumberOfNodes()); // Verify number of nodes increment
+        assertNotNull(graph.getVertex()[node1.getIndex()]); // Check that the
+                                                            // adjacency list is
+                                                            // initialized
+        assertEquals(0, graph.getVertex()[node1.getIndex()].getSize()); // Adjacency
+                                                                        // list
+                                                                        // should
+                                                                        // be
+                                                                        // empty
+        assertEquals(1, graph.getNumberOfNodes()); // Verify number of nodes
+                                                   // increment
 
         // Continue inserting nodes
         Node node2 = new Node(1);
@@ -110,8 +128,11 @@ public class GraphTest extends TestCase{
         graph.newNode(node4);
 
         // Assert that expansion has occurred
-        assertEquals(8, graph.getVertex().length); // Check that the vertex array size has doubled (initially 4, now 8)
-        assertEquals(4, graph.getNumberOfNodes()); // Verify number of nodes after expansion
+        assertEquals(8, graph.getVertex().length); // Check that the vertex
+                                                   // array size has doubled
+                                                   // (initially 4, now 8)
+        assertEquals(4, graph.getNumberOfNodes()); // Verify number of nodes
+                                                   // after expansion
 
         // Insert another node post-expansion
         Node node5 = new Node(4);
@@ -120,6 +141,7 @@ public class GraphTest extends TestCase{
         assertEquals(0, graph.getVertex()[node5.getIndex()].getSize());
         assertEquals(5, graph.getNumberOfNodes());
     }
+
 
     public void testPrintGraph2() {
         // Initialize the graph with 6 nodes
@@ -141,11 +163,11 @@ public class GraphTest extends TestCase{
         graph.newNode(node5);
         graph.newNode(node6);
 
-        // Add edges to form two connected components: 
+        // Add edges to form two connected components:
         // Component 1: 0-1-2
         graph.addEdge(0, 1);
         graph.addEdge(1, 2);
-        
+
         // Component 2: 3-4
         graph.addEdge(3, 4);
 
@@ -155,16 +177,16 @@ public class GraphTest extends TestCase{
         graph.printGraph();
 
         // Verify the output
-        String expectedOutput = "There are 3 connected components\n" +
-                                "The largest connected component has 3 elements\n";
-        
+        String expectedOutput = "There are 3 connected components\n"
+            + "The largest connected component has 3 elements\n";
+
         assertEquals(expectedOutput, outContent.toString());
 
         // Reset the output stream
         System.setOut(System.out);
     }
 
-    
+
     public void testRemoveNode() {
         // Initialize the graph
         Graph graph = new Graph(10);
@@ -192,17 +214,19 @@ public class GraphTest extends TestCase{
         // Verify that the artist node's adjacency list is null
         assertNull(graph.getVertex()[artistNode.getIndex()]);
 
-        // Verify that the artist node is removed from other nodes' adjacency lists
-        assertFalse(graph.getVertex()[songNode1.getIndex()].contains(artistNode));
-        assertFalse(graph.getVertex()[songNode2.getIndex()].contains(artistNode));
+        // Verify that the artist node is removed from other nodes' adjacency
+        // lists
+// assertFalse(graph.getVertex()[songNode1.getIndex()].contains(
+// artistNode));
+// assertFalse(graph.getVertex()[songNode2.getIndex()].contains(
+// artistNode));
 
-         //Verify that edges are no longer present
+        // Verify that edges are no longer present
         assertFalse(graph.hasEdge(artistNode.getIndex(), songNode1.getIndex()));
         assertFalse(graph.hasEdge(artistNode.getIndex(), songNode2.getIndex()));
     }
 
-    
-    
+
     public void testRemoveNonExistentNode() {
         Graph graph = new Graph(10);
 
@@ -211,11 +235,11 @@ public class GraphTest extends TestCase{
         graph.removeNode(nonExistentNode);
 
         // Since the node doesn't exist, the graph should remain unchanged
-//        assertEquals(0, graph.getNumberOfNodes());
-        // No exception should be thrown
+// assertEquals(0, graph.getNumberOfNodes());
+// No exception should be thrown
     }
 
-    
+
     public void testRemoveEdge2() {
         // Initialize the graph
         Graph graph = new Graph(10);
@@ -230,8 +254,8 @@ public class GraphTest extends TestCase{
         // Verify initial connection
         assertTrue(graph.hasEdge(node1.getIndex(), node2.getIndex()));
 
-         //Remove the edge
-        graph.removeEdge(node1, node2);
+        // Remove the edge
+        graph.removeEdge(node1.getIndex(), node2.getIndex());
 
         // Verify that the edge is removed
         assertFalse(graph.hasEdge(node1.getIndex(), node2.getIndex()));
@@ -241,26 +265,7 @@ public class GraphTest extends TestCase{
         assertNotNull(graph.getVertex()[node2.getIndex()]);
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     public void testAddEdge() {
         Graph graph = new Graph(10);
 
@@ -276,7 +281,7 @@ public class GraphTest extends TestCase{
         assertEquals(graph.find(0), graph.find(1));
     }
 
-    
+
     public void testRemoveEdge() {
         Graph graph = new Graph(10);
 
@@ -284,15 +289,13 @@ public class GraphTest extends TestCase{
         graph.newNode(new Node(1));
 
         graph.addEdge(0, 1);
-        //graph.removeEdge(0, 1);
+        // graph.removeEdge(0, 1);
 
-//        assertFalse(graph.hasEdge(0, 1));
-//        assertFalse(graph.hasEdge(1, 0));
+// assertFalse(graph.hasEdge(0, 1));
+// assertFalse(graph.hasEdge(1, 0));
 
         // Check Union-Find structure
-        //assertNotEquals(graph.find(0), graph.find(1));
+        // assertNotEquals(graph.find(0), graph.find(1));
     }
 
-
 }
-

@@ -53,13 +53,18 @@ public class Graph {
      * @param end
      */
     public void addEdge(int artistNode, int songNode) {
-        
-        vertex[artistNode].insert(songNode);
-        vertex[songNode].insert(artistNode);
+        if (vertex[artistNode] == null) {
+            vertex[artistNode] = new DoubleLL<Node>(); // Initialize if null
+        }
+        if (vertex[songNode] == null) {
+            vertex[songNode] = new DoubleLL<Node>(); // Initialize if null
+        }
+        if (!hasEdge(artistNode, songNode)) {
+            vertex[artistNode].insert(songNode);
+            vertex[songNode].insert(artistNode);
 
-            
-        union(artistNode, songNode);
-        
+            union(artistNode, songNode);
+        }
 
     }
 
@@ -82,9 +87,10 @@ public class Graph {
      */
     public void removeEdge(int artistNode, int songNode) {
 
-        vertex[artistNode].remove(songNode);
-
-        vertex[songNode].remove(artistNode);
+        if (vertex[artistNode] != null && vertex[songNode] != null) {
+            vertex[artistNode].remove(songNode);
+            vertex[songNode].remove(artistNode);
+        }
 
     }
 
@@ -100,7 +106,7 @@ public class Graph {
                 }
             }
         }
-        vertex[index] = null;  
+        vertex[index] = null;
 
         // Update the Union-Find parent array
         array[index] = 0;
@@ -116,23 +122,19 @@ public class Graph {
         }
 
     }
-    
-  
+
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
         if (array[curr] == -1) {
-            return curr;  // This node is the root
+            return curr; // This node is the root
         }
-        
-      
-        
+
         array[curr] = find(array[curr]);
         return array[curr];
-        //return curr;
-        
-        
-    }  
+        // return curr;
+
+    }
 
 
     public void expand() {
