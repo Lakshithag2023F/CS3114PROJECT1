@@ -112,7 +112,6 @@ public class Graph {
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
                 removeEdge(index, toRemove);
-             
 
             }
         }
@@ -137,14 +136,14 @@ public class Graph {
         }
     }
 
-
     // Return the root of curr's tree with path compression
-    public int FIND(int curr) {
-        if (array[curr] == -1)
-            return curr; // At root
-        array[curr] = FIND(array[curr]);
-        return array[curr];
-    }
+// public int FIND(int curr) {
+// if (array[curr] == -1) {
+// return curr;
+// }
+// array[curr] = FIND(array[curr]);
+// return array[curr];
+// }
 // // Return the root of curr's tree with path compression
 // public int find(int curr) {
 // if (array[curr] == -1 || array[curr] == curr) {
@@ -154,6 +153,21 @@ public class Graph {
 // return array[curr];
 //
 // }
+
+
+//    public int FIND(int curr) {
+//        if (array[curr] != curr) {
+//            array[curr] = FIND(array[curr]); // Compress the path to the root
+//        }
+//        return array[curr];
+//    }
+    
+    // Return the root of curr's tree with path compression
+    public int FIND(int curr) {
+      if (array[curr] == -1) return curr; // At root
+      array[curr] = FIND(array[curr]);
+      return array[curr];
+    }
 
 
     public void expand() {
@@ -177,10 +191,10 @@ public class Graph {
         int[] newArray = new int[newSize];
         int[] newWeights = new int[newSize];
         // Copy old Union-Find parent array
-//        for (int i = 0; i < maxSize; i++) {
-//            newArray[i] = array[i];
-//        }
-        // Initialize the rest of the array
+// for (int i = 0; i < maxSize; i++) {
+// newArray[i] = array[i];
+// }
+// Initialize the rest of the array
         for (int i = maxSize; i < newSize; i++) {
             newArray[i] = -1;
             newWeights[i] = 1;
@@ -199,18 +213,14 @@ public class Graph {
         int largestComponent = 0;
 
         for (int i = 0; i < getNumberOfNodes(); i++) {
-            if (vertex[i] != null) {
-                int root = FIND(i);
-                components[root]++;
+            if (array[i] == -1) {
+                numberOfComponents++;
             }
         }
 
         for (int i = 0; i < getNumberOfNodes(); i++) {
-            if (components[i] > 0) {
-                numberOfComponents++;
-                if (components[i] > largestComponent) {
-                    largestComponent = components[i];
-                }
+            if (weights[i] > largestComponent) {
+                largestComponent = weights[i];
             }
         }
 
@@ -227,6 +237,10 @@ public class Graph {
 
 
     public void unionConnectedNodes() {
+        for (int i = 0; i < maxSize; i++) {
+            array[i] = -1;
+            weights[i] = 1;
+        }
         for (int i = 0; i < numberOfNodes; i++) {
             if (vertex[i] != null) {
                 vertex[i].resetCurr();

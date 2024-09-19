@@ -403,6 +403,22 @@ public class GraphTest extends TestCase {
         assertNotNull(graph.getVertex()[1]);
 
     }
+    
+    public void testFIND() {
+        graph.newNode(new Node(0));
+        assertEquals(graph.FIND(0), 0);
+        graph.newNode(new Node(1));
+        graph.addEdge(0,1);
+        graph.unionConnectedNodes();
+        assertEquals(graph.FIND(1), 0);
+        assertEquals(graph.FIND(0), 0);
+        
+        graph.newNode(new Node(2));
+        graph.addEdge(0,2);
+
+
+        
+    }
 
 
     /**
