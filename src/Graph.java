@@ -136,7 +136,6 @@ public class Graph {
         }
     }
 
-    // Return the root of curr's tree with path compression
 // public int FIND(int curr) {
 // if (array[curr] == -1) {
 // return curr;
@@ -144,7 +143,6 @@ public class Graph {
 // array[curr] = FIND(array[curr]);
 // return array[curr];
 // }
-// // Return the root of curr's tree with path compression
 // public int find(int curr) {
 // if (array[curr] == -1 || array[curr] == curr) {
 // return curr;
@@ -154,19 +152,20 @@ public class Graph {
 //
 // }
 
+// public int FIND(int curr) {
+// if (array[curr] != curr) {
+// array[curr] = FIND(array[curr]);
+// }
+// return array[curr];
+// }
 
-//    public int FIND(int curr) {
-//        if (array[curr] != curr) {
-//            array[curr] = FIND(array[curr]); // Compress the path to the root
-//        }
-//        return array[curr];
-//    }
-    
+
     // Return the root of curr's tree with path compression
     public int FIND(int curr) {
-      if (array[curr] == -1) return curr; // At root
-      array[curr] = FIND(array[curr]);
-      return array[curr];
+        if (array[curr] == -1)
+            return curr; // At root
+        array[curr] = FIND(array[curr]);
+        return array[curr];
     }
 
 
@@ -213,8 +212,10 @@ public class Graph {
         int largestComponent = 0;
 
         for (int i = 0; i < getNumberOfNodes(); i++) {
-            if (array[i] == -1) {
-                numberOfComponents++;
+            if (vertex[i] != null) {
+                if (array[i] == -1) {
+                    numberOfComponents++;
+                }
             }
         }
 
@@ -230,7 +231,8 @@ public class Graph {
             + " connected components");
         System.out.println("The largest connected component has "
             + largestComponent + " elements");
-        System.out.println("The diameter of the graph is " + diameter);
+        // System.out.println("The diameter of the largest component is " +
+        // diameter);
 
         this.connectedComponents = numberOfComponents;
     }
