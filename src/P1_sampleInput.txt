@@ -17,3 +17,11 @@ remove song Sleepy
 remove artist ma rainey
 remove artist Ma Rainey
 print artist
+print song
+print graph
+remove song Mississippi Boweavil Blues
+print song
+insert Ma Rainey<SEP>Mississippi Boweavil Blues
+print artist
+print song
+print graph
