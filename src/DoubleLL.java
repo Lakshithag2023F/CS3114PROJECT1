@@ -112,26 +112,22 @@ public class DoubleLL<E> {
      */
     public boolean remove(int index) {
         if (head == null) {
-            return false; // List is empty
+            return false;
         }
-
-        // If the node to remove is the head
         if (head.getIndex() == index) {
-            head = head.getNext(); // Move head to the next node
+            head = head.getNext();
             if (head == null) { // If the list becomes empty
                 tail = null;
             }
             size--;
             return true;
         }
-
-        // Traverse the list to find the node to remove
         Node previous = head;
         Node current = head.getNext();
         while (current != null) {
             if (current.getIndex() == index) {
-                previous.setNext(current.getNext()); // Unlink the node
-                if (current == tail) { // Update tail if needed
+                previous.setNext(current.getNext());
+                if (current == tail) {
                     tail = previous;
                 }
                 size--;

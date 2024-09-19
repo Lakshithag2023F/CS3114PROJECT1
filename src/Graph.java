@@ -54,15 +54,14 @@ public class Graph {
      */
     public void addEdge(int artistNode, int songNode) {
         if (vertex[artistNode] == null) {
-            vertex[artistNode] = new DoubleLL<Node>(); // Initialize if null
+            vertex[artistNode] = new DoubleLL<Node>();
         }
         if (vertex[songNode] == null) {
-            vertex[songNode] = new DoubleLL<Node>(); // Initialize if null
+            vertex[songNode] = new DoubleLL<Node>();
         }
         if (!hasEdge(artistNode, songNode)) {
             vertex[artistNode].insert(songNode);
             vertex[songNode].insert(artistNode);
-
             union(artistNode, songNode);
         }
 
@@ -114,19 +113,13 @@ public class Graph {
 // }
 
         if (vertex[index] != null && vertex[index].getSize() > 0) {
-            vertex[index].resetTraversal(); // Reset traversal to start from
-                                            // head
+            vertex[index].resetTraversal();
             while (vertex[index].getSize() > 0) {
-                int toRemove = vertex[index].getNext(); // Get the next adjacent
-                                                        // node
-                removeEdge(index, toRemove); // Remove the edge between the
-                                             // current node and the adjacent
-                                             // node
+                int toRemove = vertex[index].getNext();
+                removeEdge(index, toRemove);
             }
         }
         vertex[index] = null;
-
-        // Update the Union-Find parent array
         array[index] = -1;
         numberOfNodes--;
     }
