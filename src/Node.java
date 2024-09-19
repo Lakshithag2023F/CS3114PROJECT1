@@ -10,48 +10,66 @@
  */
 public class Node {
 
-    // ----------------------------------------------------------
-
     // ~ Fields ................................................................
+    /*
+     * 
+     */
     private int index;
+    
+    private Node next;
+    
     // ~ Constructors ..........................................................
-
     /**
      * Constructor that initializes node with an index
      * 
      * @param index
      */
-    public Node(int index) {
-        this.index = index;
+    public Node(int index) 
+    {
+        this.index = index; 
+        this.next = null;
     }
 
     // ~Public Methods ........................................................
-
-
-    // getter method
     /**
      * getter for index
      * 
      * @return index
      */
-    public int getIndex() {
-        return index;
+    public int getIndex() 
+    {
+        return index;            
     }
 
 
-    // setter method
     /**
      * setter for index
      * 
      * @param index
      */
-    public void setIndex(int index) {
-
-        this.index = index;
+    public void setIndex(int index) 
+    {
+        this.index = index;                
+    }
+    
+    
+    /**
+     * Getter for next node
+     * 
+     * @return next node
+     */
+    public Node getNext() 
+    {
+        return next;
     }
 
+    /**
+     * Setter for next node
+     * 
+     * @param next The next node in the list
+     */
+    public void setNext(Node next) 
+    {
+        this.next = next;
+    }
 }
-
-// you might have to add something to manage the edges/connections between nodes
-// in graph
-//
