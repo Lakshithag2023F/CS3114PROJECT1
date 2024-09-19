@@ -24,6 +24,7 @@ public class GraphTest extends TestCase{
     }
 
     public void testRemoveEdge1() {
+        
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
 

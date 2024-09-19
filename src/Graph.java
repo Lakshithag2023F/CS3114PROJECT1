@@ -54,8 +54,8 @@ public class Graph {
      */
     public void addEdge(int artistNode, int songNode) {
         
-        vertex[artistNode].insert(new Node(songNode));
-        vertex[songNode].insert(new Node(artistNode));
+        vertex[artistNode].insert(songNode);
+        vertex[songNode].insert(artistNode);
 
             
         union(artistNode, songNode);
@@ -80,11 +80,11 @@ public class Graph {
     /**
      * remove node and edges
      */
-    public void removeEdge(Node artistNode, Node songNode) {
+    public void removeEdge(int artistNode, int songNode) {
 
-        vertex[artistNode.getIndex()].remove(songNode);
+        vertex[artistNode].remove(songNode);
 
-        vertex[songNode.getIndex()].remove(artistNode);
+        vertex[songNode].remove(artistNode);
 
     }
 
@@ -94,10 +94,9 @@ public class Graph {
         if (numberOfNodes > 0) {
             if (vertex[index].getSize() > 0) {
                 for (int i = 0; i < vertex[index].getSize() - 1; i++) {
-                    Node toRemove = vertex[index].getNext();
-                    int remove= toRemove.getIndex();
-                    array[remove]--;
-                    removeEdge(node, toRemove);
+                    int toRemove = vertex[index].getNext();
+                    array[toRemove]--;
+                    removeEdge(index, toRemove);
                 }
             }
         }

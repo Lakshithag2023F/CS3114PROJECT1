@@ -13,21 +13,9 @@
 public class DoubleLL<E> {
     // ~ Fields ................................................................
 
-    private class DLLNode {
-        E data;
-        DLLNode prev;
-        DLLNode next;
-
-        public DLLNode(E data) {
-            this.data = data;
-            this.prev = null;
-            this.next = null;
-        }
-    }
-
-    private DLLNode head;
-    private DLLNode tail;
-    private DLLNode current; // For traversal purposes
+    private Node head;
+    private Node tail;
+    private Node current; // For traversal purposes
     private int size;
 
     // ~ Constructors ..........................................................
@@ -49,15 +37,14 @@ public class DoubleLL<E> {
      * @param data
      *            the data to be inserted into the list
      */
-    public void insert(E data) {
-        DLLNode newNode = new DLLNode(data);
+    public void insert(int index) {
+        Node newNode = new Node(index);
         if (head == null) {
             head = newNode;
             tail = newNode;
         }
         else {
-            tail.next = newNode;
-            newNode.prev = tail;
+            tail.setNext(newNode);
             tail = newNode;
         }
         size++;
@@ -77,12 +64,12 @@ public class DoubleLL<E> {
      * 
      * @return the data of the next node, or null if at the end of the list
      */
-    public E getNext() {
-        if (head != null) {
-            current = head;
+    public int getNext() {
+        if (current == null) {
+            return -1;
         }
-        E data = current.data; // Store the current node's data
-        current = current.next; // Move to the next node
+        int data = current.getIndex(); // Store the current node's data
+        current = current.getNext(); // Move to the next node
         return data; // Return the stored data
     }
 
@@ -94,13 +81,13 @@ public class DoubleLL<E> {
      *            the data to check
      * @return true if the list contains the data, false otherwise
      */
-    public boolean contains(E data) {
-        DLLNode temp = head;
+    public boolean contains(int index) {
+        Node temp = head;
         while (temp != null) {
-            if (temp.data.equals(data)) {
+            if (temp.getIndex() == index) {
                 return true;
             }
-            temp = temp.next;
+            temp = temp.getNext();
         }
         return false;
     }
@@ -123,32 +110,37 @@ public class DoubleLL<E> {
      *            the data to remove
      * @return true if the element was removed, false if it was not found
      */
-    public boolean remove(E data) {
-        DLLNode temp = head;
-        while (temp != null) {
-            if (temp.data.equals(data)) {
-                if (temp == head && temp == tail) {
-                    head = null;
-                    tail = null;
-                }
-                else if (temp == head) {
-                    head = head.next;
-                    head.prev = null;
-                }
-                else if (temp == tail) {
-                    tail = tail.prev;
-                    tail.next = null;
-                }
-                else {
-                    temp.prev.next = temp.next;
-                    temp.next.prev = temp.prev;
+    public boolean remove(int index) {
+        if (head == null) {
+            return false; // List is empty
+        }
+
+        // If the node to remove is the head
+        if (head.getIndex() == index) {
+            head = head.getNext(); // Move head to the next node
+            if (head == null) { // If the list becomes empty
+                tail = null;
+            }
+            size--;
+            return true;
+        }
+
+        // Traverse the list to find the node to remove
+        Node previous = head;
+        Node current = head.getNext();
+        while (current != null) {
+            if (current.getIndex() == index) {
+                previous.setNext(current.getNext()); // Unlink the node
+                if (current == tail) { // Update tail if needed
+                    tail = previous;
                 }
                 size--;
                 return true;
             }
-            temp = temp.next;
+            previous = current;
+            current = current.getNext();
         }
-        return false;
+        return false; // Node not found
     }
 
 
@@ -157,8 +149,8 @@ public class DoubleLL<E> {
      * 
      * @return the data at the head, or null if the list is empty
      */
-    public E getHeadData() {
-        return head != null ? head.data : null;
+    public int getHeadData() {
+        return head != null ? head.getIndex() : -1;
     }
 
 
@@ -167,7 +159,7 @@ public class DoubleLL<E> {
      * 
      * @return the data at the tail, or null if the list is empty
      */
-    public E getTailData() {
-        return tail != null ? tail.data : null;
+    public int getTailData() {
+        return tail != null ? tail.getIndex() : -1;
     }
 }
