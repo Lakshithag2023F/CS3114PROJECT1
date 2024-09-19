@@ -44,6 +44,7 @@ public class Hash {
         return allRecords;
     }
 
+
 // public void insert(Record record) {
 // if (numberOfRecords >= allRecords.length / 2) {
 // rehash(); // Perform rehashing if needed
@@ -89,38 +90,6 @@ public class Hash {
         if (numberOfRecords + 1 > allRecords.length / 2) {
             rehash(); // Perform rehashing if needed
 
-            // Determine the type of the record and print the appropriate message
-            String type = record.getType();
-            if ("song".equals(type)) {
-                System.out.println("Song hash table size doubled.");
-            } else if ("artist".equals(type)) {
-                System.out.println("Artist hash table size doubled.");
-            } else {
-                System.out.println("Unknown type hash table size doubled.");
-            }
-        }
-
-        int home; // Home position for e
-        String key = record.getKey();
-        int pos = home = h(key, allRecords.length); // Initial hash position
-
-        // Handle collisions with quadratic probing
-        for (int i = 0; allRecords[pos] != null && allRecords[pos] != tombstone; i++) {
-            if (key.equals(allRecords[pos].getKey())) {
-                return; // Record with the same key already exists, no insertion needed
-            }
-            pos = (home + (i * i)) % allRecords.length;
-        }
-
-        allRecords[pos] = record;
-        numberOfRecords++;
-    }
-
-/*
-    public void insert(Record record) {
-        if (numberOfRecords >= allRecords.length / 2) {
-            rehash(); // Perform rehashing if needed
-
             // Determine the type of the record and print the appropriate
             // message
             String type = record.getType();
@@ -131,30 +100,68 @@ public class Hash {
                 System.out.println("Artist hash table size doubled.");
             }
             else {
-                System.out.println("Unknown type hash table size doubled."); // Fallback
-                                                                             // for
-                                                                             // unexpected
-                                                                             // types
+                System.out.println("Unknown type hash table size doubled.");
             }
         }
 
         int home; // Home position for e
         String key = record.getKey();
-        int pos = home = h(key, allRecords.length); // Init probe sequence
+        int pos = home = h(key, allRecords.length); // Initial hash position
 
         // Handle collisions with quadratic probing
-        for (int i = 1; allRecords[pos] != null
-            || getTombstone() == allRecords[pos]; i++) {
+        for (int i = 0; allRecords[pos] != null
+            && allRecords[pos] != tombstone; i++) {
             if (key.equals(allRecords[pos].getKey())) {
                 return; // Record with the same key already exists, no insertion
                         // needed
             }
             pos = (home + (i * i)) % allRecords.length;
         }
+
         allRecords[pos] = record;
-        numberOfRecords++; 
+        numberOfRecords++;
     }
-*/
+
+/*
+ * public void insert(Record record) {
+ * if (numberOfRecords >= allRecords.length / 2) {
+ * rehash(); // Perform rehashing if needed
+ * 
+ * // Determine the type of the record and print the appropriate
+ * // message
+ * String type = record.getType();
+ * if ("song".equals(type)) {
+ * System.out.println("Song hash table size doubled.");
+ * }
+ * else if ("artist".equals(type)) {
+ * System.out.println("Artist hash table size doubled.");
+ * }
+ * else {
+ * System.out.println("Unknown type hash table size doubled."); // Fallback
+ * // for
+ * // unexpected
+ * // types
+ * }
+ * }
+ * 
+ * int home; // Home position for e
+ * String key = record.getKey();
+ * int pos = home = h(key, allRecords.length); // Init probe sequence
+ * 
+ * // Handle collisions with quadratic probing
+ * for (int i = 1; allRecords[pos] != null
+ * || getTombstone() == allRecords[pos]; i++) {
+ * if (key.equals(allRecords[pos].getKey())) {
+ * return; // Record with the same key already exists, no insertion
+ * // needed
+ * }
+ * pos = (home + (i * i)) % allRecords.length;
+ * }
+ * allRecords[pos] = record;
+ * numberOfRecords++;
+ * }
+ */
+
 
     /**
      * Inserts new record into hash table
@@ -204,7 +211,7 @@ public class Hash {
             if (record != null && record != getTombstone()) {
                 insert(record); // Reinsert each existing record using the
                                 // updated insert method
-               
+
             }
         }
 
@@ -229,13 +236,14 @@ public class Hash {
      * 
      * @param key
      */
-    
+
     public void remove(String key) {
         int home = h(key, allRecords.length);
         int pos = home;
 
         for (int i = 0; allRecords[pos] != null && i < allRecords.length; i++) {
-            if (allRecords[pos] != tombstone && key.equals(allRecords[pos].getKey())) {
+            if (allRecords[pos] != tombstone && key.equals(allRecords[pos]
+                .getKey())) {
                 allRecords[pos] = tombstone;
                 numberOfRecords--;
                 return;
@@ -244,64 +252,43 @@ public class Hash {
         }
         // Key not found; you may print a message or handle it as needed
     }
-    
-    
-    
 
 /*
- public void remove(String key) {
-     
- int index = h(key, allRecords.length);
- int temp = index;
-
- for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
- {
- temp = (index + (i * i)) % allRecords.length;
- }
- allRecords[temp] = getTombstone();
- allRecords[temp].setKey("Tombstone");
-
-  numberOfRecords--;
-  
- }
-*/
-//    public void remove(String key) {
+ * public void remove(String key) {
+ * 
+ * int index = h(key, allRecords.length);
+ * int temp = index;
+ * 
+ * for (int i = 1; !allRecords[temp].getKey().equals(key); i++)
+ * {
+ * temp = (index + (i * i)) % allRecords.length;
+ * }
+ * allRecords[temp] = getTombstone();
+ * allRecords[temp].setKey("Tombstone");
+ * 
+ * numberOfRecords--;
+ * 
+ * }
+ */
+// public void remove(String key) {
 //
-//        int index = h(key, allRecords.length);
-//        int temp = index;
+// int index = h(key, allRecords.length);
+// int temp = index;
 //
-//        // Use quadratic probing to find the key
-//        for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey()
-//            .equals(key); i++) {
-//            temp = (index + (i * i)) % allRecords.length; // Update temp with
-//                                                          // quadratic probing
-//        }
+// // Use quadratic probing to find the key
+// for (int i = 1; allRecords[temp] != null && !allRecords[temp].getKey()
+// .equals(key); i++) {
+// temp = (index + (i * i)) % allRecords.length; // Update temp with
+// // quadratic probing
+// }
 //
-//        // Check if the key is found and not null
-//        if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
-//            allRecords[temp].setKey("TOMBSTONE");
-//            allRecords[temp] = tombstone;
-//            numberOfRecords--;
-//        }
-//    }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+// // Check if the key is found and not null
+// if (allRecords[temp] != null && allRecords[temp].getKey().equals(key)) {
+// allRecords[temp].setKey("TOMBSTONE");
+// allRecords[temp] = tombstone;
+// numberOfRecords--;
+// }
+// }
 
     // int index = find(key);
     // if (int i = 1, index != -1)
@@ -339,46 +326,46 @@ public class Hash {
      * @return integer value
      */
     /*
-    public int find(String key) {
-        int index = h(key, allRecords.length);
-        int temp = index;
+     * public int find(String key) {
+     * int index = h(key, allRecords.length);
+     * int temp = index;
+     * 
+     * // Improved for loop with added safety check to avoid infinite loops
+     * for (int i = 1; allRecords[temp] != null
+     * && allRecords[temp] != getTombstone() && i < allRecords.length; i++) {
+     * if (allRecords[temp] != getTombstone() && allRecords[temp].getKey()
+     * .equals(key)) {
+     * return temp;
+     * }
+     * 
+     * // Update temp using quadratic probing
+     * temp = (index + (i * i)) % allRecords.length;
+     * 
+     * // Break if we've looped back to the starting index
+     * if (temp == index) {
+     * break;
+     * }
+     * }
+     * // skip tombstone instead of ignoring
+     * 
+     * return -1;
+     * }
+     */
 
-        // Improved for loop with added safety check to avoid infinite loops
-        for (int i = 1; allRecords[temp] != null
-            && allRecords[temp] != getTombstone() && i < allRecords.length; i++) {
-            if (allRecords[temp] != getTombstone() && allRecords[temp].getKey()
-                .equals(key)) {
-                return temp;
-            }
-
-            // Update temp using quadratic probing
-            temp = (index + (i * i)) % allRecords.length;
-
-            // Break if we've looped back to the starting index
-            if (temp == index) {
-                break;
-            }
-        }
-        // skip tombstone instead of ignoring
-
-        return -1;
-    }
-    */
-    
     public int find(String key) {
         int home = h(key, allRecords.length);
         int pos = home;
 
-        for (int i = 0; allRecords[pos] != null && i < allRecords.length; i++) 
-        {
-            if (allRecords[pos] != tombstone && key.equals(allRecords[pos].getKey())) {
+        for (int i = 0; allRecords[pos] != null && allRecords[pos] != tombstone
+            && i < allRecords.length; i++) {
+            if (allRecords[pos] != tombstone && key.equals(allRecords[pos]
+                .getKey())) {
                 return pos;
             }
             pos = (home + (i * i)) % allRecords.length;
         }
         return -1; // Key not found
     }
-
 
 // public int find(String key) {
 //
@@ -467,14 +454,17 @@ public class Hash {
         return (int)(Math.abs(sum) % length);
     }
 
+
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
+     * 
      * @return
      */
     public Record getTombstone() {
         return tombstone;
     }
+
 
     public void setTombstone(Record tombstone) {
         this.tombstone = tombstone;
