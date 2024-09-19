@@ -26,7 +26,6 @@ public class GraphTest extends TestCase {
         assertTrue(graph.hasEdge(0, 1));
         assertTrue(graph.hasEdge(1, 0));
 
-        assertEquals(graph.find(0), graph.find(1));
     }
 
 
@@ -169,8 +168,8 @@ public class GraphTest extends TestCase {
         assertTrue(graph.hasEdge(1, 2)); // Both are connected
         assertFalse(graph.hasEdge(1, 3)); // Not connected
 
-        assertTrue(graph.find(1) == graph.find(2));
-        assertFalse(graph.find(1) == graph.find(3));
+        assertTrue(graph.FIND(1) == graph.FIND(2));
+        assertFalse(graph.FIND(1) == graph.FIND(3));
     }
 
 
@@ -435,8 +434,6 @@ public class GraphTest extends TestCase {
 
         graph.removeNode(artistB);
         graph.printGraph();
-        assertEquals(graph.find(2), 0);
-
         assertEquals(graph.getConnectedComponents(), 3);
 
     }

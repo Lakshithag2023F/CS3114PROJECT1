@@ -6,6 +6,7 @@ public class Graph {
     private int numberOfNodes;
     private int maxSize;
     private int connectedComponents;
+    private int[] weights;
 
     // ~ Constructors ..........................................................
     @SuppressWarnings("unchecked")
@@ -16,9 +17,11 @@ public class Graph {
         this.setVertex(new DoubleLL[maxSize]);
 
         array = new int[maxSize];
+        weights = new int[maxSize];
 
         for (int i = 0; i < maxSize; i++) {
             array[i] = -1;
+            weights[i] = 1;
         }
 
         this.connectedComponents = 0;
@@ -65,7 +68,6 @@ public class Graph {
         if (!hasEdge(artistNode, songNode)) {
             vertex[artistNode].insert(songNode);
             vertex[songNode].insert(artistNode);
-            union(artistNode, songNode);
         }
 
     }
@@ -94,7 +96,6 @@ public class Graph {
         if (vertex[artistNode] != null && vertex[songNode] != null) {
             vertex[artistNode].remove(songNode);
             vertex[songNode].remove(artistNode);
-            array[songNode] = find(songNode);
         }
 
     }
@@ -103,7 +104,7 @@ public class Graph {
     public void removeNode(Node node) {
         int index = node.getIndex();
         if (index < 0 || index >= vertex.length || vertex[index] == null) {
-            return; // Exit early if node does not exist or index is invalid
+            return;
         }
 
         if (vertex[index] != null) {
@@ -111,12 +112,7 @@ public class Graph {
             while (vertex[index].getSize() > 0) {
                 int toRemove = vertex[index].getNext();
                 removeEdge(index, toRemove);
-                if (vertex[toRemove].getSize() != 2) {
-                    array[toRemove] = toRemove;
-                }
-                else {
-                    array[toRemove] = vertex[toRemove].getNext();
-                }
+             
 
             }
         }
@@ -126,26 +122,38 @@ public class Graph {
     }
 
 
-    public void union(int node1, int node2) {
-        int root1 = find(node1);
-        int root2 = find(node2);
-        if (root1 != root2) {
-
-            array[root2] = root1;
+    public void UNION(int a, int b) {
+        int root1 = FIND(a); // Find root of node a
+        int root2 = FIND(b); // Find root of node b
+        if (root1 != root2) { // Merge with weighted union
+            if (weights[root2] > weights[root1]) {
+                array[root1] = root2;
+                weights[root2] += weights[root1];
+            }
+            else {
+                array[root2] = root1;
+                weights[root1] += weights[root2];
+            }
         }
-
     }
 
 
     // Return the root of curr's tree with path compression
-    public int find(int curr) {
-        if (array[curr] == -1) {
-            return curr;
-        }
-        array[curr] = find(array[curr]);
+    public int FIND(int curr) {
+        if (array[curr] == -1)
+            return curr; // At root
+        array[curr] = FIND(array[curr]);
         return array[curr];
-
     }
+// // Return the root of curr's tree with path compression
+// public int find(int curr) {
+// if (array[curr] == -1 || array[curr] == curr) {
+// return curr;
+// }
+// array[curr] = find(array[curr]);
+// return array[curr];
+//
+// }
 
 
     public void expand() {
@@ -182,13 +190,16 @@ public class Graph {
 
 
     public void printGraph() {
+        unionConnectedNodes();
         int[] components = new int[getNumberOfNodes()];
         int numberOfComponents = 0;
         int largestComponent = 0;
 
         for (int i = 0; i < getNumberOfNodes(); i++) {
-            int root = find(i);
-            components[root]++;
+            if (vertex[i] != null) {
+                int root = FIND(i);
+                components[root]++;
+            }
         }
 
         for (int i = 0; i < getNumberOfNodes(); i++) {
@@ -200,12 +211,28 @@ public class Graph {
             }
         }
 
+        int diameter = diameter();
+
         System.out.println("There are " + numberOfComponents
             + " connected components");
         System.out.println("The largest connected component has "
             + largestComponent + " elements");
+        System.out.println("The diameter of the graph is " + diameter);
 
         this.connectedComponents = numberOfComponents;
+    }
+
+
+    private void unionConnectedNodes() {
+        for (int i = 0; i < numberOfNodes; i++) {
+            if (vertex[i] != null) {
+                vertex[i].resetCurr();
+                for (int j = 0; j < vertex[i].getSize(); j++) {
+                    int neighbor = vertex[i].getNext();
+                    UNION(i, neighbor);
+                }
+            }
+        }
     }
 
 
@@ -234,5 +261,17 @@ public class Graph {
     }
 
 
+    public int diameter() {
+        int diameter = 0;
+        for (int i = 0; i < numberOfNodes; i++) {
+            if (vertex[i] != null) {
+                int size = vertex[i].getSize();
+                if (size > diameter) {
+                    diameter = size;
+                }
+            }
+        }
+        return diameter;
+    }
 
 }
