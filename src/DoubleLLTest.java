@@ -25,7 +25,7 @@ public class DoubleLLTest extends TestCase{
     
     public void setUp() {
         // Initialize lists for testing
-        numList = new DoubleLL<>();
+        numList = new DoubleLL<>();  
         strLL = new DoubleLL<>();
     }
 

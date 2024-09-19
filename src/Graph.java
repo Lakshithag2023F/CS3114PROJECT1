@@ -53,12 +53,13 @@ public class Graph {
      * @param end
      */
     public void addEdge(int artistNode, int songNode) {
+        
+        vertex[artistNode].insert(new Node(songNode));
+        vertex[songNode].insert(new Node(artistNode));
 
-        if (!hasEdge(artistNode, songNode)) {
-            vertex[artistNode].insert(new Node(songNode));
-            vertex[songNode].insert(new Node(artistNode));
-            union(artistNode, songNode);
-        }
+            
+        union(artistNode, songNode);
+        
 
     }
 
@@ -79,13 +80,11 @@ public class Graph {
     /**
      * remove node and edges
      */
-    public void removeEdge(int artistNode, int songNode) {
+    public void removeEdge(Node artistNode, Node songNode) {
 
-        Node song = new Node(songNode);
-        vertex[artistNode].remove(song);
+        vertex[artistNode.getIndex()].remove(songNode);
 
-        Node artist = new Node(artistNode);
-        vertex[songNode].remove(artist);
+        vertex[songNode.getIndex()].remove(artistNode);
 
     }
 
@@ -95,13 +94,14 @@ public class Graph {
         if (numberOfNodes > 0) {
             if (vertex[index].getSize() > 0) {
                 for (int i = 0; i < vertex[index].getSize() - 1; i++) {
-                    int remove = vertex[index].getNext().getIndex();
+                    Node toRemove = vertex[index].getNext();
+                    int remove= toRemove.getIndex();
                     array[remove]--;
-                    removeEdge(index, remove);
+                    removeEdge(node, toRemove);
                 }
             }
         }
-        vertex[index] = null;
+        vertex[index] = null;  
 
         // Update the Union-Find parent array
         array[index] = 0;
@@ -122,16 +122,18 @@ public class Graph {
 
     // Return the root of curr's tree with path compression
     public int find(int curr) {
-        while (array[curr] != -1) {
-            curr = array[curr];
+        if (array[curr] == -1) {
+            return curr;  // This node is the root
         }
+        
+      
         
         array[curr] = find(array[curr]);
         return array[curr];
         //return curr;
         
         
-    }
+    }  
 
 
     public void expand() {
