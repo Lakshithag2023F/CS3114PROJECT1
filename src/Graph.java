@@ -55,8 +55,11 @@ public class Graph {
     public void addEdge(int artistNode, int songNode) {
 
         if (!hasEdge(artistNode, songNode)) {
+            vertex[artistNode].insert(new Node(songNode));
+            vertex[songNode].insert(new Node(artistNode));
             union(artistNode, songNode);
         }
+        
     }
 
 
@@ -77,36 +80,6 @@ public class Graph {
      * remove node and edges
      */
 
-// DoubleLL<Node> adjacencyList = vertex[node.getIndex()];
-// if (adjacencyList != null) {
-// //for (Node adjacentNode : adjacencyList)
-// {
-// // Remove the connection from the adjacent node's list
-// //vertex[adjacentNode.getIndex()].remove(node);
-//
-// }
-// }
-
-// public void removeNode(Node node) {
-//// DoubleLL<Node> adjacencyList = vertexF[node.getIndex()];
-//// if (adjacencyList != null) {
-//// //for (Node adjacentNode : adjacencyList)
-//// {
-//// // Remove the connection from the adjacent node's list
-//// //vertex[adjacentNode.getIndex()].remove(node);
-////
-//// }
-//// }
-//
-// int index = node.getIndex();
-// // look for connected nodes in vertex[index]
-//
-// vertex[index] = null;
-// for (int i = 0; i < maxSize; i++) {
-// DoubleLL<Node> adjacency = vertex[i];
-// adjacency.remove(node);
-// }
-// }
 
     public void removeNode(Node node) {
         int index = node.getIndex();
@@ -149,30 +122,7 @@ public class Graph {
     }
 
 
-    /**
-     * expand size of adjacency list array
-     */
-// public void expand() {
-// int newSize = maxSize * 2; // Correctly double the current maxSize
-// @SuppressWarnings("unchecked")
-// DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
-//
-// // Copy old adjacency lists to the new array
-// for (int i = 0; i < getNumberOfNodes(); i++) {
-// newAdjacencyList[i] = getVertex()[i];
-// }
-//
-// // Initialize the new parts of the array
-// for (int i = getNumberOfNodes(); i < newSize; i++) {
-// newAdjacencyList[i] = new DoubleLL<>();
-// }
-//
-// // Replace the old adjacency list with the new one
-// setVertex(newAdjacencyList);
-// maxSize = newSize;
-//
-// // System.out.println("Graph expanded to " + maxSize + " nodes.");
-// }
+ 
 
     public void expand() {
         int newSize = maxSize * 2; // Correctly double the current maxSize
