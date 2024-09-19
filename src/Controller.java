@@ -24,52 +24,7 @@ public class Controller {
         return ++nodeNumber;
     }
 
-//    public void insert(String artistName, String songName) {
-//        boolean artistFound = false;
-//        boolean songFound = false;
-//
-//        // Check for an artist node
-//        Node artistNode = null;
-//        int artistIndex = artist.find(artistName);
-//        if (artistIndex == -1) { // Artist not in the artist hash
-//            artistNode = new Node(calculateNode());
-//            
-//            // Insert new artist record with type "artist"
-//            artist.insert(new Record(artistName, artistNode, "artist"));
-//            
-//            fullGraph.newNode(artistNode);
-//            artistName = artistName.trim();
-//            System.out.println("|" + artistName + "| is added to the Artist database.");
-//        } else {
-//            artistNode = artist.getRecord(artistName).getNode();
-//            artistFound = true;
-//        }
-//
-//        // Check for a song node
-//        Node songNode = null;
-//        int songIndex = song.find(songName);
-//        if (songIndex == -1) { // Song not in the song hash
-//            songNode = new Node(calculateNode());
-//            
-//            // Insert new song record with type "song"
-//            song.insert(new Record(songName, songNode, "song"));
-//            
-//            fullGraph.newNode(songNode);
-//            System.out.println("|" + songName + "| is added to the Song database.");
-//        } else {
-//            songFound = true;
-//            songNode = song.getRecord(songName).getNode();
-//        }
-//
-//        // Check if an edge exists between the two
-//        if (fullGraph.hasEdge(artistNode.getIndex(), songNode.getIndex())) {
-//            artistName = artistName.trim();
-//            System.out.println("|" + artistName + "<SEP>" + songName
-//                + "| duplicates a record already in the database.");
-//        } else {
-//            fullGraph.addEdge(artistNode.getIndex(), songNode.getIndex());
-//        }
-//    }
+
 
     
     public void insert(String artistName, String songName) {

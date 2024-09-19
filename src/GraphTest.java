@@ -387,8 +387,19 @@ public class GraphTest extends TestCase {
      * Tests removing a null node
      */
     public void testRemoveNodeNull() {
-        graph.removeNode(new Node(2));
+        try {
+        graph.removeNode(null);
+        }
+        catch (NullPointerException e) {
+            System.out.println("Null point exception");
+        }
+        assertNull(graph.getVertex()[0]);
+        assertNull(graph.getVertex()[1]);
         assertNull(graph.getVertex()[2]);
+        assertNull(graph.getVertex()[3]);
+        assertNull(graph.getVertex()[4]);
+        assertEquals(graph.getNumberOfNodes(), 0);
+
         
         graph.newNode(new Node(1));
         assertNotNull(graph.getVertex()[1]);
