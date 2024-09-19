@@ -1,79 +1,88 @@
+/*
+ * imports for Junit testing
+ */
 import student.TestCase;
 
-// -------------------------------------------------------------------------
 /**
- * Test class to test Record.java
+ * class to test Record.java
  * 
  * @author laksh
  * @version Sep 12, 2024
  */
-public class RecordTest extends TestCase {
+public class RecordTest extends TestCase 
+{
     //~ Fields ................................................................
+    /*
+     * initilizes Record record
+     */
     private Record record;
+    /*
+     * initializes Node node
+     */
     private Node node;
+    /*
+     * initializes another node node2
+     */
     private Node node2;
 
-    //~ Constructors ..........................................................
-    
-    /**
-     * Sets up the test case by initializing the objects.
-     */
-    public void setUp() {
-        node = new Node(1); // Initialize node with a valid index
-        node2 = new Node(2); // Initialize a second node for testing
-
-        record = new Record("six", node, "artist"); // Create a record with a key, node, and type
-    }
-
     //~Public Methods ........................................................
-    
-    // ----------------------------------------------------------
     /**
-     * Tests the getKey method.
+     * Sets up the testing methods
      */
-    public void testGetKey() {
-        assertEquals("six", record.getKey());
+    public void setUp()
+    {
+        node = new Node(1); 
+        node2 = new Node(2);     
+        record = new Record("kalsdjfla", node, "artist"); 
     }
     
-    // ----------------------------------------------------------
     /**
-     * Tests the getNode method.
+     * Tests getKey   
      */
-    public void testGetNode() {
+    public void testGetKey()
+    {
+        assertEquals("kalsdjfla", record.getKey());   
+    }
+    
+    /**
+     * Tests getNode
+     */
+    public void testGetNode()
+    {
         assertEquals(node, record.getNode());
     }
     
-    // ----------------------------------------------------------
     /**
-     * Tests the setKey method.
+     * Tests setKey 
      */
-    public void testSetKey() {
-        record.setKey("five");
-        assertEquals("five", record.getKey());
+    public void testSetKey()        
+    {
+        record.setKey("wassssssup");
+        assertEquals("wassssssup", record.getKey());
     }
     
-    // ----------------------------------------------------------
     /**
-     * Tests the setNode method. 
+     * Tests setNode
      */
-    public void testSetNode() {
+    public void testSetNode()
+    {
         record.setNode(node2);
         assertEquals(node2, record.getNode());
     }
     
-    // ----------------------------------------------------------
     /**
-     * Tests the getType method.
+     * Tests getType 
      */
-    public void testGetType() {
+    public void testGetType()
+    {
         assertEquals("artist", record.getType());
     }
     
-    // ----------------------------------------------------------
     /**
-     * Tests the setType method.
+     * Tests setType
      */
-    public void testSetType() {
+    public void testSetType()
+    {
         record.setType("song");
         assertEquals("song", record.getType());
     }
