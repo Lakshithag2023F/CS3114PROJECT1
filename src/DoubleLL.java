@@ -1,15 +1,15 @@
 /**
- *This class implements the methods for the doublly linked list
+ * This class implements the methods for the doublly linked list
  * 
  * @param <E>
- *            type E of the entries in the list 
+ *            type E of the entries in the list
  * @author shrut
  * @version Sep 11, 2024
  */
 public class DoubleLL<E> {
     // ~ Fields ................................................................
     /*
-     *the node that is the head 
+     * the node that is the head
      */
     private Node head;
     /*
@@ -29,13 +29,13 @@ public class DoubleLL<E> {
     /**
      * Create a new DoubleLL object.
      */
-    public DoubleLL() 
-    {
+    public DoubleLL() {
         head = null;
         tail = null;
         current = null;
         size = 0;
     }
+
 
     // ~ Public Methods ........................................................
     /**
@@ -44,16 +44,13 @@ public class DoubleLL<E> {
      * @param index
      *            the index in node
      */
-    public void insert(int index) 
-    {
+    public void insert(int index) {
         Node newNode = new Node(index);
-        if (head == null) 
-        {
+        if (head == null) {
             head = newNode;
             tail = newNode;
         }
-        else 
-        {
+        else {
             tail.setNext(newNode);
             tail = newNode;
         }
@@ -64,8 +61,7 @@ public class DoubleLL<E> {
     /**
      * sets the curr to head
      */
-    public void resetCurr() 
-    {
+    public void resetCurr() {
         current = head;
     }
 
@@ -75,14 +71,12 @@ public class DoubleLL<E> {
      * 
      * @return -1 if curr is null, index if not
      */
-    public int getNext() 
-    {
-        if (current == null) 
-        {
+    public int getNext() {
+        if (current == null) {
             return -1;
         }
-        int index = current.getIndex();           
-        current = current.getNext();      
+        int index = current.getIndex();
+        current = current.getNext();
         return index;
     }
 
@@ -91,16 +85,13 @@ public class DoubleLL<E> {
      * Loops through the list to find the data
      * 
      * @param index
-     *            the index to check 
+     *            the index to check
      * @return true data is there, false if not
      */
-    public boolean contains(int index)     
-    {
+    public boolean contains(int index) {
         Node temp = head;
-        while (temp != null)           
-        {
-            if (temp.getIndex() == index)       
-            {
+        while (temp != null) {
+            if (temp.getIndex() == index) {
                 return true;
             }
             temp = temp.getNext();
@@ -112,43 +103,38 @@ public class DoubleLL<E> {
     /**
      * Gets size
      * 
-     * @return size 
+     * @return size
      */
-    public int getSize()    
-    {
+    public int getSize() {
         return size;
     }
 
 
     /**
      * removes the node data at the index pos
+     * 
      * @param pos
      *            what to remove
      * @return true if removed and false if not
      */
     public boolean remove(int pos) {
-        if (head == null) 
-        {
+        if (head == null) {
             return false;
         }
-        if (head.getIndex() == pos) 
-        {
+        if (head.getIndex() == pos) {
             head = head.getNext();
-            if (head == null) 
-            {
+            if (head == null) {
                 tail = null;
             }
-            size--;    
-            return true;    
+            size--;
+            return true;
+            
         }
         Node previous = head;
-        @SuppressWarnings("hiding")
         Node current = head.getNext();
-        //removes the rest 
-        while (current != null)
-        {
-            if (current.getIndex() == pos)
-            {
+        // removes the rest
+        while (current != null) {
+            if (current.getIndex() == pos) {
                 previous.setNext(current.getNext());
                 if (current == tail) {
                     tail = previous;
@@ -168,27 +154,24 @@ public class DoubleLL<E> {
      * 
      * @return -1 is tail is null and index if head is not null
      */
-    public int getHeadData()
-    {
-        if (head == null)
-        {
-            return -1;      
+    public int getHeadData() {
+        if (head == null) {
+            return -1;
         }
-        return head.getIndex();     
-    }    
+        return head.getIndex();
+    }
+
 
     /**
      * Gets the data/index of the tail node
      * 
      * @return -1 is tail is null and index if tail is not null
      */
-    public int getTailData() 
-    {
-        if (tail == null)
-        {
+    public int getTailData() {
+        if (tail == null) {
             return -1;
         }
-        return tail.getIndex(); 
+        return tail.getIndex();
     }
 
 }
