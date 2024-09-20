@@ -175,6 +175,30 @@ public class Graph {
 
 
     /**
+     * Get weight at index
+     * 
+     * @param index
+     *            is the index to find in weights array
+     * @return the weight
+     */
+    public int getWeight(int index) {
+        return weights[index];
+    }
+
+
+    /**
+     * Get root at index
+     * 
+     * @param index
+     *            is the index to find the root of
+     * @return the root
+     */
+    public int getRoot(int index) {
+        return array[index];
+    }
+
+
+    /**
      * Find method with path compression to find the root of a node
      * 
      * @param curr
