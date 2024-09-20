@@ -173,5 +173,67 @@ public class DoubleLL<E> {
         }
         return tail.getIndex();
     }
+    
+    
+    /**
+     * getter for head 
+     * @return head
+     */
+    public Node getHead()
+    {
+        return head;
+        
+    }
+    
+    /**
+     * getter for tail 
+     * @return tail
+     */
+    public Node getTail()
+    {
+        return tail;
+        
+    }
+    
+    /**
+     * Setter for head
+     * @param head new head
+     */
+    public void setHead(Node head) {
+        this.head = head;
+    }
+    
+    /**
+     * Setter for tail
+     * @param tail new tail
+     */
+    public void setTail(Node tail) {
+        this.tail = tail;
+    }
 
+    /**
+     * getter for current
+     * @return current
+     */
+    public Node getCurrent() {
+        return current;
+    }
+
+    /**
+     * setter for current
+     * @param current new current 
+     */
+    public void setCurrent(Node current) {
+        this.current = current;
+    }
+
+    /**
+     * setter for size
+     * @param size the new size
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
+    
 }
