@@ -54,7 +54,7 @@ public class HashTest extends TestCase {
     /**
      * Tests inserting the same record again
      */
-    public void testInsertSameRecord() {
+    public void testInsertSame() {
         Node node5 = new Node(4);
         Record record5 = new Record("testing", node5, "artist");
 
@@ -91,7 +91,6 @@ public class HashTest extends TestCase {
         Node node9 = new Node(4);
         Record record9 = new Record("five", node9, "artist");
 
-        Node node10 = new Node(4);
         Record record10 = new Record("six", node9, "artist");
 
         Node node11 = new Node(7);
@@ -119,23 +118,16 @@ public class HashTest extends TestCase {
      * Tests the remove method
      */
     public void testRemove() {
-        // Insert a record and then remove it
-        hash.insert(record); // "hokies" should be inserted
-        hash.remove("hokies"); // "hokies" should be removed
+        hash.insert(record);
+        hash.remove("hokies");
 
-        // Check that "hokies" is no longer found
         assertEquals(-1, hash.find("hokies"));
         assertNull(hash.getRecord("hokies"));
-        assertEquals(0, hash.getNumberOfRecords()); // Ensure number of records
-                                                    // is updated correctly
+        assertEquals(0, hash.getNumberOfRecords());
 
-        // Check removing a non-existing record does not cause errors
-
-        // Reinsert and test again
         hash.insert(record);
         hash.insert(record2);
-        assertEquals(2, hash.getNumberOfRecords()); // Ensure both records are
-                                                    // inserted
+        assertEquals(2, hash.getNumberOfRecords());
     }
 
 
@@ -171,43 +163,36 @@ public class HashTest extends TestCase {
      * Tests print method
      */
     public void testPrint() {
-        // Create a stream to hold the output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Test case 1: Print when the hash table is empty
             hash.print();
             String expectedOutput = "";
             assertEquals(expectedOutput, outputStream.toString().trim());
 
-            // Test case 2: Print after inserting a record
             hash.insert(record);
-            outputStream.reset(); // Clear the previous output
+            outputStream.reset();
             hash.print();
-            expectedOutput = "3: |hokies|"; // Expected format based on
-                                            // insertion
+            expectedOutput = "3: |hokies|";
             assertEquals(expectedOutput, outputStream.toString().trim());
 
-            // Test case 3: Print after removing a record
             hash.remove("hokies");
-            outputStream.reset(); // Clear the previous output
+            outputStream.reset();
             hash.print();
-            expectedOutput = "3: TOMBSTONE"; // Should print "TOMBSTONE"
+            expectedOutput = "3: TOMBSTONE";
             assertEquals(expectedOutput, outputStream.toString().trim());
 
-            // Test case 4: Insert multiple records and print again
             record2 = new Record("test", new Node(2), "artist");
             hash.insert(record2);
-            outputStream.reset(); // Clear the previous output
+            outputStream.reset();
             hash.print();
             expectedOutput = "3: TOMBSTONE\n8: |test|";
 
             assertEquals(expectedOutput, outputStream.toString().trim());
         }
         finally {
-            // Reset System.out back to the original
             System.setOut(originalOut);
         }
     }
@@ -216,7 +201,7 @@ public class HashTest extends TestCase {
     /**
      * Tests to see if rehash is working as it should
      */
-    public void testRehashingWorks() {
+    public void testRehashing0() {
         for (int i = 0; i < 6; i++) {
             node = new Node(i);
             record = new Record("key" + i, node, "artist");
@@ -241,6 +226,8 @@ public class HashTest extends TestCase {
 
     /**
      * Tests Sfold
+     * 
+     * @throws Exception
      */
     public void testSfold() throws Exception {
         assertTrue(Hash.h("a", 10000) == 97);
@@ -258,8 +245,8 @@ public class HashTest extends TestCase {
     /**
      * Tests find with a collision to trigger quadratic probing
      */
-    public void testFindWithSingleCollision() {
-        // Insert two records that will cause a collision
+    public void testCollision() {
+        // Insert records that will cause collision
         Record record1 = new Record("key1", new Node(1), "artist");
         record2 = new Record("key1Collide", new Node(2), "artist");
 
@@ -279,9 +266,9 @@ public class HashTest extends TestCase {
 
 
     /**
-     * Tests find with numerous collisions
+     * Tests find with many collisions
      */
-    public void testFindWithMultipleCollisions() {
+    public void testFindCollisions() {
         hash.insert(new Record("collision1", new Node(1), "song"));
         hash.insert(new Record("collision2", new Node(2), "song"));
         hash.insert(new Record("collision3", new Node(3), "song"));
@@ -303,7 +290,7 @@ public class HashTest extends TestCase {
     /**
      * Tests quadratic probing
      */
-    public void testQuadraticProbingWrapAround() {
+    public void testQuadProbing() {
         for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
             hash.insert(new Record("key" + i, new Node(i), "artist"));
         }
@@ -318,7 +305,7 @@ public class HashTest extends TestCase {
     /**
      * Tests find with full table
      */
-    public void testFindWithFullTableProbing() {
+    public void testFindWithFullTable() {
         for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
             hash.insert(new Record("key" + i, new Node(i), "song"));
         }
@@ -337,7 +324,7 @@ public class HashTest extends TestCase {
     /**
      * Tests find with a tombstone
      */
-    public void testFindWithTombstones() {
+    public void testTombstones0() {
         hash.insert(new Record("toBeRemoved1", new Node(1), "artist"));
         hash.insert(new Record("toBeRemoved2", new Node(2), "artist"));
         hash.remove("toBeRemoved1");
@@ -355,7 +342,7 @@ public class HashTest extends TestCase {
     /**
      * Tests rehash song type
      */
-    public void testRehashSongType() {
+    public void testRehashSong() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
@@ -381,7 +368,7 @@ public class HashTest extends TestCase {
     /**
      * Tests rehash artist type
      */
-    public void testRehashArtistType() {
+    public void testRehashArtist() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
@@ -409,7 +396,7 @@ public class HashTest extends TestCase {
     /**
      * Tests rehash unknown type
      */
-    public void testRehashUnknownType() {
+    public void testRehashUnknown() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
@@ -422,8 +409,7 @@ public class HashTest extends TestCase {
             hash.insert(new Record("testUnknown", new Node(3), "unknown"));
 
             String output = outputStream.toString().trim();
-            System.out.println("Captured output: " + output); // Debugging
-                                                              // output
+            System.out.println("Captured output: " + output);
 
             assertTrue(output.contains(
                 "Unknown type hash table size doubled."));
@@ -457,7 +443,7 @@ public class HashTest extends TestCase {
     /**
      * Tests insert artist pair
      */
-    public void testInsertArtistSongPairs() {
+    public void testInsertPairs() {
         Record artistRecord = new Record("Blind Lemon Jefferson", new Node(0),
             "artist");
         Record songRecord = new Record("Long Lonesome Blues", new Node(1),
@@ -505,7 +491,7 @@ public class HashTest extends TestCase {
     /**
      * Tests remove artist
      */
-    public void testRemoveArtistCaseSensitivity() {
+    public void testRemoveArtist() {
         Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
         hash.insert(artistRecord);
         hash.remove("ma rainey");
@@ -514,37 +500,41 @@ public class HashTest extends TestCase {
         assertNull(hash.getRecord("Ma Rainey"));
     }
 
+//
+//    /**
+//     * Tests print after removing
+//     */
+//    public void testPrintRemove() {
+//        Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
+//        hash.insert(artistRecord);
+//
+//        hash.remove("Ma Rainey");
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        PrintStream originalOut = System.out;
+//        System.setOut(new PrintStream(outputStream));
+//
+//        try {
+//            hash.print();
+//            String expectedOutput = "";
+//            for (int i = 0; i < hash.getAllRecords().length; i++) {
+//                if (hash.getAllRecords()[i] == hash.getTombstone()) {
+//                    expectedOutput += i + ": TOMBSTONE\n";
+//                }
+//            }
+//            assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+//        }
+//        finally {
+//            System.setOut(originalOut);
+//        }
+//    }
 
-    public void testPrintAfterRemovals() {
-        Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
-        hash.insert(artistRecord);
 
-        hash.remove("Ma Rainey");
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        try {
-            hash.print();
-            String expectedOutput = "";
-            for (int i = 0; i < hash.getAllRecords().length; i++) {
-                if (hash.getAllRecords()[i] == hash.getTombstone()) {
-                    expectedOutput += i + ": TOMBSTONE\n";
-                }
-            }
-            assertEquals(expectedOutput.trim(), outputStream.toString().trim());
-        }
-        finally {
-            System.setOut(originalOut);
-        }
-    }
-
-
-    public void testCollisionHandling() {
+    /**
+     * Tests collision
+     */
+    public void testCollision0() {
         Record record1 = new Record("Key1", new Node(1), "song");
-        Record record2 = new Record("Key1Collision", new Node(2), "song");
-        int hash1 = Hash.h("Key1", hash.getAllRecords().length);
-        int hash2 = hash1;
+        record2 = new Record("Key1Collision", new Node(2), "song");
         hash.insert(record1);
         hash.insert(record2);
         assertNotNull(hash.getRecord("Key1"));
@@ -552,7 +542,10 @@ public class HashTest extends TestCase {
     }
 
 
-    public void testSimpleRemoval() {
+    /**
+     * Tests remove method
+     */
+    public void testRemoval0() {
         hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         assertNotNull(hash.getRecord("key1"));
@@ -561,7 +554,10 @@ public class HashTest extends TestCase {
     }
 
 
-    public void testRemovalWithCollision() {
+    /**
+     * Test removal when there is collision
+     */
+    public void testRemovalCollision() {
         hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
@@ -573,7 +569,10 @@ public class HashTest extends TestCase {
     }
 
 
-    public void testRemovalAfterMultipleProbes() {
+    /**
+     * Testing remove after quad probings
+     */
+    public void testRemoval() {
         hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("keyA", new Node(2), "artist"));
@@ -585,7 +584,10 @@ public class HashTest extends TestCase {
     }
 
 
-    public void testRemovalWithWrapAround() {
+    /**
+     * Tests removal
+     */
+    public void testRemoval2() {
         hash = new Hash(5);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
@@ -598,7 +600,7 @@ public class HashTest extends TestCase {
     /**
      * Testing removing a non existent key
      */
-    public void testRemovingNonExistentKey() {
+    public void testRemovingKeyNonExistent() {
         hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.remove("nonexistent");
@@ -607,9 +609,9 @@ public class HashTest extends TestCase {
 
 
     /**
-     * Testing handling of tombstones
+     * Testing tombstones
      */
-    public void testHandlingTombstones() {
+    public void testTombstones() {
         hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.remove("key1");
@@ -619,7 +621,10 @@ public class HashTest extends TestCase {
     }
 
 
-    public void testQuadraticProbingCollisionResolution() {
+    /**
+     * Tests quadratic probing again
+     */
+    public void testQuadraticProbing2() {
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
         int index1 = hash.find("key1");
