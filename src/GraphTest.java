@@ -540,5 +540,18 @@ public class GraphTest extends TestCase {
         assertEquals(graph.getRoot(3), 0);
 
     }
-
+    
+    
+    public void testAddEdgeDoesNotDuplicate() {
+        Graph graph = new Graph(10);
+        graph.getVertex()[0] = new DoubleLL<>(); 
+        graph.getVertex()[2] = new DoubleLL<>(); 
+        graph.getVertex()[0].insert(2);
+        graph.getVertex()[2].insert(0);
+        assertTrue(graph.hasEdge(0, 2));
+        graph.addEdge(0, 2);
+        assertEquals( 1, graph.getVertex()[0].getSize());
+        assertEquals(1, graph.getVertex()[2].getSize());
+    }
+    
 }

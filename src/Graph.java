@@ -348,23 +348,8 @@ public class Graph {
     public void setVertex(DoubleLL<Node>[] vertex) {
         this.vertex = vertex;
     }
+    
+   
 
-// /**
-// * Finds the diameter of the graph
-// *
-// * @return the diameter
-// */
-// public int diameter() {
-// int diameter = 0;
-// for (int i = 0; i < numberOfNodes; i++) {
-// if (vertex[i] != null) {
-// int size = vertex[i].getSize();
-// if (size > diameter) {
-// diameter = size;
-// }
-// }
-// }
-// return diameter;
-// }
 
 }
