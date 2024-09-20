@@ -42,6 +42,7 @@ public class Controller {
 
     }
 
+
     // ~Public Methods ........................................................
     /*
      * handles the -1 index when a new artist/song is added.
@@ -52,6 +53,7 @@ public class Controller {
     private int calculateNode() {
         return ++nodeNumber;
     }
+
 
     /**
      * Inserts the artist / song
@@ -81,7 +83,7 @@ public class Controller {
             artistNode = artist.getRecord(artistName).getNode();
         }
 
-        // Check for a song node  
+        // Check for a song node
         Node songNode = null;
         int songIndex = song.find(songName);
         if (songIndex == -1) { // Song not in the song hash
@@ -104,6 +106,7 @@ public class Controller {
             fullGraph.addEdge(artistNode.getIndex(), songNode.getIndex());
         }
     }
+
 
     /**
      * removes the artist from graph and hash
@@ -130,6 +133,7 @@ public class Controller {
 
     }
 
+
     /**
      * removes the song from graph and hash
      * 
@@ -155,6 +159,7 @@ public class Controller {
 
     }
 
+
     /**
      * Prints the artist
      */
@@ -164,6 +169,7 @@ public class Controller {
 
     }
 
+
     /**
      * Prints the songs
      */
@@ -172,6 +178,7 @@ public class Controller {
         System.out.println("total songs: " + song.getNumberOfRecords());
 
     }
+
 
     /**
      * Prints the graph

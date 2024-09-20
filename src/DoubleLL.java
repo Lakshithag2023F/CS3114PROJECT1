@@ -128,9 +128,9 @@ public class DoubleLL<E> {
             }
             size--;
             return true;
-            
         }
         Node previous = head;
+        @SuppressWarnings("hiding")
         Node current = head.getNext();
         // removes the rest
         while (current != null) {

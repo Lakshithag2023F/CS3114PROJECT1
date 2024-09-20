@@ -157,9 +157,42 @@ public class DoubleLLTest extends TestCase {
         assertEquals(3, listOfNums.getSize());
     }
 
-    
-    public void testRemoveHeadIsNull()
-    {
-        
+
+    /**
+     * Test if head is null
+     */
+    public void testRemoveHeadIsNull() {
+        boolean result = listOfNums.remove(0);
+        assertFalse(result);
+
     }
+
+
+    /**
+     * Test adding multiple elements and removing one
+     */
+    public void testRemoveOneFromMany() {
+        listOfNums.insert(0);
+        listOfNums.insert(1);
+        listOfNums.insert(2);
+        boolean result = listOfNums.remove(1);
+        assertTrue(result);
+        assertTrue(listOfNums.getTailData() == 2);
+
+    }
+
+
+    /**
+     * Test removing tail
+     */
+    public void testRemoveTail() {
+        listOfNums.insert(0);
+        listOfNums.insert(1);
+        listOfNums.insert(2);
+        boolean result = listOfNums.remove(1);
+        assertTrue(result);
+        assertTrue(listOfNums.getTailData() == 2);
+
+    }
+
 }
