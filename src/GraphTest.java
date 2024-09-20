@@ -234,10 +234,10 @@ public class GraphTest extends TestCase {
 
         graph.unionConnectedNodes();
 
-        int A = graph.find(1);
-        int B = graph.find(2);
+        int a = graph.find(1);
+        int b = graph.find(2);
 
-        assertEquals(A, B);
+        assertEquals(a, b);
         assertFalse(graph.find(1) == graph.find(3));
     }
 

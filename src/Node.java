@@ -64,6 +64,7 @@ public class Node {
      * setter for index
      * 
      * @param index
+     *            is what node is set to
      */
     public void setIndex(int index) {
         this.index = index;

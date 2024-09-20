@@ -89,6 +89,7 @@ public class Record {
      * sets the key to the name
      * 
      * @param key
+     *            is the key to be set
      */
     public void setKey(String key) {
         this.key = key;
@@ -99,6 +100,7 @@ public class Record {
      * sets the node to the node
      * 
      * @param node
+     *            is to be set to
      */
     public void setNode(Node node) {
         this.node = node;
@@ -109,6 +111,7 @@ public class Record {
      * sets the type to the string type
      * 
      * @param type
+     *            is the type of record
      */
     public void setType(String type) {
         this.type = type;
