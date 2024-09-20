@@ -1,5 +1,5 @@
 /**
- * This class implements the methods for the doublly linked list
+ * This class implements the methods for the doubly linked list
  * 
  * @param <E>
  *            type E of the entries in the list
@@ -27,7 +27,8 @@ public class DoubleLL<E> {
 
     // ~ Constructors ..........................................................
     /**
-     * Create a new DoubleLL object.
+     * Create a new DoubleLL object, making the size zero and the other fields
+     * null
      */
     public DoubleLL() {
         head = null;
@@ -39,10 +40,10 @@ public class DoubleLL<E> {
 
     // ~ Public Methods ........................................................
     /**
-     * Inserts at end of the list
+     * Inserts integer at end of the list
      * 
      * @param index
-     *            the index in node
+     *            the index of nodes
      */
     public void insert(int index) {
         Node newNode = new Node(index);
@@ -59,7 +60,7 @@ public class DoubleLL<E> {
 
 
     /**
-     * sets the curr to head
+     * sets the current node to the head
      */
     public void resetCurr() {
         current = head;
@@ -67,9 +68,9 @@ public class DoubleLL<E> {
 
 
     /**
-     * get Next node and returns index
+     * gets the next node
      * 
-     * @return -1 if curr is null, index if not
+     * @return -1 if current node is null and its position if not
      */
     public int getNext() {
         if (current == null) {
@@ -101,7 +102,7 @@ public class DoubleLL<E> {
 
 
     /**
-     * Gets size
+     * Gets size of list
      * 
      * @return size
      */
@@ -111,17 +112,17 @@ public class DoubleLL<E> {
 
 
     /**
-     * removes the node data at the index pos
+     * removes the node data at the index position
      * 
-     * @param pos
+     * @param position
      *            what to remove
      * @return true if removed and false if not
      */
-    public boolean remove(int pos) {
-        if (head == null) {
+    public boolean remove(int position) {
+        if (head == null) { // empty list
             return false;
         }
-        if (head.getIndex() == pos) {
+        if (head.getIndex() == position) { // if head is to be removed
             head = head.getNext();
             if (head == null) {
                 tail = null;
@@ -129,14 +130,17 @@ public class DoubleLL<E> {
             size--;
             return true;
         }
-        Node previous = head;
-        @SuppressWarnings("hiding")
-        Node current = head.getNext();
-        // removes the rest
-        while (current != null) {
-            if (current.getIndex() == pos) {
-                previous.setNext(current.getNext());
-                if (current == tail) {
+
+        Node previous = head; // previous node
+        current = head.getNext(); // moves to the next node
+
+        while (current != null) { // node still has data
+            if (current.getIndex() == position) {
+                previous.setNext(current.getNext()); // removes node by setting
+                                                     // the previous node's next
+                                                     // to the current node's
+                                                     // next
+                if (current == tail) { // if the current is the last node
                     tail = previous;
                 }
                 size--;
@@ -173,67 +177,81 @@ public class DoubleLL<E> {
         }
         return tail.getIndex();
     }
-    
-    
+
+
     /**
-     * getter for head 
+     * getter for head
+     * 
      * @return head
      */
-    public Node getHead()
-    {
+    public Node getHead() {
         return head;
-        
+
     }
-    
+
+
     /**
-     * getter for tail 
+     * getter for tail
+     * 
      * @return tail
      */
-    public Node getTail()
-    {
+    public Node getTail() {
         return tail;
-        
+
     }
-    
+
+
     /**
      * Setter for head
-     * @param head new head
+     * 
+     * @param head
+     *            new head
      */
     public void setHead(Node head) {
         this.head = head;
     }
-    
+
+
     /**
      * Setter for tail
-     * @param tail new tail
+     * 
+     * @param tail
+     *            new tail
      */
     public void setTail(Node tail) {
         this.tail = tail;
     }
 
+
     /**
      * getter for current
+     * 
      * @return current
      */
     public Node getCurrent() {
         return current;
     }
 
+
     /**
      * setter for current
-     * @param current new current 
+     * 
+     * @param current
+     *            new current
      */
     public void setCurrent(Node current) {
         this.current = current;
     }
 
+
     /**
      * setter for size
-     * @param size the new size
+     * 
+     * @param size
+     *            the new size
      */
     public void setSize(int size) {
         this.size = size;
     }
-    
-    
+
 }

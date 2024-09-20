@@ -19,6 +19,10 @@ public class ControllerTest extends TestCase {
     private final ByteArrayOutputStream outContent =
         new ByteArrayOutputStream();
 
+    /**
+     * called before each test method
+     * initializes a new controller of size 10 and prints stream
+     */
     public void setUp() {
         System.setOut(new PrintStream(outContent));
         controller = new Controller(10);
@@ -172,20 +176,5 @@ public class ControllerTest extends TestCase {
         assertEquals(expectedOutput, outContent.toString());
 
     }
-
-// /**
-// * Tests print song
-// */
-// public void testPrintSong() {
-// controller.insert("Artist1", "Song1");
-// controller.printSong();
-//
-// String expectedOutput = "|Artist1| is added to the Artist database.\n"
-// + "|Song1| is added to the Song database.\n" + "0: |Song1|\n"
-// + "total songs: 1\n";
-//
-// assertEquals(expectedOutput, outContent.toString());
-//
-// }
 
 }

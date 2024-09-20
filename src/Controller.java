@@ -43,12 +43,10 @@ public class Controller {
     }
 
 
-    // ~Public Methods ........................................................
-    /*
-     * handles the -1 index when a new artist/song is added.
+    /**
+     * Determines the node number and goes up
      * 
-     * @return
-     * number of nodes
+     * @return the node index number
      */
     private int calculateNode() {
         return ++nodeNumber;
@@ -59,7 +57,7 @@ public class Controller {
      * Inserts the artist / song
      * 
      * @param artistName
-     *            name of artist to be addded
+     *            name of artist to be added
      * @param songName
      *            name of the song to be added.
      */
@@ -161,7 +159,7 @@ public class Controller {
 
 
     /**
-     * Prints the artist
+     * Prints the total number of artists
      */
     public void printArtist() {
         artist.print();
@@ -171,7 +169,7 @@ public class Controller {
 
 
     /**
-     * Prints the songs
+     * Prints the total number of songs
      */
     public void printSong() {
         song.print();
@@ -181,7 +179,7 @@ public class Controller {
 
 
     /**
-     * Prints the graph
+     * Prints the graph information such as number of connected components
      */
     public void printBlock() {
         fullGraph.printGraph();

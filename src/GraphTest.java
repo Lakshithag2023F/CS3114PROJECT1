@@ -504,18 +504,25 @@ public class GraphTest extends TestCase {
         graph.removeNode(valid);
         assertTrue(graph.getNumberOfNodes() == 0);
 
-        Node another = new Node(1);
-        graph.newNode(another);
+        Node testNode = new Node(1);
+        graph.newNode(testNode);
         assertTrue(graph.getNumberOfNodes() == 1);
-        graph.removeNode(another);
+        graph.removeNode(testNode);
         assertTrue(graph.getNumberOfNodes() == 0);
     }
 
 
+    /**
+     * test for union
+     */
     public void testUnion() {
         Node root = new Node(0);
         Node bottom1 = new Node(1);
         Node bottom2 = new Node(2);
+
+        graph.newNode(root);
+        graph.newNode(bottom1);
+        graph.newNode(bottom2);
 
         graph.addEdge(0, 2);
         graph.addEdge(0, 1);
@@ -524,6 +531,8 @@ public class GraphTest extends TestCase {
         assertEquals(graph.getWeight(0), 3);
 
         Node bottom3 = new Node(3);
+        graph.newNode(bottom3);
+
         graph.addEdge(0, 3);
         graph.unionConnectedNodes();
         assertEquals(graph.getWeight(0), 4);
