@@ -1,3 +1,21 @@
+// On my honor:
+// - I have not used source code obtained from another current or
+// former student, or any other unauthorized source, either
+// modified or unmodified.
+//
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+//
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
 /**
  * /**
  * Graph class that represents the adjacency list.
@@ -227,7 +245,7 @@ public class Graph {
     public void union(int a, int b) {
         int root1 = find(a); // Find root of node a
         int root2 = find(b); // Find root of node b
-        if (root1 != root2) { // Merge with weighted union
+        if (root1 != root2) { // weighted union
             if (weights[root2] > weights[root1]) {
                 array[root1] = root2;
                 weights[root2] += weights[root1];
@@ -279,23 +297,21 @@ public class Graph {
     }
 
 
-
     /**
-     * this method doubles the graph 
+     * this method doubles the graph
      */
     public void expand() {
-        int newSize = maxSize * 2; // Double the current maxSize
+        int newSize = maxSize * 2; // Double current maxSize
         @SuppressWarnings("unchecked")
         DoubleLL<Node>[] newAdjacencyList = new DoubleLL[newSize];
 
-        // Copy old adjacency list to new array
+        // Copy adjacency list to new array
         for (int i = 0; i < maxSize; i++) {
             newAdjacencyList[i] = vertex[i];
         }
 
         setVertex(newAdjacencyList);
 
-        // Expand the Union-Find array
         int[] newArray = new int[newSize];
         int[] newWeights = new int[newSize];
 

@@ -1,3 +1,22 @@
+
+// On my honor:
+// - I have not used source code obtained from another current or
+// former student, or any other unauthorized source, either
+// modified or unmodified.
+//
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+//
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
 import student.TestCase;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,8 +41,8 @@ public class HashTest extends TestCase {
         node = new Node(2);
         node2 = new Node(3);
 
-        record = new Record("hokies", node, "artist"); 
-        record2 = new Record("wassup", node2, "artist"); 
+        record = new Record("hokies", node, "artist");
+        record2 = new Record("wassup", node2, "artist");
     }
 
 
@@ -44,7 +63,6 @@ public class HashTest extends TestCase {
         Node node6 = new Node(4);
         Record record6 = new Record("hello", node6, "artist");
         hash.insert(record6);
-        int index2 = hash.find("hello");
     }
 
 
@@ -61,11 +79,9 @@ public class HashTest extends TestCase {
         hash.insert(record5);
         hash.insert(record6);
         int index = hash.find("testing");
-        // assertNotEquals(index, -1); // Ensure "testing" is inserted
 
-        hash.insert(record5); // Inserting "testing" again should not change
-                              // state
-        assertEquals(index, hash.find("testing")); // Should be the same index
+        hash.insert(record5);
+        assertEquals(index, hash.find("testing"));
     }
 
 
@@ -216,8 +232,7 @@ public class HashTest extends TestCase {
         for (int i = 0; i < 6; i++) {
             assertNotNull(hash.getRecord("key" + i));
         }
-        assertNotNull(hash.getRecord("keyExtra")); // Ensure extra key is also
-                                                   // inserted
+        assertNotNull(hash.getRecord("keyExtra"));
     }
 
 
@@ -243,7 +258,6 @@ public class HashTest extends TestCase {
      * Tests find with a collision to trigger quadratic probing
      */
     public void testCollision() {
-        // Insert records that will cause collision
         Record record1 = new Record("key1", new Node(1), "artist");
         record2 = new Record("key1Collide", new Node(2), "artist");
 
@@ -588,6 +602,7 @@ public class HashTest extends TestCase {
         hash.insert(new Record("key2", new Node(2), "artist"));
         assertNotNull(hash.getRecord("key2"));
     }
+
 
     /**
      * Tests quadratic probing again

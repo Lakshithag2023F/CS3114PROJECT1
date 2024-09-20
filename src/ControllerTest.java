@@ -1,3 +1,22 @@
+
+// On my honor:
+// - I have not used source code obtained from another current or
+// former student, or any other unauthorized source, either
+// modified or unmodified.
+//
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+//
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
 import student.TestCase;
 import java.io.*;
 
@@ -52,9 +71,9 @@ public class ControllerTest extends TestCase {
     /**
      * Testing duplicating insert method
      */
-    public void testDuplicateInsertion() {
+    public void testDuplicateInsert() {
         controller.insert("Artist1", "Song1");
-        controller.insert("Artist1", "Song1"); // Duplicate
+        controller.insert("Artist1", "Song1"); // duplicate
 
         String expectedOutput = "|Artist1| is added to the Artist database.\n"
             + "|Song1| is added to the Song database.\n"
@@ -71,7 +90,7 @@ public class ControllerTest extends TestCase {
      */
     public void testInsertExistingArtistNewSong() {
         controller.insert("Artist1", "Song1");
-        controller.insert("Artist1", "Song4"); // New song with existing artist
+        controller.insert("Artist1", "Song4");
 
         String expectedOutput = "|Artist1| is added to the Artist database.\n"
             + "|Song1| is added to the Song database.\n"
@@ -87,7 +106,7 @@ public class ControllerTest extends TestCase {
      */
     public void testInsertNewArtistExistingSong() {
         controller.insert("Artist1", "Song1");
-        controller.insert("Artist4", "Song1"); // New artist with existing song
+        controller.insert("Artist4", "Song1");
 
         String expectedOutput = "|Artist1| is added to the Artist database.\n"
             + "|Song1| is added to the Song database.\n"
@@ -104,7 +123,7 @@ public class ControllerTest extends TestCase {
     public void testRemoveArtist() {
         controller.insert("Artist2", "Song2");
         controller.removeArtist("Artist2");
-        controller.removeArtist("Artist2"); // Attempt to remove again
+        controller.removeArtist("Artist2");
 
         String expectedOutput = "|Artist2| is added to the Artist database.\n"
             + "|Song2| is added to the Song database.\n"
@@ -122,7 +141,7 @@ public class ControllerTest extends TestCase {
     public void testRemoveSong() {
         controller.insert("Artist3", "Song3");
         controller.removeSong("Song3");
-        controller.removeSong("Song3"); // Attempt to remove again
+        controller.removeSong("Song3");
 
         String expectedOutput = "|Artist3| is added to the Artist database.\n"
             + "|Song3| is added to the Song database.\n"
@@ -151,7 +170,7 @@ public class ControllerTest extends TestCase {
     /**
      * Removing a non existent song
      */
-    public void testRemoveNonExistentSong() {
+    public void testRemoveSong1() {
         controller.removeSong("NonExistentSong");
 
         String expectedOutput =

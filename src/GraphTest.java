@@ -1,3 +1,22 @@
+
+// On my honor:
+// - I have not used source code obtained from another current or
+// former student, or any other unauthorized source, either
+// modified or unmodified.
+//
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+//
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
 import student.TestCase;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -65,7 +84,7 @@ public class GraphTest extends TestCase {
         graph.newNode(new Node(2));
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
-        graph.addEdge(1, 2); 
+        graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
         graph.addEdge(2, 1);
         assertTrue(graph.hasEdge(2, 1));
@@ -196,7 +215,7 @@ public class GraphTest extends TestCase {
         for (int i = 0; i < 5; i++) {
             graph.newNode(new Node(i));
         }
-        //expands
+        // expands
         graph.newNode(new Node(6));
     }
 
@@ -210,7 +229,7 @@ public class GraphTest extends TestCase {
         graph.addEdge(1, 0);
         graph.addEdge(3, 4);
 
-        assertTrue(graph.hasEdge(1, 2)); // both  connected
+        assertTrue(graph.hasEdge(1, 2)); // both connected
         assertFalse(graph.hasEdge(1, 3)); // they not connected
 
         graph.unionConnectedNodes();
@@ -227,7 +246,7 @@ public class GraphTest extends TestCase {
      * Tests print graph
      */
     public void testPrintGraph() {
-        graph.addEdge(0, 1); 
+        graph.addEdge(0, 1);
         graph.addEdge(1, 2);
         graph.addEdge(3, 4);
 
@@ -250,7 +269,7 @@ public class GraphTest extends TestCase {
 
         Node node1 = new Node(0);
         graph.newNode(node1);
-        assertNotNull(graph.getVertex()[node1.getIndex()]); 
+        assertNotNull(graph.getVertex()[node1.getIndex()]);
         assertEquals(0, graph.getVertex()[node1.getIndex()].getSize());
         assertEquals(1, graph.getNumberOfNodes());
 
@@ -520,21 +539,21 @@ public class GraphTest extends TestCase {
         assertEquals(graph.getRoot(3), 0);
 
     }
-    
-    
+
+
     /**
      * Add edge but song and artist are in the graph already
      */
     public void testAddEdgeNoDuplicate() {
-        Graph graph = new Graph(10);
-        graph.getVertex()[0] = new DoubleLL<>(); 
-        graph.getVertex()[2] = new DoubleLL<>(); 
+        graph = new Graph(10);
+        graph.getVertex()[0] = new DoubleLL<>();
+        graph.getVertex()[2] = new DoubleLL<>();
         graph.getVertex()[0].insert(2);
         graph.getVertex()[2].insert(0);
         assertTrue(graph.hasEdge(0, 2));
         graph.addEdge(0, 2);
-        assertEquals( 1, graph.getVertex()[0].getSize());
+        assertEquals(1, graph.getVertex()[0].getSize());
         assertEquals(1, graph.getVertex()[2].getSize());
     }
-    
+
 }
