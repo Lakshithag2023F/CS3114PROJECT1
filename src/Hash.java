@@ -1,42 +1,48 @@
 /**
  * Hash table class
  * 
- * this class manages hash table data structure. hash table retrieves data using
- * key-value pair system.
- * manages how data is inserted, retrieved and removed from this table
+ * This class manages hash table data structure.
+ * Hash table retrieves data using key-value pair system.
+ * Manages how data is inserted, retrieved and removed from this table
  *
- * @author <Put Something Here>
- * @version <Put Something Here>
+ * @author Shruti & Lakshitha
+ * @version 9/19/24
  */
 
 public class Hash {
-    private Record[] allRecords; // array which stores records
-    private int numberOfRecords; // number of records
-    private Record tombstone; // deleted records
 
     /**
-     * Constructor
+     * private fields
+     */
+    private Record[] allRecords; // array which stores records
+    private int numberOfRecords; // number of records
+    private Record tombstone; // represents deleted record
+
+    /**
+     * Constructor method
      * 
      * @param size
      *            is the initial size of the hash table
      */
     public Hash(int size) {
-        allRecords = new Record[size];
-        numberOfRecords = 0;
-        setTombstone(new Record(null, null, null));
+        this.allRecords = new Record[size];
+        this.numberOfRecords = 0;
+        this.tombstone = (new Record(null, null, null));
     }
 
-    // public methods
 
-
+    /**
+     * Get method for the number of records in tale
+     * 
+     * @return number of methods
+     */
     public int getNumberOfRecords() {
         return numberOfRecords;
     }
 
 
-    // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Get method for array that stores records
      * 
      * @return all records
      */
@@ -45,15 +51,33 @@ public class Hash {
     }
 
 
+    /**
+     * Retrieves a record from hash based on its key
+     * 
+     * @param value
+     * @return the record
+     */
+    public Record getRecord(String value) {
+        int pos = find(value);
+        if (pos == -1) { // record not found
+            return null;
+        }
+        return allRecords[pos];
+    }
 
+
+    /**
+     * Inserts a record into the hash
+     * 
+     * @param record
+     *            is the record to be inserted
+     */
     public void insert(Record record) {
-        // Check if insertion would exceed 50% capacity
+        // Check if insertion greater than 50% capacity
         if (numberOfRecords + 1 > allRecords.length / 2) {
-            rehash(); // Perform rehashing if needed
+            rehash(); // Rehash if needed
 
-            // Determine the type of the record and print the appropriate
-            // message
-            String type = record.getType();
+            String type = record.getType(); // determines if song or artist
             if ("song".equals(type)) {
                 System.out.println("Song hash table size doubled.");
             }
@@ -65,49 +89,48 @@ public class Hash {
             }
         }
 
-        int home; // Home position for e
+        int home; // home position
         String key = record.getKey();
-        int pos = home = h(key, allRecords.length); // Initial hash position
+        int pos = home = h(key, allRecords.length); // initial hash position
 
-        // Handle collisions with quadratic probing
+        // Handles collisions
         for (int i = 0; allRecords[pos] != null
             && allRecords[pos] != tombstone; i++) {
             if (key.equals(allRecords[pos].getKey())) {
-                return; // Record with the same key already exists, no insertion
-                        // needed
+                return; // Record with the same key already exists so no
+                        // insertion is needed
             }
-            pos = (home + (i * i)) % allRecords.length;
+            pos = (home + (i * i)) % allRecords.length; // Quadratic probing
         }
 
-        allRecords[pos] = record;
+        allRecords[pos] = record; // record inserted
         numberOfRecords++;
     }
 
 
-
+    /**
+     * Doubles size of hash table and adds all records from old hash to new one
+     */
     private void rehash() {
         Record[] oldRecords = allRecords;
-
-        allRecords = new Record[oldRecords.length * 2];
+        allRecords = new Record[oldRecords.length * 2]; // increase length
         numberOfRecords = 0;
 
         for (Record record : oldRecords) {
-            if (record != null && record != getTombstone()) {
+            if (record != null && record != tombstone) {
                 insert(record); // Reinsert each existing record using the
-                                // updated insert method
-
+                                // insert method
             }
         }
-
     }
 
 
     /**
-     * Removes record
+     * Removes record from hash
      * 
      * @param key
+     *            from record
      */
-
     public void remove(String key) {
         int home = h(key, allRecords.length);
         int pos = home;
@@ -115,17 +138,23 @@ public class Hash {
         for (int i = 0; allRecords[pos] != null && i < allRecords.length; i++) {
             if (allRecords[pos] != tombstone && key.equals(allRecords[pos]
                 .getKey())) {
-                allRecords[pos] = tombstone;
+                allRecords[pos] = tombstone; // deleted record
                 numberOfRecords--;
                 return;
             }
             pos = (home + (i * i)) % allRecords.length;
         }
-        // Key not found; you may print a message or handle it as needed
     }
 
 
-
+    /**
+     * Finds record in hash table based on key
+     * 
+     * @param key
+     *            is the record key
+     * 
+     * @return position or -1 if not found
+     */
     public int find(String key) {
         int home = h(key, allRecords.length);
         int pos = home;
@@ -135,27 +164,9 @@ public class Hash {
                 .getKey())) {
                 return pos;
             }
-            pos = (home + (i * i)) % allRecords.length;
+            pos = (home + (i * i)) % allRecords.length; // Quadratic probing
         }
         return -1; // Key not found
-    }
-
-
-
-
-    // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * 
-     * @param value
-     * @return record
-     */
-    public Record getRecord(String value) {
-        int pos = find(value);
-        if (pos == -1) {
-            return null;
-        }
-        return allRecords[pos];
     }
 
 
@@ -164,11 +175,11 @@ public class Hash {
      */
     public void print() {
         for (int i = 0; i < allRecords.length; i++) {
-            if (allRecords[i] != null && allRecords[i] != getTombstone()) {
+            if (allRecords[i] != null && allRecords[i] != tombstone) {
                 System.out.println(i + ": |" + allRecords[i].getKey().trim()
                     + "|");
             }
-            else if (allRecords[i] == getTombstone()) {
+            else if (allRecords[i] == tombstone) {
                 System.out.println(i + ": TOMBSTONE");
             }
         }
@@ -207,21 +218,4 @@ public class Hash {
 
         return (int)(Math.abs(sum) % length);
     }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * 
-     * @return
-     */
-    public Record getTombstone() {
-        return tombstone;
-    }
-
-
-    public void setTombstone(Record tombstone) {
-        this.tombstone = tombstone;
-    }
-
 }
