@@ -12,6 +12,9 @@ import java.io.PrintStream;
  */
 public class GraphTest extends TestCase {
     // ~ Fields ................................................................
+    /*
+     * initializes Graph graph
+     */
     private Graph graph;
 
     // ~ Constructors ..........................................................
@@ -60,13 +63,10 @@ public class GraphTest extends TestCase {
 
         graph.newNode(new Node(1));
         graph.newNode(new Node(2));
-
         graph.addEdge(1, 2);
         assertTrue(graph.hasEdge(1, 2));
-
-        graph.addEdge(1, 2); // Add again to ensure no duplicates
+        graph.addEdge(1, 2); 
         assertTrue(graph.hasEdge(1, 2));
-
         graph.addEdge(2, 1);
         assertTrue(graph.hasEdge(2, 1));
     }
@@ -196,9 +196,8 @@ public class GraphTest extends TestCase {
         for (int i = 0; i < 5; i++) {
             graph.newNode(new Node(i));
         }
-        // Trigger expand
+        //expands
         graph.newNode(new Node(6));
-        // assertEquals(10, graph.getMaxSize());
     }
 
 
@@ -211,8 +210,8 @@ public class GraphTest extends TestCase {
         graph.addEdge(1, 0);
         graph.addEdge(3, 4);
 
-        assertTrue(graph.hasEdge(1, 2)); // Both are connected
-        assertFalse(graph.hasEdge(1, 3)); // Not connected
+        assertTrue(graph.hasEdge(1, 2)); // both  connected
+        assertFalse(graph.hasEdge(1, 3)); // they not connected
 
         graph.unionConnectedNodes();
 
@@ -228,29 +227,17 @@ public class GraphTest extends TestCase {
      * Tests print graph
      */
     public void testPrintGraph() {
-        graph.addEdge(0, 1); // First component
+        graph.addEdge(0, 1); 
         graph.addEdge(1, 2);
         graph.addEdge(3, 4);
 
-        // Capture the output of the printGraph() method
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-
-        // Call the method to print the graph details
         graph.printGraph();
-
-        // Reset the standard output
         System.setOut(System.out);
-
-        // Convert the captured output to a String and trim it
-        String output = outputStream.toString().trim();
-
-        // Expected output
         String expectedOutput = "There are 2 connected components\n"
             + "The largest connected component has 3 elements";
-
-        // Assert that the captured output matches the expected output
-        assertEquals(expectedOutput, output);
+        assertEquals(expectedOutput, outputStream.toString().trim());
     }
 
 
@@ -263,16 +250,9 @@ public class GraphTest extends TestCase {
 
         Node node1 = new Node(0);
         graph.newNode(node1);
-        assertNotNull(graph.getVertex()[node1.getIndex()]); // Check that the
-                                                            // adjacency list is
-                                                            // initialized
-        assertEquals(0, graph.getVertex()[node1.getIndex()].getSize()); // Adjacency
-                                                                        // list
-                                                                        // should
-                                                                        // be
-                                                                        // empty
-        assertEquals(1, graph.getNumberOfNodes()); // Verify number of nodes
-                                                   // increment
+        assertNotNull(graph.getVertex()[node1.getIndex()]); 
+        assertEquals(0, graph.getVertex()[node1.getIndex()].getSize());
+        assertEquals(1, graph.getNumberOfNodes());
 
         // Continue inserting nodes
         Node node2 = new Node(1);
@@ -287,7 +267,7 @@ public class GraphTest extends TestCase {
         assertEquals(0, graph.getVertex()[node3.getIndex()].getSize());
         assertEquals(3, graph.getNumberOfNodes());
 
-        // Trigger expansion by inserting another node
+        // make the graph expand
         Node node4 = new Node(3);
         graph.newNode(node4);
 
@@ -542,7 +522,10 @@ public class GraphTest extends TestCase {
     }
     
     
-    public void testAddEdgeDoesNotDuplicate() {
+    /**
+     * Add edge but song and artist are in the graph already
+     */
+    public void testAddEdgeNoDuplicate() {
         Graph graph = new Graph(10);
         graph.getVertex()[0] = new DoubleLL<>(); 
         graph.getVertex()[2] = new DoubleLL<>(); 

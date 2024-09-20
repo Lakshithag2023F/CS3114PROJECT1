@@ -1,5 +1,4 @@
 /**
- * // -------------------------------------------------------------------------
  * /**
  * Graph class that represents the adjacency list.
  * 
@@ -8,12 +7,29 @@
  */
 public class Graph {
     // ~ Fields ................................................................
+    /*
+     * makes a double linked list of nodes
+     */
     private DoubleLL<Node>[] vertex;
-
+    /*
+     * makes a array of intergers
+     */
     private int[] array;
+    /*
+     * tracks the number of nodes
+     */
     private int numberOfNodes;
+    /*
+     * tracks the max size
+     */
     private int maxSize;
+    /*
+     * number of the connected components
+     */
     private int connectedComponents;
+    /*
+     * array of the weights
+     */
     private int[] weights;
 
     // ~ Constructors ..........................................................
@@ -46,6 +62,58 @@ public class Graph {
 
 
     /**
+     * Gets the number of nodes
+     * 
+     * @return the number of nodes
+     */
+    public int getNumberOfNodes() {
+        return numberOfNodes;
+    }
+
+
+    /**
+     * Get method for connected components
+     * 
+     * @return the number of connected components
+     */
+    public int getConnectedComponents() {
+        return connectedComponents;
+    }
+
+
+    /**
+     * Set method for the number of nodes
+     * 
+     * @param numberOfNodes
+     *            is the number of nodes
+     */
+    public void setNumberOfNodes(int numberOfNodes) {
+        this.numberOfNodes = numberOfNodes;
+    }
+
+
+    /**
+     * Returns the list at a position of the vertex adjacency list
+     * 
+     * @return the list
+     */
+    public DoubleLL<Node>[] getVertex() {
+        return vertex;
+    }
+
+
+    /**
+     * Set a position with an array
+     * 
+     * @param vertex
+     *            is what it is set to
+     */
+    public void setVertex(DoubleLL<Node>[] vertex) {
+        this.vertex = vertex;
+    }
+
+
+    /**
      * adds a new node to the graph
      * 
      * @param node
@@ -56,12 +124,10 @@ public class Graph {
             expand();
         }
         DoubleLL<Node> currentList = new DoubleLL<>();
-        // currentList.insert(node);
-        // getVertex()[getNumberOfNodes()] = currentList;
+
         getVertex()[node.getIndex()] = currentList; // node of the graph should
                                                     // be the same as the one in
                                                     // the adjacency list
-
         setNumberOfNodes(getNumberOfNodes() + 1);
 
     }
@@ -213,8 +279,9 @@ public class Graph {
     }
 
 
+
     /**
-     * Doubling graph size
+     * this method doubles the graph 
      */
     public void expand() {
         int newSize = maxSize * 2; // Double the current maxSize
@@ -296,60 +363,5 @@ public class Graph {
             }
         }
     }
-
-
-    /**
-     * Gets the number of nodes
-     * 
-     * @return the number of nodes
-     */
-    public int getNumberOfNodes() {
-        return numberOfNodes;
-    }
-
-
-    /**
-     * Get method for connected components
-     * 
-     * @return the number of connected components
-     */
-    public int getConnectedComponents() {
-        return connectedComponents;
-    }
-
-
-    /**
-     * Set method for the number of nodes
-     * 
-     * @param numberOfNodes
-     *            is the number of nodes
-     */
-    public void setNumberOfNodes(int numberOfNodes) {
-        this.numberOfNodes = numberOfNodes;
-    }
-
-
-    /**
-     * Returns the list at a position of the vertex adjacency list
-     * 
-     * @return the list
-     */
-    public DoubleLL<Node>[] getVertex() {
-        return vertex;
-    }
-
-
-    /**
-     * Set a position with an array
-     * 
-     * @param vertex
-     *            is what it is set to
-     */
-    public void setVertex(DoubleLL<Node>[] vertex) {
-        this.vertex = vertex;
-    }
-    
-   
-
 
 }
