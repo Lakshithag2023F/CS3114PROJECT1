@@ -30,6 +30,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests insert method
+     */
     public void testInsert() {
         Node node5 = new Node(2);
         Record record5 = new Record("hokiesssss", node5, "artist");
@@ -37,7 +40,6 @@ public class HashTest extends TestCase {
         hash.insert(record);
         hash.insert(record5);
         int index = hash.find("hokies");
-        // assertNotEquals(index, -1); // Ensure "hokies" is inserted
 
         Record[] allRecords = hash.getAllRecords();
         assertEquals("hokies", allRecords[index].getKey());
@@ -46,10 +48,12 @@ public class HashTest extends TestCase {
         Record record6 = new Record("hello", node6, "artist");
         hash.insert(record6);
         int index2 = hash.find("hello");
-        // assertNotEquals(index2, -1); // Ensure "hello" is inserted
     }
 
 
+    /**
+     * Tests inserting the same record again
+     */
     public void testInsertSameRecord() {
         Node node5 = new Node(4);
         Record record5 = new Record("testing", node5, "artist");
@@ -68,6 +72,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Test the rehash method to see if the hash size doubles
+     */
     public void testRehash() {
         Node node5 = new Node(4);
         Record record5 = new Record("one", node5, "artist");
@@ -93,8 +100,6 @@ public class HashTest extends TestCase {
         hash.insert(record5);
         hash.insert(record6);
         hash.insert(record7);
-        // hash.remove("three");
-        // hash.insert(record7); // Reinsert after removal
         hash.insert(record8);
         hash.insert(record9);
         hash.insert(record10);
@@ -110,6 +115,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests the remove method
+     */
     public void testRemove() {
         // Insert a record and then remove it
         hash.insert(record); // "hokies" should be inserted
@@ -131,6 +139,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests find method
+     */
     public void testFind() {
         hash.insert(record);
         hash.remove("hokies");
@@ -145,6 +156,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests get records
+     */
     public void testGetRecords() {
         hash.insert(record);
         Record getIndex = hash.getRecord("hokies");
@@ -153,6 +167,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests print method
+     */
     public void testPrint() {
         // Create a stream to hold the output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -181,7 +198,7 @@ public class HashTest extends TestCase {
             assertEquals(expectedOutput, outputStream.toString().trim());
 
             // Test case 4: Insert multiple records and print again
-            Record record2 = new Record("test", new Node(2), "artist");
+            record2 = new Record("test", new Node(2), "artist");
             hash.insert(record2);
             outputStream.reset(); // Clear the previous output
             hash.print();
@@ -196,10 +213,13 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests to see if rehash is working as it should
+     */
     public void testRehashingWorks() {
         for (int i = 0; i < 6; i++) {
-            Node node = new Node(i);
-            Record record = new Record("key" + i, node, "artist");
+            node = new Node(i);
+            record = new Record("key" + i, node, "artist");
             hash.insert(record);
         }
 
@@ -219,6 +239,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests Sfold
+     */
     public void testSfold() throws Exception {
         assertTrue(Hash.h("a", 10000) == 97);
         assertTrue(Hash.h("b", 10000) == 98);
@@ -232,38 +255,37 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests find with a collision to trigger quadratic probing
+     */
     public void testFindWithSingleCollision() {
         // Insert two records that will cause a collision
         Record record1 = new Record("key1", new Node(1), "artist");
-        Record record2 = new Record("key1Collide", new Node(2), "artist");
+        record2 = new Record("key1Collide", new Node(2), "artist");
 
-        // Insert records into the hash table
         hash.insert(record1);
         hash.insert(record2);
 
-        // Find both records
         int index1 = hash.find("key1");
         int index2 = hash.find("key1Collide");
 
-        // Ensure both are found
-        assertTrue(index1 >= 0); // Ensure "key1" is found
-        assertTrue(index2 >= 0); // Ensure "key1Collide" is found
+        assertTrue(index1 >= 0);
+        assertTrue(index2 >= 0);
 
-        // Ensure they are not in the same slot
-        assertTrue(index1 != index2); // Different indices due to collision
-                                      // resolution
+        assertTrue(index1 != index2);
         assertEquals(record1, hash.getRecord("key1"));
         assertEquals(record2, hash.getRecord("key1Collide"));
     }
 
 
+    /**
+     * Tests find with numerous collisions
+     */
     public void testFindWithMultipleCollisions() {
-        // Insert records that will cause multiple collisions
         hash.insert(new Record("collision1", new Node(1), "song"));
         hash.insert(new Record("collision2", new Node(2), "song"));
         hash.insert(new Record("collision3", new Node(3), "song"));
 
-        // Ensure that all records are found and are not in the same index
         int index1 = hash.find("collision1");
         int index2 = hash.find("collision2");
         int index3 = hash.find("collision3");
@@ -272,39 +294,38 @@ public class HashTest extends TestCase {
         assertTrue(index2 >= 0);
         assertTrue(index3 >= 0);
 
-        assertFalse(index1 == index2); // Ensure different slots
+        assertFalse(index1 == index2);
         assertFalse(index1 == index3);
         assertFalse(index2 == index3);
     }
 
 
+    /**
+     * Tests quadratic probing
+     */
     public void testQuadraticProbingWrapAround() {
-        // Fill part of the table to create conditions for a wrap-around
         for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
             hash.insert(new Record("key" + i, new Node(i), "artist"));
         }
-
-        // Insert a record that will wrap around due to quadratic probing
         hash.insert(new Record("wrapAroundKey", new Node(100), "artist"));
 
-        // Ensure that the record is still found despite the wrap-around
         int index = hash.find("wrapAroundKey");
-        assertTrue(index >= 0); // Ensure it is found
+        assertTrue(index >= 0);
         assertEquals("wrapAroundKey", hash.getRecord("wrapAroundKey").getKey());
     }
 
 
+    /**
+     * Tests find with full table
+     */
     public void testFindWithFullTableProbing() {
-        // Fill the table to a safe threshold, leaving some empty slots
         for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
             hash.insert(new Record("key" + i, new Node(i), "song"));
         }
 
-        // Insert a key that will require probing but won't cause timeout
         int index = hash.find("key" + (hash.getAllRecords().length / 2 - 2));
-        assertTrue(index >= 0); // Ensure it finds the key
+        assertTrue(index >= 0);
 
-        // Check that the probing loop handled the search correctly
         Record result = hash.getRecord("key" + (hash.getAllRecords().length / 2
             - 2));
         assertNotNull(result);
@@ -313,17 +334,17 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests find with a tombstone
+     */
     public void testFindWithTombstones() {
-        // Insert and then remove records to create tombstones
         hash.insert(new Record("toBeRemoved1", new Node(1), "artist"));
         hash.insert(new Record("toBeRemoved2", new Node(2), "artist"));
         hash.remove("toBeRemoved1");
         hash.remove("toBeRemoved2");
 
-        // Insert a new record that will require probing past tombstones
         hash.insert(new Record("newKeyAfterTombstones", new Node(3), "artist"));
 
-        // Ensure the key is found correctly
         int index = hash.find("newKeyAfterTombstones");
         assertTrue(index >= 0);
         assertEquals("newKeyAfterTombstones", hash.getRecord(
@@ -331,60 +352,51 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests rehash song type
+     */
     public void testRehashSongType() {
-        // Create a stream to capture the console output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Fill the hash table to trigger rehash
             for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
                 hash.insert(new Record("song" + i, new Node(i), "song"));
             }
 
-            // Reset the output stream
             outputStream.reset();
 
-            // Insert a song record that will trigger rehash
             hash.insert(new Record("testSong", new Node(1), "song"));
 
-            // Capture the output
             String output = outputStream.toString().trim();
-
-            // Print the output to see what was captured (for debugging)
-            System.out.println("Captured output: " + output);
-
-            // Assert that the expected message is in the output
             assertTrue(output.contains("Song hash table size doubled."));
         }
         finally {
-            // Reset the System.out to its original stream
             System.setOut(originalOut);
         }
     }
 
 
+    /**
+     * Tests rehash artist type
+     */
     public void testRehashArtistType() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Fill the hash table to trigger rehash
             for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
                 hash.insert(new Record("artist" + i, new Node(i), "artist"));
             }
 
-            // Reset the output stream
             outputStream.reset();
 
-            // Insert an artist record that will trigger rehash
             hash.insert(new Record("testArtist", new Node(2), "artist"));
 
             String output = outputStream.toString().trim();
-            System.out.println("Captured output: " + output); // Debugging
-                                                              // output
+            System.out.println("Captured output: " + output);
 
             assertTrue(output.contains("Artist hash table size doubled."));
         }
@@ -394,21 +406,19 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests rehash unknown type
+     */
     public void testRehashUnknownType() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Fill the hash table to trigger rehash
             for (int i = 0; i < hash.getAllRecords().length / 2; i++) {
                 hash.insert(new Record("unknown" + i, new Node(i), "unknown"));
             }
-
-            // Reset the output stream
             outputStream.reset();
-
-            // Insert an unknown record type that will trigger rehash
             hash.insert(new Record("testUnknown", new Node(3), "unknown"));
 
             String output = outputStream.toString().trim();
@@ -424,20 +434,19 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests printing empty tables
+     */
     public void testPrintEmptyTables() {
-        // Capture output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Print empty song table
             hash.print();
+
             String expectedOutput = "";
             assertEquals(expectedOutput, outputStream.toString().trim());
-
-            // Assuming similar method for artist hash, you would test it
-            // similarly
         }
         finally {
             System.setOut(originalOut);
@@ -445,8 +454,10 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Tests insert artist pair
+     */
     public void testInsertArtistSongPairs() {
-        // Insert "Blind Lemon Jefferson" with "Long Lonesome Blues"
         Record artistRecord = new Record("Blind Lemon Jefferson", new Node(0),
             "artist");
         Record songRecord = new Record("Long Lonesome Blues", new Node(1),
@@ -454,11 +465,9 @@ public class HashTest extends TestCase {
         hash.insert(artistRecord);
         hash.insert(songRecord);
 
-        // Attempt to insert duplicate
         hash.insert(artistRecord);
         hash.insert(songRecord);
 
-        // Insert variations
         Record songRecord2 = new Record("Long   Lonesome Blues", new Node(2),
             "song");
         Record songRecord3 = new Record("long Lonesome Blues", new Node(3),
@@ -466,32 +475,36 @@ public class HashTest extends TestCase {
         hash.insert(songRecord2);
         hash.insert(songRecord3);
 
-        // Verify records are inserted
         assertNotNull(hash.getRecord("Blind Lemon Jefferson"));
         assertNotNull(hash.getRecord("Long Lonesome Blues"));
         assertNotNull(hash.getRecord("Long   Lonesome Blues"));
         assertNotNull(hash.getRecord("long Lonesome Blues"));
 
         int artistIndex = hash.find("Blind Lemon Jefferson");
-        hash.insert(artistRecord); // Should not change the number of records
+        hash.insert(artistRecord);
         assertEquals(artistIndex, hash.find("Blind Lemon Jefferson"));
-        assertEquals(4, hash.getNumberOfRecords()); // Two artists and two songs
+        assertEquals(4, hash.getNumberOfRecords());
     }
 
 
+    /**
+     * Tests rehash
+     */
     public void testRehashing() {
-        // Fill the hash table to trigger rehashing
         for (int i = 0; i < 6; i++) {
-            Record record = new Record("Artist" + i, new Node(i), "artist");
+            record = new Record("Artist" + i, new Node(i), "artist");
             hash.insert(record);
         }
-        assertTrue(hash.getAllRecords().length > 10); // Initial size was 10
+        assertTrue(hash.getAllRecords().length > 10);
         for (int i = 0; i < 6; i++) {
             assertNotNull(hash.getRecord("Artist" + i));
         }
     }
 
 
+    /**
+     * Tests remove artist
+     */
     public void testRemoveArtistCaseSensitivity() {
         Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
         hash.insert(artistRecord);
@@ -540,7 +553,7 @@ public class HashTest extends TestCase {
 
 
     public void testSimpleRemoval() {
-        Hash hash = new Hash(10);
+        hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         assertNotNull(hash.getRecord("key1"));
         hash.remove("key1");
@@ -549,7 +562,7 @@ public class HashTest extends TestCase {
 
 
     public void testRemovalWithCollision() {
-        Hash hash = new Hash(10);
+        hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
         hash.insert(new Record("key3", new Node(3), "artist"));
@@ -561,7 +574,7 @@ public class HashTest extends TestCase {
 
 
     public void testRemovalAfterMultipleProbes() {
-        Hash hash = new Hash(10);
+        hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("keyA", new Node(2), "artist"));
         hash.insert(new Record("keyB", new Node(3), "artist"));
@@ -573,7 +586,7 @@ public class HashTest extends TestCase {
 
 
     public void testRemovalWithWrapAround() {
-        Hash hash = new Hash(5);
+        hash = new Hash(5);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
         hash.remove("key2");
@@ -582,16 +595,22 @@ public class HashTest extends TestCase {
     }
 
 
+    /**
+     * Testing removing a non existent key
+     */
     public void testRemovingNonExistentKey() {
-        Hash hash = new Hash(10);
+        hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.remove("nonexistent");
         assertNotNull(hash.getRecord("key1"));
     }
 
 
+    /**
+     * Testing handling of tombstones
+     */
     public void testHandlingTombstones() {
-        Hash hash = new Hash(10);
+        hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.remove("key1");
         assertNull(hash.getRecord("key1"));

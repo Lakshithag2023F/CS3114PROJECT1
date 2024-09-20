@@ -65,6 +65,7 @@ public class Hash {
      * Retrieves a record from hash based on its key
      * 
      * @param value
+     *            is the key of the record
      * @return the record
      */
     public Record getRecord(String value) {
@@ -99,9 +100,9 @@ public class Hash {
             }
         }
 
-        int home; // home position
         String key = record.getKey();
-        int pos = home = h(key, allRecords.length); // initial hash position
+        int home = h(key, allRecords.length); // initial hash position
+        int pos = home;
 
         // Handles collisions
         for (int i = 0; allRecords[pos] != null
