@@ -472,7 +472,6 @@ public class HashTest extends TestCase {
         assertNotNull(hash.getRecord("Long   Lonesome Blues"));
         assertNotNull(hash.getRecord("long Lonesome Blues"));
 
-        // Check for duplicates
         int artistIndex = hash.find("Blind Lemon Jefferson");
         hash.insert(artistRecord); // Should not change the number of records
         assertEquals(artistIndex, hash.find("Blind Lemon Jefferson"));
@@ -486,11 +485,7 @@ public class HashTest extends TestCase {
             Record record = new Record("Artist" + i, new Node(i), "artist");
             hash.insert(record);
         }
-
-        // Hash table should have rehashed
         assertTrue(hash.getAllRecords().length > 10); // Initial size was 10
-
-        // Verify all records are still accessible
         for (int i = 0; i < 6; i++) {
             assertNotNull(hash.getRecord("Artist" + i));
         }
@@ -498,43 +493,26 @@ public class HashTest extends TestCase {
 
 
     public void testRemoveArtistCaseSensitivity() {
-        // Insert artist "Ma Rainey"
         Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
         hash.insert(artistRecord);
-
-        // Attempt to remove "ma rainey" (lowercase)
         hash.remove("ma rainey");
-
-        // Artist should still exist
         assertNotNull(hash.getRecord("Ma Rainey"));
-
-        // Now remove with correct case
         hash.remove("Ma Rainey");
-
-        // Artist should be removed
         assertNull(hash.getRecord("Ma Rainey"));
     }
 
 
     public void testPrintAfterRemovals() {
-        // Insert artist
         Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
         hash.insert(artistRecord);
 
-        // Remove artist
         hash.remove("Ma Rainey");
-
-        // Capture output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            // Print artist table
             hash.print();
-
-            // Expected output should show TOMBSTONE at the index where "Ma
-            // Rainey" was
             String expectedOutput = "";
             for (int i = 0; i < hash.getAllRecords().length; i++) {
                 if (hash.getAllRecords()[i] == hash.getTombstone()) {
@@ -550,24 +528,14 @@ public class HashTest extends TestCase {
 
 
     public void testCollisionHandling() {
-        // Insert records that will collide
         Record record1 = new Record("Key1", new Node(1), "song");
         Record record2 = new Record("Key1Collision", new Node(2), "song");
-
-        // Manually set hash values to cause collision
         int hash1 = Hash.h("Key1", hash.getAllRecords().length);
-        int hash2 = hash1; // Force collision
-
-        // Insert records
+        int hash2 = hash1;
         hash.insert(record1);
         hash.insert(record2);
-
-        // Verify both records are in the table
         assertNotNull(hash.getRecord("Key1"));
         assertNotNull(hash.getRecord("Key1Collision"));
-
-        // Ensure they are at different positions
-        // assertNotEquals(hash.find("Key1"), hash.find("Key1Collision"));
     }
 
 
@@ -575,7 +543,6 @@ public class HashTest extends TestCase {
         Hash hash = new Hash(10);
         hash.insert(new Record("key1", new Node(1), "artist"));
         assertNotNull(hash.getRecord("key1"));
-
         hash.remove("key1");
         assertNull(hash.getRecord("key1"));
     }
@@ -583,12 +550,9 @@ public class HashTest extends TestCase {
 
     public void testRemovalWithCollision() {
         Hash hash = new Hash(10);
-
-        // Assuming "key1" and "key2" hash to the same index
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("key2", new Node(2), "artist"));
         hash.insert(new Record("key3", new Node(3), "artist"));
-
         hash.remove("key2");
         assertNull(hash.getRecord("key2"));
         assertNotNull(hash.getRecord("key1"));
@@ -598,11 +562,9 @@ public class HashTest extends TestCase {
 
     public void testRemovalAfterMultipleProbes() {
         Hash hash = new Hash(10);
-        // Insert keys that cause collisions and require multiple probes
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.insert(new Record("keyA", new Node(2), "artist"));
         hash.insert(new Record("keyB", new Node(3), "artist"));
-
         hash.remove("keyB");
         assertNull(hash.getRecord("keyB"));
         assertNotNull(hash.getRecord("key1"));
@@ -612,15 +574,8 @@ public class HashTest extends TestCase {
 
     public void testRemovalWithWrapAround() {
         Hash hash = new Hash(5);
-
-        // Fill the table to force wrap-around
-        hash.insert(new Record("key1", new Node(1), "artist")); // Suppose this
-                                                                // hashes to
-                                                                // index 4
-        hash.insert(new Record("key2", new Node(2), "artist")); // Causes
-                                                                // wrap-around
-                                                                // to index 0
-
+        hash.insert(new Record("key1", new Node(1), "artist")); 
+        hash.insert(new Record("key2", new Node(2), "artist")); 
         hash.remove("key2");
         assertNull(hash.getRecord("key2"));
         assertNotNull(hash.getRecord("key1"));
@@ -629,25 +584,33 @@ public class HashTest extends TestCase {
 
     public void testRemovingNonExistentKey() {
         Hash hash = new Hash(10);
-
         hash.insert(new Record("key1", new Node(1), "artist"));
-
         hash.remove("nonexistent");
-        // Should handle gracefully without exceptions
         assertNotNull(hash.getRecord("key1"));
     }
 
 
     public void testHandlingTombstones() {
         Hash hash = new Hash(10);
-
         hash.insert(new Record("key1", new Node(1), "artist"));
         hash.remove("key1");
         assertNull(hash.getRecord("key1"));
-
-        // Insert a new key and ensure it doesn't reuse the tombstone improperly
         hash.insert(new Record("key2", new Node(2), "artist"));
         assertNotNull(hash.getRecord("key2"));
     }
+    
+    
+    public void testQuadraticProbingCollisionResolution() {
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        hash.insert(new Record("key2", new Node(2), "artist")); 
+        int index1 = hash.find("key1");
+        int index2 = hash.find("key2");
+
+        assertNotSame(index1, index2);
+        assertEquals("key1", hash.getRecord("key1").getKey());
+        assertEquals("key2", hash.getRecord("key2").getKey());
+    }
+    
+    
 
 }
