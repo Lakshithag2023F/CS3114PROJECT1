@@ -17,16 +17,13 @@ public class HashTest extends TestCase {
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
-        hash = new Hash(10); // Initialize hash table with size 10
+        hash = new Hash(10);
 
         node = new Node(2);
         node2 = new Node(3);
 
-        // Records to be tested
-        record = new Record("hokies", node, "artist"); // Specify type for
-                                                       // record
-        record2 = new Record("wassup", node2, "artist"); // Specify type for
-                                                         // record
+        record = new Record("hokies", node, "artist"); 
+        record2 = new Record("wassup", node2, "artist"); 
     }
 
 
@@ -500,34 +497,6 @@ public class HashTest extends TestCase {
         assertNull(hash.getRecord("Ma Rainey"));
     }
 
-//
-//    /**
-//     * Tests print after removing
-//     */
-//    public void testPrintRemove() {
-//        Record artistRecord = new Record("Ma Rainey", new Node(0), "artist");
-//        hash.insert(artistRecord);
-//
-//        hash.remove("Ma Rainey");
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//        PrintStream originalOut = System.out;
-//        System.setOut(new PrintStream(outputStream));
-//
-//        try {
-//            hash.print();
-//            String expectedOutput = "";
-//            for (int i = 0; i < hash.getAllRecords().length; i++) {
-//                if (hash.getAllRecords()[i] == hash.getTombstone()) {
-//                    expectedOutput += i + ": TOMBSTONE\n";
-//                }
-//            }
-//            assertEquals(expectedOutput.trim(), outputStream.toString().trim());
-//        }
-//        finally {
-//            System.setOut(originalOut);
-//        }
-//    }
-
 
     /**
      * Tests collision
@@ -619,7 +588,6 @@ public class HashTest extends TestCase {
         hash.insert(new Record("key2", new Node(2), "artist"));
         assertNotNull(hash.getRecord("key2"));
     }
-
 
     /**
      * Tests quadratic probing again
