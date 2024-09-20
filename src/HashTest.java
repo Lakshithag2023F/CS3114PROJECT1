@@ -574,8 +574,8 @@ public class HashTest extends TestCase {
 
     public void testRemovalWithWrapAround() {
         Hash hash = new Hash(5);
-        hash.insert(new Record("key1", new Node(1), "artist")); 
-        hash.insert(new Record("key2", new Node(2), "artist")); 
+        hash.insert(new Record("key1", new Node(1), "artist"));
+        hash.insert(new Record("key2", new Node(2), "artist"));
         hash.remove("key2");
         assertNull(hash.getRecord("key2"));
         assertNotNull(hash.getRecord("key1"));
@@ -598,11 +598,11 @@ public class HashTest extends TestCase {
         hash.insert(new Record("key2", new Node(2), "artist"));
         assertNotNull(hash.getRecord("key2"));
     }
-    
-    
+
+
     public void testQuadraticProbingCollisionResolution() {
         hash.insert(new Record("key1", new Node(1), "artist"));
-        hash.insert(new Record("key2", new Node(2), "artist")); 
+        hash.insert(new Record("key2", new Node(2), "artist"));
         int index1 = hash.find("key1");
         int index2 = hash.find("key2");
 
@@ -610,7 +610,5 @@ public class HashTest extends TestCase {
         assertEquals("key1", hash.getRecord("key1").getKey());
         assertEquals("key2", hash.getRecord("key2").getKey());
     }
-    
-    
 
 }

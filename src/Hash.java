@@ -49,9 +49,11 @@ public class Hash {
     public Record[] getAllRecords() {
         return allRecords;
     }
-    
+
+
     /**
      * Get method to return the tombstone
+     * 
      * @return the tombstone
      */
     public Record getTombstone() {

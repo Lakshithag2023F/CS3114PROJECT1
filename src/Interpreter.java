@@ -9,8 +9,7 @@ import java.util.Scanner;
  * @author Stephen Edwards
  * @version 2023.09.15
  */
-public interface Interpreter
-{
+public interface Interpreter {
     // ~ Public Methods ........................................................
 
     /**
@@ -23,6 +22,8 @@ public interface Interpreter
      *            The destination to send any command output.
      */
     public void interpretAllLines(Scanner input, PrintWriter output);
+
+
     /**
      * Processes one line containing a command, and executes
      * the corresponding behavior.

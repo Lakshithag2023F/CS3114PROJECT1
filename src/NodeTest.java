@@ -1,44 +1,43 @@
+
 /*
  * imports for Junit testing
  */
 import student.TestCase;
 
 /**
- *  Test class to test Node.java
+ * Test class to test Node.java
  * 
- *  @author laksh
- *  @version Sep 12, 2024
+ * @author laksh
+ * @version Sep 12, 2024
  */
-public class NodeTest extends TestCase
-{
-    //~ Fields ................................................................
+public class NodeTest extends TestCase {
+    // ~ Fields ................................................................
     /*
      * initializes Node node for testing
      */
     private Node node;
-   
-    //~Public  Methods ........................................................
+
+    // ~Public Methods ........................................................
     /**
-     * sets up the node 
+     * sets up the node
      */
-    public void setUp()
-    {                               
-        node = new Node(1);                  
-    }                
-    
+    public void setUp() {
+        node = new Node(1);
+    }
+
+
     /**
-     * tests getIndex 
+     * tests getIndex
      */
-    public void testGetIndex()
-    {
+    public void testGetIndex() {
         assertEquals(node.getIndex(), 1);
     }
-    
+
+
     /**
-     * tests set index 
+     * tests set index
      */
-    public void testSetIndex()
-    {
+    public void testSetIndex() {
         node.setIndex(5);
         assertEquals(node.getIndex(), 5);
     }

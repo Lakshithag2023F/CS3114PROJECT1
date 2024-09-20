@@ -195,25 +195,23 @@ public class DoubleLLTest extends TestCase {
 
     }
 
-    
+
     /**
      * tests remove one item from a list of one item
      */
-    public void testRemoveOneItem()
-    {
+    public void testRemoveOneItem() {
         listOfNums.insert(0);
         assertEquals(listOfNums.getHeadData(), 0);
         assertNull(listOfNums.getHead().getNext());
-        
+
         assertTrue(listOfNums.remove(0));
         assertNull(listOfNums.getHead());
         assertNull(listOfNums.getTail());
         assertEquals(0, listOfNums.getSize());
-   
-       
+
     }
-    
-    
+
+
     /**
      * this method tests that tail is set to null whenever head is null
      */
@@ -229,9 +227,8 @@ public class DoubleLLTest extends TestCase {
         assertEquals(node2, listOfNums.getHead());
         assertEquals(node2, listOfNums.getTail());
     }
-    
-    
-    
+
+
     /**
      * THis method tests when the tail is removed
      */
@@ -250,6 +247,4 @@ public class DoubleLLTest extends TestCase {
         assertEquals(2, listOfNums.getSize());
     }
 
-    
-    
 }
